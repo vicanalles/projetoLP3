@@ -1,3 +1,5 @@
+//comentário de teste
+
 package projetolp3;
 
 import javafx.application.Application;
