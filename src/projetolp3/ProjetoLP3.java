@@ -20,8 +20,8 @@ public class ProjetoLP3 extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) {        
+        System.out.println(DataHora.getHora(DataHora.getDate()));
     }
     
 }

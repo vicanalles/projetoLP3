@@ -1,19 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projetolp3;
 
-/**
- *
- * @author Rafael
- */
 public class Fornecedor {
-    public Fornecedor()
-    {
-        
-    }
     
     private String cnpj;
     private String nome;
@@ -25,6 +12,11 @@ public class Fornecedor {
     private String cidade;
     private String complemento;
     private String estado;
+    
+    public Fornecedor()
+    {
+        
+    }        
     
     public String getCnpj() {
         return cnpj;
