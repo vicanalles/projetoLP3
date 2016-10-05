@@ -5,10 +5,30 @@
  */
 package projetolp3;
 
+import java.util.Date;
+
 /**
  *
  * @author Rafael
  */
 public class Pessoa {
+    public Pessoa()
+    {
+        
+    }
+    private String cpf;
+    private String nome;
+    private char sexo;
+    private Date dataNasc;
+    private String email;
+    private String telefone;
+    private String cep;
+    private String rua;
+    private int numero;
+    private String bairro;
+    private String cidade;
+    private String complemento;
+    private String estado;
+    
     
 }
