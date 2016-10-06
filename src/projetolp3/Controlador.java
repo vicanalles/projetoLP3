@@ -3,6 +3,7 @@ package projetolp3;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class Controlador 
@@ -30,5 +31,13 @@ public class Controlador
     public boolean verificarCpf(Cliente cliente)
     {
         return clientes.containsKey(cliente.getCpf());
+    }
+    
+    public void listarClientes()
+    {
+        for(Map.Entry<String, Cliente> pair : clientes.entrySet())
+        {
+            pair.getValue().exibirDados();
+        }
     }
 }

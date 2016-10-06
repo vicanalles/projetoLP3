@@ -54,12 +54,14 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o nome do cliente :");
                     c.setNome(entrada.nextLine());
                     System.out.println("Digite o sexo M/F :");
+                    entrada.nextLine();
                     c.setSexo(entrada.next().charAt(0));
                     System.out.println("Digite a data de nascimento no formato dd/MM/yyyy : ");
                     Date dataConvertida = new Date();
                     boolean funcionou = false;
                     while(funcionou == false)
                     {
+                        entrada.nextLine();
                         String data = entrada.nextLine();
                         try
                         {
@@ -84,6 +86,7 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o numero");
                     c.setNumero(entrada.nextInt());
                     System.out.println("Digite o bairro");
+                    entrada.nextLine();
                     c.setBairro(entrada.nextLine());
                     System.out.println("Digite a cidade");
                     c.setCidade(entrada.nextLine());
@@ -93,9 +96,11 @@ public class ProjetoLP3 extends Application {
                     c.setEstado(entrada.nextLine());
                     System.out.println("Digite o numero de filhos");
                     c.setNumeroFilhos(entrada.nextInt());
+                    entrada.nextLine();
                     
                     cn.cadastrarCliente(c);
                     
+                    cn.listarClientes();
                     
                     break;
             }
