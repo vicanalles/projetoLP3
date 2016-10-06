@@ -21,10 +21,7 @@ public class Cliente extends Pessoa {
         this.numeroFilhos = numeroFilhos;
     }   
     
-    public void cadastrarCliente()
-    {
-        
-    }
+    
     public void alterarCliente()
     {
         

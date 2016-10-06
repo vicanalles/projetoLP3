@@ -16,4 +16,10 @@ public class DataHora {
         Date date = new Date();
         return dateFormat.format(date);
     }
+    
+    public static Date converterData(String data) throws Exception
+    {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.parse(data);
+    }
 }
