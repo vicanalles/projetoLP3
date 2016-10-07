@@ -51,11 +51,11 @@ public class ProjetoLP3 extends Application {
                         System.out.println("Cliente ja cadastrado");
                         break;
                     }
-                    System.out.println("Digite o nome do cliente :");
+                    System.out.println("Digite o nome do cliente:");
                     c.setNome(entrada.nextLine());
-                    System.out.println("Digite o sexo M/F :");
+                    System.out.println("Digite o sexo M/F:");
                     c.setSexo(entrada.nextLine());
-                    System.out.println("Digite a data de nascimento no formato dd/MM/yyyy : ");
+                    System.out.println("Digite a data de nascimento no formato dd/MM/yyyy:");
                     Date dataConvertida = new Date();
                     boolean funcionou = false;
                     while(funcionou == false)
@@ -73,26 +73,26 @@ public class ProjetoLP3 extends Application {
                         }
                     }
                     c.setDataNasc(dataConvertida);
-                    System.out.println("Digite o e-mail");
+                    System.out.println("Digite o e-mail:");
                     c.setEmail(entrada.nextLine());
                     System.out.println("Digite telefone");
                     c.setTelefone(entrada.nextLine());
-                    System.out.println("Digite o cep");
+                    System.out.println("Digite o cep:");
                     c.setCep(entrada.nextLine());
-                    System.out.println("Digite Rua");
+                    System.out.println("Digite Rua:");
                     c.setRua(entrada.nextLine());
-                    System.out.println("Digite o numero");
+                    System.out.println("Digite o numero:");
                     c.setNumero(entrada.nextInt());
-                    System.out.println("Digite o bairro");
+                    System.out.println("Digite o bairro:");
                     entrada.nextLine();
                     c.setBairro(entrada.nextLine());
-                    System.out.println("Digite a cidade");
+                    System.out.println("Digite a cidade:");
                     c.setCidade(entrada.nextLine());
-                    System.out.println("Digite o complemento");
+                    System.out.println("Digite o complemento:");
                     c.setComplemento(entrada.nextLine());
-                    System.out.println("Digite o Estado");
+                    System.out.println("Digite o Estado:");
                     c.setEstado(entrada.nextLine());
-                    System.out.println("Digite o numero de filhos");
+                    System.out.println("Digite o numero de filhos:");
                     c.setNumeroFilhos(entrada.nextInt());
                     entrada.nextLine();
                     
