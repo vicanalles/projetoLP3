@@ -54,14 +54,12 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o nome do cliente :");
                     c.setNome(entrada.nextLine());
                     System.out.println("Digite o sexo M/F :");
-                    entrada.nextLine();
-                    c.setSexo(entrada.next().charAt(0));
+                    c.setSexo(entrada.nextLine());
                     System.out.println("Digite a data de nascimento no formato dd/MM/yyyy : ");
                     Date dataConvertida = new Date();
                     boolean funcionou = false;
                     while(funcionou == false)
                     {
-                        entrada.nextLine();
                         String data = entrada.nextLine();
                         try
                         {

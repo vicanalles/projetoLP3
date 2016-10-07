@@ -6,7 +6,7 @@ public abstract class Pessoa {
     
     private String cpf;
     private String nome;
-    private char sexo;
+    private String sexo;
     private Date dataNasc;
     private String email;
     private String telefone;
@@ -34,11 +34,11 @@ public abstract class Pessoa {
         this.nome = nome;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 

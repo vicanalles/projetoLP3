@@ -35,7 +35,7 @@ public class Cliente extends Pessoa {
     {
         System.out.println("Dados do cliente:");
         System.out.println("Nome: " + this.getNome());
-        System.out.println("CPF: " + this.getNome());
+        System.out.println("CPF: " + this.getCpf());
         System.out.println("Sexo: " + this.getSexo());
         System.out.println("Data de Nascimento: " + this.getDataNasc());
         System.out.println("Email: " + this.getEmail());
