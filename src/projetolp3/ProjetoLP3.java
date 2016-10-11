@@ -30,7 +30,10 @@ public class ProjetoLP3 extends Application {
         
         Scanner entrada = new Scanner(System.in);
         int op;
-        Cliente c;
+        Cliente cliente;
+        Funcionario funcionario;
+        Fornecedor fornecedor;
+        
         Controlador cn = new Controlador();
         
          do {
@@ -39,68 +42,41 @@ public class ProjetoLP3 extends Application {
             
             switch(op){
                 
-                case 1 : 
-                    String cpf = new String();
-                    c = new Cliente();
+                case 1:
+                    cliente = new Cliente();
                     System.out.println("Digite o CPF do cliente : ");
                     entrada.nextLine();
-                    cpf = entrada.nextLine();
-                    c.setCpf(cpf);
-                    if (cn.verificarCpf(c) == true)
+                    cliente.setCpf(entrada.nextLine());
+                    if (cn.verificarCpf(cliente) == true)
                     {
                         System.out.println("Cliente ja cadastrado");
                         break;
                     }
-                    System.out.println("Digite o nome do cliente:");
-                    c.setNome(entrada.nextLine());
-                    System.out.println("Digite o sexo M/F:");
-                    c.setSexo(entrada.nextLine());
-                    System.out.println("Digite a data de nascimento no formato dd/MM/yyyy:");
-                    Date dataConvertida = new Date();
-                    boolean funcionou = false;
-                    while(funcionou == false)
-                    {
-                        String data = entrada.nextLine();
-                        try
-                        {
-                            dataConvertida = DataHora.converterData(data);
-                            funcionou = true;
-                        }
-                        catch(Exception e)
-                        {
-                            System.out.println("Data invalida! Digite a data Novamente:");
-
-                        }
-                    }
-                    c.setDataNasc(dataConvertida);
-                    System.out.println("Digite o e-mail:");
-                    c.setEmail(entrada.nextLine());
-                    System.out.println("Digite telefone");
-                    c.setTelefone(entrada.nextLine());
-                    System.out.println("Digite o cep:");
-                    c.setCep(entrada.nextLine());
-                    System.out.println("Digite Rua:");
-                    c.setRua(entrada.nextLine());
-                    System.out.println("Digite o numero:");
-                    c.setNumero(entrada.nextInt());
-                    System.out.println("Digite o bairro:");
-                    entrada.nextLine();
-                    c.setBairro(entrada.nextLine());
-                    System.out.println("Digite a cidade:");
-                    c.setCidade(entrada.nextLine());
-                    System.out.println("Digite o complemento:");
-                    c.setComplemento(entrada.nextLine());
-                    System.out.println("Digite o Estado:");
-                    c.setEstado(entrada.nextLine());
-                    System.out.println("Digite o numero de filhos:");
-                    c.setNumeroFilhos(entrada.nextInt());
-                    entrada.nextLine();
                     
-                    cn.cadastrarCliente(c);
-                    
-                    cn.listarClientes();
+                    cliente.adicionarDados();        
+                    cn.cadastrarCliente(cliente);
                     
                     break;
+                
+                case 2:
+                    funcionario = new Funcionario();
+                    System.out.println("Digite o CPF do funcionário: ");
+                    entrada.nextLine();
+                    funcionario.setCpf(entrada.nextLine());
+                    if (cn.verificarCpf(funcionario) == true)
+                    {
+                        System.out.println("Funcionário ja cadastrado");
+                        break;
+                    }
+                    
+                    funcionario.adicionarDados();        
+                    cn.cadastrarFuncionario(funcionario);
+                    
+                    break;
+                    
+                case 3:
+                    fornecedor = new Fornecedor();
+                    
             }
             
         }while (op != 0);
