@@ -1,13 +1,16 @@
 package projetolp3;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Produto {
     
     private int codigo;
     private String nome;
     private ArrayList<Item> itens;
     
-    public Produto(Item i)
+    public Produto(int codigo, Item i)
     {
+        this.setCodigo(codigo);
         itens = new ArrayList<Item>();
         itens.add(i);
     }
@@ -28,20 +31,14 @@ public class Produto {
         this.nome = nome;
     }
     
-    public void cadastrarProduto(){
+    public void adicionarItens(Item item){
         
     }
     
-    public void alterarProduto(){
-        
+    public void adicionarDados()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o nome do produto: ");
+        this.setNome(entrada.nextLine());
     }
-    
-    public void excluirProduto(){
-        
-    }
-    
-    public void adicionarItens(Item i){
-        
-    }
-    
 }

@@ -1,4 +1,5 @@
 package projetolp3;
+import java.util.Scanner;
 
 public class Item {
     
@@ -43,16 +44,22 @@ public class Item {
         this.quantidade = quantidade;
     }
     
-    public void cadastrarItem(){
-        
+    public void adicionarDados()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o nome do item: ");
+        this.setNome(entrada.nextLine());
+        System.out.println("Digite a descrição: ");
+        this.setDescricao(entrada.nextLine());
+        System.out.println("Digite aquantidade: ");
+        this.setQuantidade(entrada.nextInt());
     }
     
-    public void editarItem(){
-        
+    public void exibirDados()
+    {
+        System.out.println("Código: " + this.getCodigo());
+        System.out.println("Nome: " + this.getNome());
+        System.out.println("Descrição: " + this.getDescricao());
+        System.out.println("Quantidade em estoque: " + this.getQuantidade());
     }
-    
-    public void removerItem(){
-        
-    }
-    
 }

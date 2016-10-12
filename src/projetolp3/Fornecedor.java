@@ -99,24 +99,9 @@ public class Fornecedor {
         this.complemento = complemento;
     }
     
-    public void cadastrarFornecedor()
-    {
-        
-    }
-    public void alterarFornecedor()
-    {
-        
-    }
-    public void excluirFornecedor()
-    {
-        
-    }
-    
     public void adicionarDados()
     {
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite o CNPJ: ");
-        this.setCnpj(entrada.nextLine());
         System.out.println("Digite o nome");
         this.setNome(entrada.nextLine());
         System.out.println("Digite o nome fantasia: ");

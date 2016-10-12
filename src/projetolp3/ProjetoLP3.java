@@ -33,6 +33,8 @@ public class ProjetoLP3 extends Application {
         Cliente cliente;
         Funcionario funcionario;
         Fornecedor fornecedor;
+        Item item;
+        Produto produto;
         
         Controlador cn = new Controlador();
         
@@ -76,7 +78,52 @@ public class ProjetoLP3 extends Application {
                     
                 case 3:
                     fornecedor = new Fornecedor();
+                    System.out.println("Digite o CNPJ: ");
+                    entrada.nextLine();
+                    fornecedor.setCnpj(entrada.nextLine());
+                    if(cn.verificarCnpj(fornecedor) == true)
+                    {
+                        System.out.println("Fornecedor já cadastrado");
+                        break;
+                    }
+                    fornecedor.adicionarDados();
+                    cn.cadastrarFornecedor(fornecedor);
+                    break;
                     
+                case 4:
+                    item = new Item();
+                    System.out.println("Digite o código: ");
+                    entrada.nextLine();
+                    item.setCodigo(entrada.nextInt());
+                    if(cn.verificarCodigoItem(item)== true)
+                    {
+                        System.out.println("Código já existente");
+                        break;
+                    }
+                    item.adicionarDados();
+                    cn.cadastrarItem(item);
+                    
+                    break;
+                    
+                case 5:
+                    System.out.println("Digite o código do produto: ");
+                    entrada.nextLine();
+                    int codigoProduto = entrada.nextInt();
+                    if(cn.verificarCodigoProduto(codigoProduto) == true)
+                    {
+                        System.out.println("Código já cadastrado");
+                        break;
+                    }
+                    cn.listarItens();
+                    System.out.println("Digite o código do item que deseja adicionar: ");
+                    entrada.nextLine();
+                    int codigoItem = entrada.nextInt();
+                    item = cn.procurarItem(codigoItem);
+                    produto = new Produto(codigoProduto, item);
+                    produto.adicionarDados();
+                    cn.cadastrarProduto(produto);
+                    
+                    break;
             }
             
         }while (op != 0);

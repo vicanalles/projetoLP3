@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class Controlador 
 {
-    
-    
     HashMap<String, Cliente> clientes = new HashMap<String,Cliente>();
     HashMap<String, Funcionario> funcionarios = new HashMap<String, Funcionario>();
     HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
+    HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
+    HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>();
     
     public void exibirMenu()
     {
@@ -40,6 +40,16 @@ public class Controlador
         fornecedores.put(fornecedor.getCnpj(), fornecedor);
     }
     
+    public void cadastrarItem(Item item)
+    {
+        itens.put(item.getCodigo(), item);
+    }
+    
+    public void cadastrarProduto(Produto produto)
+    {
+        produtos.put(produto.getCodigo(), produto);
+    }
+    
     public boolean verificarCpf(Pessoa pessoa)
     {
         if(pessoa instanceof Cliente)
@@ -51,6 +61,16 @@ public class Controlador
     public boolean verificarCnpj(Fornecedor fornecedor)
     {
         return fornecedores.containsKey(fornecedor.getCnpj());
+    }
+    
+    public boolean verificarCodigoItem(Item item)
+    {
+        return itens.containsKey(item.getCodigo());
+    }
+    
+    public boolean verificarCodigoProduto(int codigoProduto)
+    {
+        return produtos.containsKey(codigoProduto);
     }
     
     public void listarClientes()
@@ -74,6 +94,23 @@ public class Controlador
         for(Map.Entry<String, Fornecedor> pair : fornecedores.entrySet())
         {
             pair.getValue().exibirDados();
+        }
+    }
+    
+    public void listarItens()
+    {
+        for(Map.Entry<Integer, Item> pair : itens.entrySet())
+        {
+            pair.getValue().exibirDados();
+        }
+    }
+    
+    public Item procurarItem(int codigo)
+    {
+        for(Map.Entry<Integer, Item> pair : itens.entrySet())
+        {
+            if(pair.getKey() == codigo)
+                return itens.get(pair.getKey());
         }
     }
 }

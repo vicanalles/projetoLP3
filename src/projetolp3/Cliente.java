@@ -19,16 +19,6 @@ public class Cliente extends Pessoa {
         this.numeroFilhos = numeroFilhos;
     }   
     
-    
-    public void alterarCliente()
-    {
-        
-    }
-    public void excluirCliente()
-    {
-        
-    }
-    
     public void exibirDados()
     {
         System.out.println("Dados do cliente:");
