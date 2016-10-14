@@ -134,7 +134,11 @@ public class ProjetoLP3 extends Application {
                     {
                         item.editarDados();
                         cn.editarItem(item);
+                    }else{
+                        System.out.println("Item não registrado no sistema!");
+                        break;
                     }
+                    System.out.println("Item alterado com sucesso!");
                     break;
                     
                 case 7:
