@@ -51,7 +51,18 @@ public class Item {
         this.setNome(entrada.nextLine());
         System.out.println("Digite a descrição: ");
         this.setDescricao(entrada.nextLine());
-        System.out.println("Digite aquantidade: ");
+        System.out.println("Digite a quantidade: ");
+        this.setQuantidade(entrada.nextInt());
+    }
+    
+    public void editarDados()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o nome do item: ");
+        this.setNome(entrada.nextLine());
+        System.out.println("Digite a descrição do item: ");
+        this.setDescricao(entrada.nextLine());
+        System.out.println("Digite a quantidade do item no estoque: ");
         this.setQuantidade(entrada.nextInt());
     }
     

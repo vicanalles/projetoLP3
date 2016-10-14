@@ -34,6 +34,7 @@ public class ProjetoLP3 extends Application {
         Funcionario funcionario;
         Fornecedor fornecedor;
         Item item;
+        Item item2;
         Produto produto;
         
         Controlador cn = new Controlador();
@@ -92,7 +93,7 @@ public class ProjetoLP3 extends Application {
                     
                 case 4:
                     item = new Item();
-                    System.out.println("Digite o código: ");
+                    System.out.println("Digite o código do item: ");
                     entrada.nextLine();
                     item.setCodigo(entrada.nextInt());
                     if(cn.verificarCodigoItem(item)== true)
@@ -111,18 +112,61 @@ public class ProjetoLP3 extends Application {
                     int codigoProduto = entrada.nextInt();
                     if(cn.verificarCodigoProduto(codigoProduto) == true)
                     {
-                        System.out.println("Código já cadastrado");
+                        System.out.println("Código já cadastrado");                        
                         break;
                     }
                     cn.listarItens();
                     System.out.println("Digite o código do item que deseja adicionar: ");
                     entrada.nextLine();
                     int codigoItem = entrada.nextInt();
-                    item = cn.procurarItem(codigoItem);
-                    produto = new Produto(codigoProduto, item);
+                    item2 = cn.procurarItem(codigoItem);                   
+                    produto = new Produto(codigoProduto, item2);
                     produto.adicionarDados();
-                    cn.cadastrarProduto(produto);
+                    cn.cadastrarProduto(produto);                    
+                    break;              
                     
+                case 6:
+                    System.out.println("Digite o código do Item: ");
+                    entrada.nextLine();
+                    codigoItem = entrada.nextInt();
+                    item = cn.procurarItem(codigoItem);
+                    if(cn.verificarCodigoItem(item) == true)
+                    {
+                        item.editarDados();
+                        cn.editarItem(item);
+                    }
+                    break;
+                    
+                case 7:
+                    System.out.println("Digite o código do Produto: ");
+                    entrada.nextLine();
+                    codigoProduto = entrada.nextInt();
+                    produto = cn.procurarProduto(codigoProduto);
+                    if(cn.verificarCodigoProduto(codigoProduto) == true)
+                    {                        
+                        System.out.println("Deseja remover algum item? ");
+                        entrada.nextLine();
+                        int decisao = entrada.nextInt();
+                        if(decisao == 1){
+                            System.out.println("Digite o código do item a ser removido: ");
+                            int codigoItem2 = entrada.nextInt();
+                            item = cn.procurarItem(codigoItem2);
+                            produto.removerItens(item);
+                        }
+                        
+                        System.out.println("Deseja adicionar algum item? ");
+                        int decisao2 = entrada.nextInt();
+                        if(decisao2 == 1){
+                            cn.listarItens();
+                            System.out.println("Digite o código do item escolhido: ");
+                            int codigoItem3 = entrada.nextInt();
+                            item2 = cn.procurarItem(codigoItem3);
+                            produto.adicionarItens(item2);
+                        }
+                    }
+                    produto.editarDados();
+                    cn.editarProduto(codigoProduto, produto);
+                    cn.listarProdutos();
                     break;
             }
             

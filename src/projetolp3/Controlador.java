@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class Controlador 
 {
+    Item i;
+    Produto p;
     HashMap<String, Cliente> clientes = new HashMap<String,Cliente>();
     HashMap<String, Funcionario> funcionarios = new HashMap<String, Funcionario>();
     HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
@@ -17,11 +19,13 @@ public class Controlador
     public void exibirMenu()
     {
         System.out.println("==========MENU============");
-        System.out.println("1-Cadastrar Cliente");
-        System.out.println("2-Cadastrar Funcionario");
-        System.out.println("3-Cadastrar Fornecedor");
-        System.out.println("4-Efetuar Compra de itens");
-        System.out.println("5-Realizar Venda");
+        System.out.println("1 - Cadastrar Cliente");
+        System.out.println("2 - Cadastrar Funcionario");
+        System.out.println("3 - Cadastrar Fornecedor");
+        System.out.println("4 - Efetuar Compra de itens");
+        System.out.println("5 - Registrar novo Produto");
+        System.out.println("6 - Editar Itens");
+        System.out.println("7 - Editar Produtos");
         System.out.println("Digite a opçao desejada: ");
     }
     
@@ -45,9 +49,19 @@ public class Controlador
         itens.put(item.getCodigo(), item);
     }
     
+    public void editarItem(Item item)
+    {
+        itens.replace(item.getCodigo(), item);
+    }
+    
     public void cadastrarProduto(Produto produto)
     {
         produtos.put(produto.getCodigo(), produto);
+    }
+    
+    public void editarProduto(int codigo, Produto produto)
+    {
+        produtos.replace(produto.getCodigo(), produto);
     }
     
     public boolean verificarCpf(Pessoa pessoa)
@@ -105,12 +119,30 @@ public class Controlador
         }
     }
     
+    public void listarProdutos(){
+        for(Map.Entry<Integer, Produto> pair : produtos.entrySet())
+        {
+            pair.getValue().exibirDados();
+        }
+    }
+    
     public Item procurarItem(int codigo)
     {
         for(Map.Entry<Integer, Item> pair : itens.entrySet())
         {
             if(pair.getKey() == codigo)
-                return itens.get(pair.getKey());
+                 i = itens.get(pair.getKey());                        
         }
+        return i;        
+    }        
+    
+    public Produto procurarProduto(int codigo)
+    {
+        for(Map.Entry<Integer, Produto> pair : produtos.entrySet())
+        {
+            if(pair.getKey() == codigo)
+                p = produtos.get(pair.getKey());
+        }
+        return p;
     }
 }
