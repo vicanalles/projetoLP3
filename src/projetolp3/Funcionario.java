@@ -65,8 +65,9 @@ public class Funcionario extends Pessoa {
     public void adicionarDados()
     {
         Scanner entrada = new Scanner(System.in);
+        Controlador controlador = new Controlador();
         
-        System.out.println("Digite o nome do cliente:");
+        System.out.println("Digite o nome do funcionário: ");
         this.setNome(entrada.nextLine());
         System.out.println("Digite a função: ");
         this.setFuncao(entrada.nextLine());
@@ -77,6 +78,7 @@ public class Funcionario extends Pessoa {
         this.setSexo(entrada.nextLine());
         System.out.println("Digite a data de nascimento no formato dd/MM/yyyy:");
         Date dataConvertida = new Date();
+        
         boolean funcionou = false;
         while(funcionou == false)
         {

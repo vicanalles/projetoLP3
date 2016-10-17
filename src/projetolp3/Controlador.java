@@ -4,7 +4,7 @@ package projetolp3;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Scanner;
 
 public class Controlador 
 {
@@ -15,7 +15,9 @@ public class Controlador
     HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
     HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
     HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>();
+    HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
     
+        
     public void exibirMenu()
     {
         System.out.println("==========MENU============");
@@ -26,16 +28,61 @@ public class Controlador
         System.out.println("5 - Registrar novo Produto");
         System.out.println("6 - Editar Itens");
         System.out.println("7 - Editar Produtos");
+        System.out.println("8 - Remover Cliente");
+        System.out.println("9 - Remover Funcionario");
+        System.out.println("10 - Remover Fornecedor");
+        System.out.println("11 - Remover Produto");
+        System.out.println("12 - Abrir pedido");
         System.out.println("Digite a opçao desejada: ");
     }
     
-    public void cadastrarCliente(Cliente cliente)
+    public void cadastrarCliente()
     {
+        Cliente cliente = new Cliente();
+        Scanner entrada = new Scanner(System.in);
+        
+        boolean funcionou = false;
+        while(funcionou == false)
+        {
+            System.out.println("Digite o CPF do cliente: ");
+            cliente.setCpf(entrada.nextLine());
+            
+            if(verificarCpf(cliente) == true)
+            {
+                System.out.println("CPF já cadastrado. ");
+            }
+                
+            else
+            {
+                funcionou = true;
+            }
+                
+        }
+        cliente.adicionarDados(); 
         clientes.put(cliente.getCpf(), cliente);
     }
     
-    public void cadastrarFuncionario(Funcionario funcionario)
+    public void cadastrarFuncionario()
     {
+        Funcionario funcionario = new Funcionario();
+        Scanner entrada = new Scanner(System.in);
+        
+        boolean funcionou;
+        
+        funcionou = false;
+        while(funcionou == false)
+        {
+            System.out.println("Digite o CPF do funcionário: ");
+            entrada.nextLine();
+            funcionario.setCpf(entrada.nextLine());
+            
+            if (verificarCpf(funcionario) == true)
+                System.out.println("CPF já cadastrado. ");
+            else
+                funcionou = true;
+        }
+        
+        funcionario.adicionarDados();
         funcionarios.put(funcionario.getCpf(), funcionario);
     }
     
@@ -144,5 +191,57 @@ public class Controlador
                 p = produtos.get(pair.getKey());
         }
         return p;
+    }
+    
+    public void removerCliente()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o CPF do cliente que deseja remover: ");
+        String cpf = entrada.nextLine();
+        if(clientes.remove(cpf) == null)
+            System.out.println("CPF de cliente não encontrado.");
+        else
+            System.out.println("Cliente removido com sucesso.");
+        
+    }
+    
+    public void removerFuncionario()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o CPF do funcionario que deseja remover: ");
+        String cpf = entrada.nextLine();
+        if(funcionarios.remove(cpf) == null)
+            System.out.println("CPF de funcionário não encontrado.");
+        else
+            System.out.println("Funcionário removido com sucesso.");
+    }
+    
+    public void removerFornecedor()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o CNPJ do fornecedor que deseja remover: ");
+        String cnpj = entrada.nextLine();
+        if(fornecedores.remove(cnpj) == null)
+            System.out.println("CNPJ de fornecedor não encontrado.");
+        else
+            System.out.println("Fornecedor removido com sucesso.");
+    }
+    
+    public void removerProduto()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o código do produto que deseja remover: ");
+        int codigo = entrada.nextInt();
+        entrada.nextLine();
+        
+        if(produtos.remove(codigo) == null)
+            System.out.println("Código de produto não encontrado.");
+        else
+            System.out.println("Produto removido com sucesso.");
+    }
+    
+    public void abrirPedido()
+    {
+        
     }
 }

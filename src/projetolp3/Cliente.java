@@ -48,7 +48,9 @@ public class Cliente extends Pessoa {
         this.setSexo(entrada.nextLine());
         System.out.println("Digite a data de nascimento no formato dd/MM/yyyy:");
         Date dataConvertida = new Date();
-        boolean funcionou = false;
+        
+        boolean funcionou;
+        funcionou = false;
         while(funcionou == false)
         {
             String data = entrada.nextLine();
@@ -74,8 +76,8 @@ public class Cliente extends Pessoa {
         this.setRua(entrada.nextLine());
         System.out.println("Digite o numero:");
         this.setNumero(entrada.nextInt());
-        System.out.println("Digite o bairro:");
         entrada.nextLine();
+        System.out.println("Digite o bairro:");
         this.setBairro(entrada.nextLine());
         System.out.println("Digite a cidade:");
         this.setCidade(entrada.nextLine());

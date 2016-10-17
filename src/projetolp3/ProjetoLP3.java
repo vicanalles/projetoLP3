@@ -37,44 +37,20 @@ public class ProjetoLP3 extends Application {
         Item item2;
         Produto produto;
         
-        Controlador cn = new Controlador();
+        Controlador controlador = new Controlador();
         
          do {
-            cn.exibirMenu();
+            controlador.exibirMenu();
             op = entrada.nextInt();
             
             switch(op){
                 
-                case 1:
-                    cliente = new Cliente();
-                    System.out.println("Digite o CPF do cliente : ");
-                    entrada.nextLine();
-                    cliente.setCpf(entrada.nextLine());
-                    if (cn.verificarCpf(cliente) == true)
-                    {
-                        System.out.println("Cliente ja cadastrado");
-                        break;
-                    }
-                    
-                    cliente.adicionarDados();        
-                    cn.cadastrarCliente(cliente);
-                    
+                case 1:      
+                    controlador.cadastrarCliente();
                     break;
                 
-                case 2:
-                    funcionario = new Funcionario();
-                    System.out.println("Digite o CPF do funcionário: ");
-                    entrada.nextLine();
-                    funcionario.setCpf(entrada.nextLine());
-                    if (cn.verificarCpf(funcionario) == true)
-                    {
-                        System.out.println("Funcionário ja cadastrado");
-                        break;
-                    }
-                    
-                    funcionario.adicionarDados();        
-                    cn.cadastrarFuncionario(funcionario);
-                    
+                case 2:  
+                    controlador.cadastrarFuncionario();
                     break;
                     
                 case 3:
@@ -82,13 +58,13 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o CNPJ: ");
                     entrada.nextLine();
                     fornecedor.setCnpj(entrada.nextLine());
-                    if(cn.verificarCnpj(fornecedor) == true)
+                    if(controlador.verificarCnpj(fornecedor) == true)
                     {
                         System.out.println("Fornecedor já cadastrado");
                         break;
                     }
                     fornecedor.adicionarDados();
-                    cn.cadastrarFornecedor(fornecedor);
+                    controlador.cadastrarFornecedor(fornecedor);
                     break;
                     
                 case 4:
@@ -96,13 +72,13 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o código do item: ");
                     entrada.nextLine();
                     item.setCodigo(entrada.nextInt());
-                    if(cn.verificarCodigoItem(item)== true)
+                    if(controlador.verificarCodigoItem(item)== true)
                     {
                         System.out.println("Código já existente");
                         break;
                     }
                     item.adicionarDados();
-                    cn.cadastrarItem(item);
+                    controlador.cadastrarItem(item);
                     
                     break;
                     
@@ -110,30 +86,30 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o código do produto: ");
                     entrada.nextLine();
                     int codigoProduto = entrada.nextInt();
-                    if(cn.verificarCodigoProduto(codigoProduto) == true)
+                    if(controlador.verificarCodigoProduto(codigoProduto) == true)
                     {
                         System.out.println("Código já cadastrado");                        
                         break;
                     }
-                    cn.listarItens();
+                    controlador.listarItens();
                     System.out.println("Digite o código do item que deseja adicionar: ");
                     entrada.nextLine();
                     int codigoItem = entrada.nextInt();
-                    item2 = cn.procurarItem(codigoItem);                   
+                    item2 = controlador.procurarItem(codigoItem);                   
                     produto = new Produto(codigoProduto, item2);
                     produto.adicionarDados();
-                    cn.cadastrarProduto(produto);                    
+                    controlador.cadastrarProduto(produto);                    
                     break;              
                     
                 case 6:
                     System.out.println("Digite o código do Item: ");
                     entrada.nextLine();
                     codigoItem = entrada.nextInt();
-                    item = cn.procurarItem(codigoItem);
-                    if(cn.verificarCodigoItem(item) == true)
+                    item = controlador.procurarItem(codigoItem);
+                    if(controlador.verificarCodigoItem(item) == true)
                     {
                         item.editarDados();
-                        cn.editarItem(item);
+                        controlador.editarItem(item);
                     }else{
                         System.out.println("Item não registrado no sistema!");
                         break;
@@ -145,8 +121,8 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o código do Produto: ");
                     entrada.nextLine();
                     codigoProduto = entrada.nextInt();
-                    produto = cn.procurarProduto(codigoProduto);
-                    if(cn.verificarCodigoProduto(codigoProduto) == true)
+                    produto = controlador.procurarProduto(codigoProduto);
+                    if(controlador.verificarCodigoProduto(codigoProduto) == true)
                     {                        
                         System.out.println("Deseja remover algum item? ");
                         entrada.nextLine();
@@ -154,24 +130,42 @@ public class ProjetoLP3 extends Application {
                         if(decisao == 1){
                             System.out.println("Digite o código do item a ser removido: ");
                             int codigoItem2 = entrada.nextInt();
-                            item = cn.procurarItem(codigoItem2);
+                            item = controlador.procurarItem(codigoItem2);
                             produto.removerItens(item);
                         }
                         
                         System.out.println("Deseja adicionar algum item? ");
                         int decisao2 = entrada.nextInt();
                         if(decisao2 == 1){
-                            cn.listarItens();
+                            controlador.listarItens();
                             System.out.println("Digite o código do item escolhido: ");
                             int codigoItem3 = entrada.nextInt();
-                            item2 = cn.procurarItem(codigoItem3);
+                            item2 = controlador.procurarItem(codigoItem3);
                             produto.adicionarItens(item2);
                         }
                     }
                     produto.editarDados();
-                    cn.editarProduto(codigoProduto, produto);
-                    cn.listarProdutos();
+                    controlador.editarProduto(codigoProduto, produto);
+                    controlador.listarProdutos();
                     break;
+                    
+                case 8:
+                    controlador.removerCliente();
+                    break;
+                    
+                case 9:
+                    controlador.removerFuncionario();
+                    break;
+                    
+                case 10:
+                    controlador.removerFornecedor();
+                    break;
+                    
+                case 11:
+                    controlador.removerProduto();
+                    break;
+                            
+                
             }
             
         }while (op != 0);

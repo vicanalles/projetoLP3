@@ -13,14 +13,14 @@ public class Pedido {
     private Log log;    
     private ArrayList<Produto> produtos;
     
-    public Pedido(Cliente c, Funcionario f, Produto p)
+    public Pedido(Cliente cliente, Funcionario funcionario, Produto produto)
     {                        
-        cliente = c;
-        funcionario = f;
-        DataHora dh = new DataHora();
+        this.cliente = cliente;
+        this.funcionario = funcionario;
+        //DataHora dh = new DataHora();
         log = new Log(DataHora.getDate());
         produtos = new ArrayList<Produto>();
-        produtos.add(p);
+        produtos.add(produto);
     }   
 
     public int getNumero() {
