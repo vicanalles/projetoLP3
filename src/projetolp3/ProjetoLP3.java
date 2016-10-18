@@ -36,7 +36,6 @@ public class ProjetoLP3 extends Application {
         Fornecedor fornecedor;
         Item item;
         Item item2;
-        Item item3;
         Produto produto;
         
         Controlador controlador = new Controlador();
@@ -55,33 +54,12 @@ public class ProjetoLP3 extends Application {
                     controlador.cadastrarFuncionario();
                     break;
                     
-                case 3:
-                    fornecedor = new Fornecedor();
-                    System.out.println("Digite o CNPJ: ");
-                    entrada.nextLine();
-                    fornecedor.setCnpj(entrada.nextLine());
-                    if(controlador.verificarCnpj(fornecedor) == true)
-                    {
-                        System.out.println("Fornecedor já cadastrado");
-                        break;
-                    }
-                    fornecedor.adicionarDados();
-                    controlador.cadastrarFornecedor(fornecedor);
+                case 3:                    
+                    controlador.cadastrarFornecedor();
                     break;
                     
                 case 4:
-                    item = new Item();
-                    System.out.println("Digite o código do item: ");
-                    entrada.nextLine();
-                    item.setCodigo(entrada.nextInt());
-                    if(controlador.verificarCodigoItem(item)== true)
-                    {
-                        System.out.println("Código já existente");
-                        break;
-                    }
-                    item.adicionarDados();
-                    controlador.cadastrarItem(item);
-                    System.out.println("Item cadastrado com sucesso!");
+                    controlador.cadastrarItem();
                     break;
                     
                 case 5:
@@ -97,22 +75,34 @@ public class ProjetoLP3 extends Application {
                     System.out.println("Digite o código do item que deseja adicionar: ");
                     entrada.nextLine();
                     int codigoItem = entrada.nextInt();
-                    item2 = controlador.procurarItem(codigoItem);                   
+                    item2 = controlador.procurarItem(codigoItem); 
+                    if(item2 == null){
+                        System.out.println("Código de Item não existente!");
+                        break;
+                    }
                     produto = new Produto(codigoProduto, item2);
                     produto.adicionarDados();
                     controlador.cadastrarProduto(produto);
+                    Item item3;
                     do{
                     System.out.println("Deseja adicionar mais algum item ao Produto? (1 - Sim 0 - Não)");
                     opcao = entrada.nextInt();
                     if(opcao == 1){
                         controlador.listarItens();
                         System.out.println("Digite o código do item a ser adicionado:");
+                        entrada.nextLine();
                         int codigoItem2 = entrada.nextInt();
                         item3 = controlador.procurarItem(codigoItem2);
-                        produto.adicionarItens(item3);                        
-                    }
-                    }while(opcao != 0);
-                    System.out.println("Produto adicionado com sucesso!");
+                        if(item3 == null){
+                            System.out.println("Código de Item não existente!");
+                            break;                        
+                        }else{
+                            produto.adicionarItens(item3);
+                            System.out.println("Item adicionado!");
+                        }
+                    }                                        
+                    }while(opcao != 0);                                
+                    controlador.listarProdutos();
                     break;
                     
                 case 6:

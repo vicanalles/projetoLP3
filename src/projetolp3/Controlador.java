@@ -73,7 +73,6 @@ public class Controlador
         while(funcionou == false)
         {
             System.out.println("Digite o CPF do funcionário: ");
-            entrada.nextLine();
             funcionario.setCpf(entrada.nextLine());
             
             if (verificarCpf(funcionario) == true)
@@ -86,14 +85,47 @@ public class Controlador
         funcionarios.put(funcionario.getCpf(), funcionario);
     }
     
-    public void cadastrarFornecedor(Fornecedor fornecedor)
+    public void cadastrarFornecedor()
     {
+        Fornecedor fornecedor = new Fornecedor();
+        Scanner entrada = new Scanner(System.in);
+        
+        boolean funcionou = false;        
+        
+        while(funcionou == false)
+        {
+            System.out.println("Digite o CNPJ do fornecedor:");
+            fornecedor.setCnpj(entrada.nextLine());
+            
+            if(verificarCnpj(fornecedor) == true)
+                System.out.println("CNPJ já cadastrado.");
+            else
+                funcionou = true;
+        }
+        fornecedor.adicionarDados();
         fornecedores.put(fornecedor.getCnpj(), fornecedor);
     }
     
-    public void cadastrarItem(Item item)
+    public void cadastrarItem()
     {
+        Item item = new Item();
+        Scanner entrada = new Scanner(System.in);
+        
+        boolean funcionou = false;
+        
+        while(funcionou == false)
+        {
+            System.out.println("Digite o código do item:");
+            item.setCodigo(entrada.nextInt());
+            
+            if(verificarCodigoItem(item) == true)
+                System.out.println("Código já existente!");
+            else
+                funcionou = true;
+        }        
+        item.adicionarDados();
         itens.put(item.getCodigo(), item);
+        System.out.println("Item cadastrado com sucesso!");
     }
     
     public void editarItem(Item item)
