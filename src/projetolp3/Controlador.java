@@ -170,7 +170,7 @@ public class Controlador
         for(Map.Entry<Integer, Produto> pair : produtos.entrySet())
         {
             pair.getValue().exibirDados();
-        }
+        }        
     }
     
     public Item procurarItem(int codigo)
@@ -178,7 +178,7 @@ public class Controlador
         for(Map.Entry<Integer, Item> pair : itens.entrySet())
         {
             if(pair.getKey() == codigo)
-                 i = itens.get(pair.getKey());                        
+                 i = itens.get(pair.getKey());            
         }
         return i;        
     }        

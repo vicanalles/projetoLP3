@@ -30,11 +30,13 @@ public class ProjetoLP3 extends Application {
         
         Scanner entrada = new Scanner(System.in);
         int op;
+        int opcao;
         Cliente cliente;
         Funcionario funcionario;
         Fornecedor fornecedor;
         Item item;
         Item item2;
+        Item item3;
         Produto produto;
         
         Controlador controlador = new Controlador();
@@ -79,7 +81,7 @@ public class ProjetoLP3 extends Application {
                     }
                     item.adicionarDados();
                     controlador.cadastrarItem(item);
-                    
+                    System.out.println("Item cadastrado com sucesso!");
                     break;
                     
                 case 5:
@@ -98,8 +100,20 @@ public class ProjetoLP3 extends Application {
                     item2 = controlador.procurarItem(codigoItem);                   
                     produto = new Produto(codigoProduto, item2);
                     produto.adicionarDados();
-                    controlador.cadastrarProduto(produto);                    
-                    break;              
+                    controlador.cadastrarProduto(produto);
+                    do{
+                    System.out.println("Deseja adicionar mais algum item ao Produto? (1 - Sim 0 - Não)");
+                    opcao = entrada.nextInt();
+                    if(opcao == 1){
+                        controlador.listarItens();
+                        System.out.println("Digite o código do item a ser adicionado:");
+                        int codigoItem2 = entrada.nextInt();
+                        item3 = controlador.procurarItem(codigoItem2);
+                        produto.adicionarItens(item3);                        
+                    }
+                    }while(opcao != 0);
+                    System.out.println("Produto adicionado com sucesso!");
+                    break;
                     
                 case 6:
                     System.out.println("Digite o código do Item: ");
@@ -163,9 +177,7 @@ public class ProjetoLP3 extends Application {
                     
                 case 11:
                     controlador.removerProduto();
-                    break;
-                            
-                
+                    break;                                    
             }
             
         }while (op != 0);
