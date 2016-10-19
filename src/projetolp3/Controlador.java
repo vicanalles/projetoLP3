@@ -16,7 +16,7 @@ public class Controlador
     HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
     HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>();
     HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
-    
+    HashMap<String, Compra> compras = new HashMap<String, Compra>(); 
         
     public void exibirMenu()
     {
@@ -106,6 +106,65 @@ public class Controlador
         fornecedores.put(fornecedor.getCnpj(), fornecedor);
     }
     
+    public void cadastrarCompra()
+    {
+        Compra compra = new Compra();
+        Fornecedor fornecedor = new Fornecedor();
+        Item item = new Item();
+        Funcionario funcionario = new Funcionario();
+        float qtd = 0;
+        Scanner entrada = new Scanner(System.in);
+        
+        
+        boolean funcionou = false;
+        
+        while (funcionou == false)
+        {
+            System.out.println("Digite o numero da Nota Fiscal: ");
+            compra.setNotaFiscal(entrada.nextLine());
+            
+            if(verificarNotaFiscal(compra) == true)
+            {
+                System.out.println("Digite o Cnpj do fornecedor: ");
+                fornecedor.setCnpj(entrada.nextLine());
+                
+                if(verificarCnpj(fornecedor) == true)
+                {
+                    System.out.println("Digite o Cpf do funcionario que efetuou a compra: ");
+                    funcionario.setCpf(entrada.nextLine());
+                    
+                    if(verificarCpf(funcionario) == true)
+                    {
+                        System.out.println("Digite o codigo do item comprado: ");
+                        item.setCodigo(entrada.nextInt());
+                        
+                        if(verificarCodigoItem(item) == true)
+                        {
+                            System.out.println("Deseja Efetuar compra de: " + item.getDescricao() + "S/N");
+                            
+                            System.out.println("Digite a quantidade comprada: ");
+                            qtd = (entrada.nextFloat());
+                           
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    
+                
+                    
+                }
+            }
+            
+            
+            
+            
+                
+         
+        }
+    }
     public void cadastrarItem()
     {
         Item item = new Item();
@@ -164,6 +223,11 @@ public class Controlador
     public boolean verificarCodigoProduto(int codigoProduto)
     {
         return produtos.containsKey(codigoProduto);
+    }
+    
+    public boolean verificarNotaFiscal (Compra compra)
+    {
+        return compras.containsKey(compra.getNotaFiscal());
     }
     
     public void listarClientes()

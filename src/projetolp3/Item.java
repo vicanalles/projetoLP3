@@ -6,8 +6,10 @@ public class Item {
     private int codigo;
     private String nome;
     private String descricao;
-    private int quantidade;
-    
+    private float quantidade;
+    private float valorcompra;
+    private float valorvenda;
+
     public Item(){
         
     }
@@ -36,12 +38,28 @@ public class Item {
         this.descricao = descricao;
     }
 
-    public int getQuantidade() {
+    public float getQuantidade() {
         return quantidade;
     }
-
-    public void setQuantidade(int quantidade) {
+    
+    public void setQuantidade(float quantidade) {
         this.quantidade = quantidade;
+    }
+    
+    public float getValorcompra() {
+        return valorcompra;
+    }
+
+    public void setValorcompra(float valorcompra) {
+        this.valorcompra = valorcompra;
+    }
+
+    public float getValorvenda() {
+        return valorvenda;
+    }
+
+    public void setValorvenda(float valorvenda) {
+        this.valorvenda = valorvenda;
     }
     
     public void adicionarDados()
@@ -52,7 +70,10 @@ public class Item {
         System.out.println("Digite a descrição: ");
         this.setDescricao(entrada.nextLine());
         System.out.println("Digite a quantidade: ");
-        this.setQuantidade(entrada.nextInt());
+        this.setQuantidade(entrada.nextFloat());
+        System.out.println("Digite o valor unitario: ");
+        this.setValorcompra(entrada.nextFloat());
+        
     }
     
     public void editarDados()

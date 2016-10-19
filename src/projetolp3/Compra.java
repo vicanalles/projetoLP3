@@ -3,24 +3,30 @@ package projetolp3;
 import java.util.ArrayList;
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class Compra {
     
     private String notaFiscal;
-    private float valor;
+    private float valortotal;
     private Date data;
     private Funcionario funcionario;
     private Fornecedor fornecedor;
     private ArrayList<Item> itens;
     
-    public Compra(Funcionario func, Fornecedor f, Item i)
+   /* public Compra(Funcionario func, Fornecedor f, Item i)
     {
         funcionario = func;
         fornecedor = f;
         itens = new ArrayList<Item>();
         itens.add(i);
+    }*/
+    public Compra ()
+    {
+    
     }
 
+ 
     public String getNotaFiscal() {
         return notaFiscal;
     }
@@ -29,12 +35,12 @@ public class Compra {
         this.notaFiscal = notaFiscal;
     }
 
-    public float getValor() {
-        return valor;
+    public float getValorTotal() {
+        return valortotal;
     }
 
-    public void setValor(float valor) {
-        this.valor = valor;
+    public void setValorTotal(float valortotal) {
+        this.valortotal = valortotal;
     }
 
     public Date getData() {
@@ -46,7 +52,8 @@ public class Compra {
     }
     
     public void cadastrarCompra(){
-        
+       Scanner entrada = new Scanner(System.in);
+       
     }
     
     public void alterarCompra(){

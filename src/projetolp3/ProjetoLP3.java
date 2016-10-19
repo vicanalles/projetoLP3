@@ -167,7 +167,7 @@ public class ProjetoLP3 extends Application {
                     
                 case 11:
                     controlador.removerProduto();
-                    break;                                    
+                    break;
             }
             
         }while (op != 0);
