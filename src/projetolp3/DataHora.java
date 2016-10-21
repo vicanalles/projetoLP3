@@ -11,7 +11,7 @@ public class DataHora {
         return c.getTime();        
     }       
     
-    public static String getHora(Date d){
+    public static String getHora(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);

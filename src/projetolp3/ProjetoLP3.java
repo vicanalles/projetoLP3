@@ -168,6 +168,18 @@ public class ProjetoLP3 extends Application {
                 case 11:
                     controlador.removerProduto();
                     break;
+                    
+                case 12:
+                    controlador.abrirPedido();
+                    break;
+                    
+                case 13:
+                    controlador.listarPedidos();
+                    break;
+                    
+                case 14:
+                    controlador.removerPedido();
+                    break;
             }
             
         }while (op != 0);

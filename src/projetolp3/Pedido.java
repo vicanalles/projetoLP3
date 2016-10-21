@@ -13,14 +13,13 @@ public class Pedido {
     private Log log;    
     private ArrayList<Produto> produtos;
     
-    public Pedido(Cliente cliente, Funcionario funcionario, Produto produto)
-    {                        
+    public Pedido(int numero, int tipoPedido, Cliente cliente, Funcionario funcionario)
+    {                      
+        this.numero = numero;
         this.cliente = cliente;
         this.funcionario = funcionario;
-        //DataHora dh = new DataHora();
-        log = new Log(DataHora.getDate());
+        log = new Log(DataHora.getDate(), tipoPedido);
         produtos = new ArrayList<Produto>();
-        produtos.add(produto);
     }   
 
     public int getNumero() {
@@ -39,16 +38,21 @@ public class Pedido {
         this.pagamento = pagamento;
     }
     
-    public void cadastrarPedido()
-    {
-        
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
     }
-    public void alterarPedido()
+    
+    public void exibirDados()
     {
+        System.out.println("Pedido Nº: " + numero);
+        System.out.print("Cliente: " + cliente.getNome());
+        System.out.println("\tFuncionário: " + funcionario.getNome());
+        System.out.println("Forma de pagamento: " + pagamento);
         
     }
     
-    public void cancelarPedido(){
-        
+    public void adicionarProduto(Produto produto)
+    {
+        produtos.add(produto);
     }
 }

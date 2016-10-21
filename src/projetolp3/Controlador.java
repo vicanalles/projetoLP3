@@ -33,6 +33,8 @@ public class Controlador
         System.out.println("10 - Remover Fornecedor");
         System.out.println("11 - Remover Produto");
         System.out.println("12 - Abrir pedido");
+        System.out.println("13 - Listar pedidos");
+        System.out.println("14 - Remover pedido");
         System.out.println("Digite a opçao desejada: ");
     }
     
@@ -151,18 +153,9 @@ public class Controlador
                         {
                             
                         }
-                    }
-                    
-                
-                    
+                    } 
                 }
             }
-            
-            
-            
-            
-                
-         
         }
     }
     public void cadastrarItem()
@@ -289,6 +282,30 @@ public class Controlador
         return p;
     }
     
+    public Funcionario procurarFuncionario(String cpf)
+    {
+        for(Map.Entry<String, Funcionario> pair : funcionarios.entrySet())
+        {
+            if(pair.getValue().getCpf().equals(cpf))
+            {
+                return pair.getValue();
+            }
+        }
+        return null;
+    }
+    
+    public Cliente procurarCliente(String cpf)
+    {
+        for(Map.Entry<String, Cliente> pair : clientes.entrySet())
+        {
+            if(pair.getValue().getCpf().equals(cpf))
+            {
+                return pair.getValue();
+            }
+        }
+        return null;
+    }
+    
     public void removerCliente()
     {
         Scanner entrada = new Scanner(System.in);
@@ -337,6 +354,108 @@ public class Controlador
     }
     
     public void abrirPedido()
+    {
+        Scanner entrada = new Scanner(System.in);
+        
+        System.out.println("Digite o CPF do Funcionario: ");
+        String cpfFuncionario = entrada.nextLine();
+        Funcionario funcionario = procurarFuncionario(cpfFuncionario);
+        if(funcionario == null)
+        {
+            System.out.println("Funcionário não encontrado");
+            return;
+        }
+        
+        System.out.println("Digite o CPF do Cliente: ");
+        String cpfCliente = entrada.nextLine();
+        Cliente cliente = procurarCliente(cpfCliente);
+        if(cliente == null)
+        {
+            System.out.println("Cliente não encontrado");
+            return;
+        }
+        
+        int numeroPedido;
+        while(true)
+        {
+            System.out.println("Digite o número do pedido:");
+            numeroPedido = entrada.nextInt();
+            entrada.nextLine();
+            if(pedidos.containsKey(numeroPedido))
+                System.out.println("Número de pedido já existente.");
+            else
+                break;
+        }
+        
+        boolean comProducao = false;
+        boolean comEntrega = false;
+        
+        System.out.println("O pedido inclui produção?\n0 - Não 1 - Sim");
+        if(entrada.nextInt() == 1)
+            comProducao = true;
+
+        System.out.println("O pedido inclui entrega?\n0 - Não 1 - Sim");
+        if(entrada.nextInt() == 1)
+            comEntrega = true;
+        
+        int tipoPedido = 0;
+        if(comProducao == false && comEntrega == false)
+            tipoPedido = 0;
+        else if(comProducao == true && comEntrega == false)
+            tipoPedido = 1;
+        else if(comProducao == false && comEntrega == true)
+            tipoPedido = 2;
+        else if(comProducao == true && comEntrega == true)
+            tipoPedido = 3;
+        
+        Pedido pedido = new Pedido(numeroPedido, tipoPedido, cliente, funcionario);
+        
+        System.out.println("Lista de produtos: ");
+        listarProdutos();
+        int codigo;
+        do
+        {
+            System.out.println("É necessário pelo menos um produto no pedido.\nDigite o código de um produto ou 0 para sair: ");
+            codigo = entrada.nextInt();
+            entrada.nextLine();
+            if(codigo == 0)
+            {
+                if(pedido.getProdutos().isEmpty() == true)
+                {
+                    System.out.print("Não pode sair. ");
+                    continue;
+                }
+                else
+                {
+                    break;
+                }    
+            }
+            
+            Produto produto = procurarProduto(codigo);
+            if(produto == null)
+            {
+                System.out.println("Produto de código " + codigo + " não encontrado.");
+            }
+            else
+            {
+                System.out.println("Produto adicionado ao pedido.");
+                pedido.adicionarProduto(produto);
+            }
+        }while (true);
+        
+        System.out.println("Digite a forma de pagamento: ");
+        pedido.setPagamento(entrada.nextLine());
+        
+        pedidos.put(pedido.getNumero(), pedido);
+        System.out.println("Pedido criado com sucesso");
+    }
+    
+    public void listarPedidos()
+    {
+        
+    }
+    
+    public void removerPedido()
     {
         
     }
