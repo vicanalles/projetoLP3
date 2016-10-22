@@ -6,7 +6,19 @@ import java.util.Scanner;
 public class Log {
     
     //variáveis
+    //vetor de frases para linkar com o vetor de Dates
+    private static final String[] FRASES = 
+    {
+        "Hora de abertura do pedido: ",
+        "Hora de início da produção: ",
+        "Hora de término da produção: ",
+        "Hora de saída para entrega: ",
+        "Hora de retorno do entregador: ",
+        "Hora de finalização do pedido: "
+    };
+    
     Date horarios[];
+    int tipoPedido;
     /*
     private Date horaAberturaPedido;
     private Date horaInicioProducao;
@@ -14,11 +26,28 @@ public class Log {
     private Date horaSaidaEntrega;
     private Date horaRetornoEntrega;
     */
+    
     //construtor
-    public Log(Date horaAberturaPedido, int tamanhoVetor){
+    /**
+     *if(comProducao == false && comEntrega == false)
+            tipoPedido = 0;
+        else if(comProducao == true && comEntrega == false)
+            tipoPedido = 1;
+        else if(comProducao == false && comEntrega == true)
+            tipoPedido = 2;
+        else if(comProducao == true && comEntrega == true)
+            tipoPedido = 3;
+     * @param tipoPedido Pode receber um único inteiro de 0 a 3, que define o tipo do pedido:
+     * 0 - Não inclui produção nem entrega
+     * 1 - Inclui produção mas não inclui entrega
+     * 2 - Não inclui produção mas inclui entrega
+     * 3 - Inclui produção e também entrega
+     */
+    public Log(int tipoPedido){
         //this.horaAberturaPedido = horaAberturaPedido;
-        horarios = new Date[tamanhoVetor];
-        horarios[0] = horaAberturaPedido;
+        this.tipoPedido = tipoPedido;
+        horarios = new Date[6];
+        horarios[0] = DataHora.getDate();
     }
 
     public Date getHoraAberturaPedido() {
@@ -81,38 +110,60 @@ public class Log {
      */
     public void exibirDados()
     {
-        System.out.print("Hora de abertura do pedido: " + getHoraAberturaPedido().toString());
-        System.out.print("Hora de início da produção: " + getHoraInicioProducao().toString());
-        System.out.print("Hora de término da produção: " + getHoraTerminoProducao().toString());
-        System.out.print("Hora de saída para entrega: " + getHoraSaidaEntrega().toString());
-        System.out.print("Hora de retorno do entregador: " + getHoraRetornoEntrega().toString());
-        System.out.print("Hora de finalização do pedido: " + getHoraFinalizacaoPedido().toString());
-    }
-    
-    public void adicionarPontoChecagem(Date data)
-    {
-        for(int i=1;i<horarios.length;i++)
+        for(int i=0;i<6;i++)
         {
             if(horarios[i] == null)
-            {
-                horarios[i] = data;
-                switch (i)
+                continue;
+            System.out.println(FRASES[i] + horarios[i].toString());
+        }
+    }
+    
+    /**
+     * Adiciona uma data ao log de um determinado pedido.
+     * A data a ser adicionada é o próximo checkpoint do log.
+     * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um .
+     * @param data
+     */
+    public void adicionarPontoChecagem()
+    {
+        switch(this.tipoPedido)
+        {
+            case 0:
+                for(int i=1;i<6;i++)
                 {
-                    case 1:
-                        System.out.println("Horário de início da produção adicionado.");
-                        break;
-                    case 2:
-                        System.out.println("Horário de término da produção adicionado.");
-                        break;
-                    case 3:
-                        System.out.println("Horário de saída para entrega adicionado.");
-                        break;
-                    case 4:
-                        System.out.println("Horário de retorno do entregador adicionado.");
-                        break;
+                    if(horarios[i]!=null||i==1||i==2||i==3||i==4)
+                        continue;
+                    horarios[i] = DataHora.getDate();
+                    return;
                 }
-                return;
-            }
+                break;
+            case 1:
+                for(int i=1;i<6;i++)
+                {
+                    if(horarios[i]!=null||i==3||i==4)
+                        continue;
+                    horarios[i] = DataHora.getDate();
+                    return;
+                }
+                break;
+            case 2:
+                for(int i=1;i<6;i++)
+                {
+                    if(horarios[i]!=null||i==1||i==2)
+                        continue;
+                    horarios[i] = DataHora.getDate();
+                    return;
+                }
+                break;
+            case 3:
+                for(int i=1;i<6;i++)
+                {
+                    if(horarios[i]!=null)
+                        continue;
+                    horarios[i] = DataHora.getDate();
+                    return;
+                }
+                break;
         }
     }
 }

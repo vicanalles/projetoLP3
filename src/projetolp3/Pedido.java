@@ -18,7 +18,7 @@ public class Pedido {
         this.numero = numero;
         this.cliente = cliente;
         this.funcionario = funcionario;
-        log = new Log(DataHora.getDate(), tipoPedido);
+        log = new Log(tipoPedido);
         produtos = new ArrayList<Produto>();
     }   
 
