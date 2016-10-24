@@ -16,7 +16,6 @@ public class Log {
         "Hora de retorno do entregador: ",
         "Hora de finalização do pedido: "
     };
-    
     Date horarios[];
     int tipoPedido;
     /*
@@ -29,14 +28,6 @@ public class Log {
     
     //construtor
     /**
-     *if(comProducao == false && comEntrega == false)
-            tipoPedido = 0;
-        else if(comProducao == true && comEntrega == false)
-            tipoPedido = 1;
-        else if(comProducao == false && comEntrega == true)
-            tipoPedido = 2;
-        else if(comProducao == true && comEntrega == true)
-            tipoPedido = 3;
      * @param tipoPedido Pode receber um único inteiro de 0 a 3, que define o tipo do pedido:
      * 0 - Não inclui produção nem entrega
      * 1 - Inclui produção mas não inclui entrega
@@ -49,7 +40,7 @@ public class Log {
         horarios = new Date[6];
         horarios[0] = DataHora.getDate();
     }
-
+/*
     public Date getHoraAberturaPedido() {
         //return horaAberturaPedido;
         return horarios[0];
@@ -104,7 +95,7 @@ public class Log {
         //this.horaRetornoEntrega = horaRetornoEntrega;
         horarios[5] = horaFinalizacaoPedido;
     }  
-    
+    */
     /**
      *Exibe os horários contidos no Log
      */
@@ -119,12 +110,11 @@ public class Log {
     }
     
     /**
-     * Adiciona uma data ao log de um determinado pedido.
+     * Adiciona a data atual do sistema ao log do pedido.
      * A data a ser adicionada é o próximo checkpoint do log.
-     * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um .
-     * @param data
+     * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um.
      */
-    public void adicionarPontoChecagem()
+    public void adicionarCheckPoint()
     {
         switch(this.tipoPedido)
         {
@@ -134,6 +124,7 @@ public class Log {
                     if(horarios[i]!=null||i==1||i==2||i==3||i==4)
                         continue;
                     horarios[i] = DataHora.getDate();
+                    System.out.println(FRASES[i] + "Adicionada");
                     return;
                 }
                 break;
@@ -143,6 +134,7 @@ public class Log {
                     if(horarios[i]!=null||i==3||i==4)
                         continue;
                     horarios[i] = DataHora.getDate();
+                    System.out.println(FRASES[i] + "Adicionada");
                     return;
                 }
                 break;
@@ -152,6 +144,7 @@ public class Log {
                     if(horarios[i]!=null||i==1||i==2)
                         continue;
                     horarios[i] = DataHora.getDate();
+                    System.out.println(FRASES[i] + "Adicionada");
                     return;
                 }
                 break;
@@ -161,9 +154,20 @@ public class Log {
                     if(horarios[i]!=null)
                         continue;
                     horarios[i] = DataHora.getDate();
+                    System.out.println(FRASES[i] + "Adicionada");
                     return;
                 }
                 break;
         }
+        System.out.println("Pedido já finalizado.");
+    }
+    
+    /**
+     * Verifica se o pedido foi finalizado ou não
+     * @return Boolean true se o pedido foi finalizado ou false se ainda não foi finalizado.
+     */
+    public boolean VerificarFinalizacao()
+    {
+        return horarios[5]!=null;
     }
 }

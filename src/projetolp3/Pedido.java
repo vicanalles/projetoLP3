@@ -42,17 +42,32 @@ public class Pedido {
         return produtos;
     }
     
+    /**
+     *  Exibe os dados do pedido
+     */
     public void exibirDados()
     {
         System.out.println("Pedido Nº: " + numero);
         System.out.print("Cliente: " + cliente.getNome());
         System.out.println("\tFuncionário: " + funcionario.getNome());
         System.out.println("Forma de pagamento: " + pagamento);
-        
+        if(log.VerificarFinalizacao())
+            System.out.println("Pedido finalizado");
+        else
+            System.out.println("Pedido não finalizado");
     }
     
+    /**
+     * Adiciona um produto à lista de produtos do pedido
+     * @param produto O produto a ser adicionado
+     */
     public void adicionarProduto(Produto produto)
     {
         produtos.add(produto);
+    }
+    
+    public void adicionarCheckpoint()
+    {
+        log.adicionarCheckPoint();
     }
 }

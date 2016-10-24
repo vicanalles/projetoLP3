@@ -2,17 +2,12 @@
 
 package projetolp3;
 
-import java.text.DateFormat;
 import java.util.Scanner;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.Date;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
 
 public class ProjetoLP3 extends Application {
     
@@ -30,7 +25,7 @@ public class ProjetoLP3 extends Application {
         //inicio de testes
         
         Log[] logs = new Log[4];
-        //um log de cada tipo
+        //instancia um log de cada tipo
         for(int i=0;i<4;i++)
         {
             System.out.println("Criando log " + i);
@@ -38,10 +33,11 @@ public class ProjetoLP3 extends Application {
             
             for(int j=0;j<6;j++)
             {
-                logs[i].adicionarPontoChecagem();
+                logs[i].adicionarCheckPoint();
                 Thread.sleep(2000); 
             }
         }
+        //exibe os dados desse log
         for(int i=0;i<4;i++)
         {
             System.out.println("Log " + i);
@@ -59,8 +55,9 @@ public class ProjetoLP3 extends Application {
         
         Controlador controlador = new Controlador();
         
-         do {
-            controlador.exibirMenu();
+        do
+        {
+            controlador.exibirMenu(0);
             opcao = entrada.nextInt();
             
             switch(opcao){
@@ -120,8 +117,11 @@ public class ProjetoLP3 extends Application {
                 case 14:
                     controlador.removerPedido();
                     break;
+                    
+                case 15:
+                    controlador.adicionarChekpoint();
+                    break;
             }
-            
         }while (opcao != 0);
         System.exit(0);
     }

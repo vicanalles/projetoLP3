@@ -2,6 +2,7 @@
 package projetolp3;
 
 
+import java.awt.RenderingHints;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,24 +19,34 @@ public class Controlador
     HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
     HashMap<String, Compra> compras = new HashMap<String, Compra>(); 
         
-    public void exibirMenu()
+    public void exibirMenu(int numeroMenu)
     {
-        System.out.println("==========MENU============");
-        System.out.println("1 - Cadastrar Cliente");
-        System.out.println("2 - Cadastrar Funcionario");
-        System.out.println("3 - Cadastrar Fornecedor");
-        System.out.println("4 - Efetuar Compra de itens");
-        System.out.println("5 - Registrar novo Produto");
-        System.out.println("6 - Editar Itens");
-        System.out.println("7 - Editar Produtos");
-        System.out.println("8 - Remover Cliente");
-        System.out.println("9 - Remover Funcionario");
-        System.out.println("10 - Remover Fornecedor");
-        System.out.println("11 - Remover Produto");
-        System.out.println("12 - Abrir pedido");
-        System.out.println("13 - Listar pedidos");
-        System.out.println("14 - Remover pedido");
-        System.out.println("Digite a opçao desejada: ");
+        switch(numeroMenu)
+        {
+            case 0:
+                System.out.println("==========MENU============");
+                System.out.println("1 - Cadastrar Cliente");
+                System.out.println("2 - Cadastrar Funcionario");
+                System.out.println("3 - Cadastrar Fornecedor");
+                System.out.println("4 - Efetuar Compra de itens");
+                System.out.println("5 - Registrar novo Produto");
+                System.out.println("6 - Editar Itens");
+                System.out.println("7 - Editar Produtos");
+                System.out.println("8 - Remover Cliente");
+                System.out.println("9 - Remover Funcionario");
+                System.out.println("10 - Remover Fornecedor");
+                System.out.println("11 - Remover Produto");
+                System.out.println("12 - Abrir pedido");
+                System.out.println("13 - Listar pedidos");
+                System.out.println("14 - Remover pedido");
+                System.out.println("15 - Adicionar checkpoint a um pedido");
+                System.out.println("Digite a opçao desejada: ");
+                break;
+                
+            case 1:
+                
+        }
+        
     }
     
     public void cadastrarCliente()
@@ -111,52 +122,88 @@ public class Controlador
     public void cadastrarCompra()
     {
         Compra compra = new Compra();
-        Fornecedor fornecedor = new Fornecedor();
+        Fornecedor fornecedor;
+        Funcionario funcionario;
         Item item = new Item();
-        Funcionario funcionario = new Funcionario();
-        float qtd = 0;
         Scanner entrada = new Scanner(System.in);
-        
         
         boolean funcionou = false;
         
-        while (funcionou == false)
+        System.out.println("Digite o Cpf do funcionario que efetuou a compra: ");
+        funcionario = procurarFuncionario(entrada.nextLine());
+        if(funcionario == null)
         {
-            System.out.println("Digite o numero da Nota Fiscal: ");
-            compra.setNotaFiscal(entrada.nextLine());
-            
-            if(verificarNotaFiscal(compra) == true)
+            System.out.println("Funcionário não encontrado. ");
+            return;
+        }
+        
+        System.out.println("Digite o Cnpj do fornecedor: ");
+        fornecedor = procurarFornecedor(entrada.nextLine());
+        if(fornecedor == null)
+        {
+            System.out.println("Fornecedor não encontrado. ");
+            return;
+        }
+
+        System.out.println("Digite o numero da Nota Fiscal: ");
+        compra.setNotaFiscal(entrada.nextLine());
+
+        if(verificarNotaFiscal(compra.getNotaFiscal()) == true)
+        {
+            System.out.println("Nota fiscal já existente.");
+            return;
+        }
+        
+        boolean continuarCadastrando = true;
+        do
+        {
+            System.out.println("Que item deseja adicionar à compra?");
+            System.out.println("1 - Adicionar item já cadastrado\n2 - Adicionar item ainda não cadastrado");
             {
-                System.out.println("Digite o Cnpj do fornecedor: ");
-                fornecedor.setCnpj(entrada.nextLine());
-                
-                if(verificarCnpj(fornecedor) == true)
+                int opcao = entrada.nextInt();
+                entrada.nextLine();
+
+                if(opcao == 2)
                 {
-                    System.out.println("Digite o Cpf do funcionario que efetuou a compra: ");
-                    funcionario.setCpf(entrada.nextLine());
-                    
-                    if(verificarCpf(funcionario) == true)
-                    {
-                        System.out.println("Digite o codigo do item comprado: ");
-                        item.setCodigo(entrada.nextInt());
-                        
-                        if(verificarCodigoItem(item) == true)
-                        {
-                            System.out.println("Deseja Efetuar compra de: " + item.getDescricao() + "S/N");
-                            
-                            System.out.println("Digite a quantidade comprada: ");
-                            qtd = (entrada.nextFloat());
-                           
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                    } 
+                    System.out.println("Cadastre o item e depois efetue a compra do mesmo.");
+                    cadastrarItem();
                 }
             }
-        }
+
+            System.out.println("Digite o codigo do item: ");
+            item.setCodigo(entrada.nextInt());
+            entrada.nextLine();
+            
+            if(verificarCodigoItem(item) == true)
+            {
+                System.out.println("Digite a quantidade comprada: ");
+                item.setQuantidade(entrada.nextFloat());
+                entrada.nextLine();
+                
+                System.out.println("Deseja adicionar " + item.getQuantidade() + "x " + item.getDescricao() + " à compra?\n1 - Sim / 2 - Não");
+                if(entrada.nextInt() == 1)
+                {
+                    item.setQuantidade(item.getQuantidade()+procurarItem(item.getCodigo()).getQuantidade());
+                    itens.put(item.getCodigo(), item);
+                }
+                else
+                {
+                    System.out.println("Item não adicionado à compra.");
+                }
+                entrada.nextLine();
+            }
+            else
+            {
+                System.out.println("Item não cadastrado.");
+            }
+            
+            System.out.println("Deseja continuar adicionando itens à compra?\n1 - Sim / 2 - Não");
+            if(entrada.nextInt() == 2)
+                continuarCadastrando = false;
+            
+            entrada.nextLine();
+            
+        }while(continuarCadastrando == true);
     }
     public void cadastrarItem()
     {
@@ -314,94 +361,119 @@ public class Controlador
         return produtos.containsKey(codigoProduto);
     }
     
-    public boolean verificarNotaFiscal (Compra compra)
+    public boolean verificarNotaFiscal (String notaFiscal)
     {
-        return compras.containsKey(compra.getNotaFiscal());
+        return compras.containsKey(notaFiscal);
     }
     
     public void listarClientes()
     {
-        for(Map.Entry<String, Cliente> pair : clientes.entrySet())
+        for(Map.Entry<String, Cliente> cliente : clientes.entrySet())
         {
-            pair.getValue().exibirDados();
+            cliente.getValue().exibirDados();
         }
     }
     
     public void listarFuncionarios()
     {
-        for(Map.Entry<String, Funcionario> pair : funcionarios.entrySet())
+        for(Map.Entry<String, Funcionario> funcionario : funcionarios.entrySet())
         {
-            pair.getValue().exibirDados();
+            funcionario.getValue().exibirDados();
         }
     }
     
     public void listarFornecedores()
     {
-        for(Map.Entry<String, Fornecedor> pair : fornecedores.entrySet())
+        for(Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet())
         {
-            pair.getValue().exibirDados();
+            fornecedor.getValue().exibirDados();
         }
     }
     
     public void listarItens()
     {
-        for(Map.Entry<Integer, Item> pair : itens.entrySet())
+        for(Map.Entry<Integer, Item> item : itens.entrySet())
         {
-            pair.getValue().exibirDados();
+            item.getValue().exibirDados();
         }
     }
     
     public void listarProdutos(){
-        for(Map.Entry<Integer, Produto> pair : produtos.entrySet())
+        for(Map.Entry<Integer, Produto> produto : produtos.entrySet())
         {
-            pair.getValue().exibirDados();
+            produto.getValue().exibirDados();
         }        
     }
     
     public Item procurarItem(int codigo)
     {
-        for(Map.Entry<Integer, Item> pair : itens.entrySet())
-        {
-            if(pair.getKey() == codigo)
-                 i = itens.get(pair.getKey());            
-        }
-        return i;        
+        return itens.get(codigo);        
     }        
     
     public Produto procurarProduto(int codigo)
     {
-        for(Map.Entry<Integer, Produto> pair : produtos.entrySet())
+        for(Map.Entry<Integer, Produto> produto : produtos.entrySet())
         {
-            if(pair.getKey() == codigo)
-                p = produtos.get(pair.getKey());
+            if(produto.getKey() == codigo)
+                p = produtos.get(produto.getKey());
         }
         return p;
     }
     
+    /**
+     * Procura um funcionário na lista de funcionários
+     * @param cpf O CPF do funcionário que deseja encontrar
+     * @return Retorna o funcionário encontrado ou null, caso não exista um funcionário com o CPF especificado.
+     */
     public Funcionario procurarFuncionario(String cpf)
     {
-        for(Map.Entry<String, Funcionario> pair : funcionarios.entrySet())
+        for(Map.Entry<String, Funcionario> funcionario : funcionarios.entrySet())
         {
-            if(pair.getValue().getCpf().equals(cpf))
+            if(funcionario.getValue().getCpf().equals(cpf))
             {
-                return pair.getValue();
+                return funcionario.getValue();
             }
         }
         return null;
     }
     
+    /**
+     * Procura um cliente na lista de clientes
+     * @param cpf O CPF do cliente que deseja encontrar
+     * @return Retorna o cliente encontrado ou null, caso não exista um cliente com o CPF especificado.
+     */
     public Cliente procurarCliente(String cpf)
     {
-        for(Map.Entry<String, Cliente> pair : clientes.entrySet())
+        for(Map.Entry<String, Cliente> cliente : clientes.entrySet())
         {
-            if(pair.getValue().getCpf().equals(cpf))
+            if(cliente.getValue().getCpf().equals(cpf))
             {
-                return pair.getValue();
+                return cliente.getValue();
             }
         }
         return null;
     }
     
+    /**
+     * Procura um fornecedor na lista de fornecedores
+     * @param cnpj O CNPJ do fornecedor que deseja encontrar
+     * @return Retorna o fornecedor encontrado ou null, caso não exista um fornecedor com o CNPJ especificado.
+     */
+    public Fornecedor procurarFornecedor(String cnpj)
+    {
+        for(Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet())
+        {
+            if(fornecedor.getValue().getCnpj().equals(cnpj))
+            {
+                return fornecedor.getValue();
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Remove um cliente da lista de clientes.
+     */
     public void removerCliente()
     {
         Scanner entrada = new Scanner(System.in);
@@ -414,6 +486,9 @@ public class Controlador
         
     }
     
+    /**
+     * Remove um funcionário da lista de funcionários.
+     */
     public void removerFuncionario()
     {
         Scanner entrada = new Scanner(System.in);
@@ -425,6 +500,9 @@ public class Controlador
             System.out.println("Funcionário removido com sucesso.");
     }
     
+    /**
+     * Remove um fornecedor da lista de fornecedores.
+     */
     public void removerFornecedor()
     {
         Scanner entrada = new Scanner(System.in);
@@ -436,6 +514,9 @@ public class Controlador
             System.out.println("Fornecedor removido com sucesso.");
     }
     
+    /**
+     * Remove um produto da lista de produtos.
+     */
     public void removerProduto()
     {
         Scanner entrada = new Scanner(System.in);
@@ -449,6 +530,9 @@ public class Controlador
             System.out.println("Produto removido com sucesso.");
     }
     
+    /**
+     * Abre um novo pedido.
+     */
     public void abrirPedido()
     {
         Scanner entrada = new Scanner(System.in);
@@ -546,13 +630,46 @@ public class Controlador
         System.out.println("Pedido criado com sucesso");
     }
     
+    
     public void listarPedidos()
     {
-        
+        for(Map.Entry<Integer, Pedido> pedido : pedidos.entrySet())
+        {
+            System.out.println("____________________________________________");
+            pedido.getValue().exibirDados();
+        }
     }
     
     public void removerPedido()
     {
-        
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o numero do pedido que deseja remover: ");
+        int numeroPedido = entrada.nextInt();
+        entrada.nextLine();
+        if(pedidos.remove(numeroPedido) != null)
+        {
+            System.out.println("Pedido removido.");
+        }
+        else
+        {   
+            System.out.println("Número de pedido não encontrado.");
+        }
+    }
+    
+    public void adicionarChekpoint()
+    {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Digite o numero do pedido que deseja adicionar um checkpoint: ");
+        int numeroPedido = entrada.nextInt();
+        entrada.nextLine();
+        Pedido pedido = pedidos.get(numeroPedido);
+        if(pedido != null)
+        {
+            pedido.adicionarCheckpoint();
+        }
+        else
+        {
+            System.out.println("Pedido não encontrado.");
+        }
     }
 }
