@@ -24,7 +24,7 @@ public class ProjetoLP3 extends Application {
     public static void main(String[] args) throws InterruptedException {
         //inicio de testes
         
-        Log[] logs = new Log[4];
+        /*Log[] logs = new Log[4];
         //instancia um log de cada tipo
         for(int i=0;i<4;i++)
         {
@@ -42,13 +42,10 @@ public class ProjetoLP3 extends Application {
         {
             System.out.println("Log " + i);
             logs[i].exibirDados();
-        }
-            
+        }*/        
+                
         
-        
-            
-        
-        //fim de testes
+        //fim de testes                
         
         Scanner entrada = new Scanner(System.in);
         int opcao;
@@ -75,7 +72,7 @@ public class ProjetoLP3 extends Application {
                     break;
                     
                 case 4:
-                    controlador.cadastrarItem();
+                    controlador.cadastrarCompra();
                     break;
                     
                 case 5:
@@ -120,6 +117,18 @@ public class ProjetoLP3 extends Application {
                     
                 case 15:
                     controlador.adicionarChekpoint();
+                    break;
+                    
+                case 16:
+                    controlador.cadastrarItem();
+                    break;
+                    
+                case 17:
+                    controlador.listarProdutos();
+                    break;
+                    
+                case 18:
+                    controlador.listarItens();
                     break;
             }
         }while (opcao != 0);

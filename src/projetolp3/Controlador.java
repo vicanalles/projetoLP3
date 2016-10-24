@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Controlador 
-{
+{    
     Item i;
     Produto p;
     HashMap<String, Cliente> clientes = new HashMap<String,Cliente>();
@@ -18,7 +18,46 @@ public class Controlador
     HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>();
     HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
     HashMap<String, Compra> compras = new HashMap<String, Compra>(); 
+    
+    public Controlador()
+    {
+        Cliente c = new Cliente();
+        c.setCpf("1");
+        c.setNome("a");
+        c.setBairro("a");
+        c.setCep("1");
+        c.setCidade("a");
+        c.setComplemento("a");  
+        clientes.put(c.getCpf(), c);
         
+        Funcionario f = new Funcionario();
+        f.setCpf("2");
+        f.setNome("b");
+        f.setCidade("b");
+        funcionarios.put(f.getCpf(), f);
+        
+        Fornecedor fd = new Fornecedor();
+        fd.setCnpj("3");
+        fd.setNome("c");
+        fd.setNomeFantasia("cc");
+        fornecedores.put(fd.getCnpj(), fd);
+        
+        Item it = new Item();
+        it.setCodigo(1);
+        it.setNome("aaa");
+        it.setDescricao("aaa");
+        itens.put(it.getCodigo(), it);
+        
+        Item it2 = new Item();
+        it2.setCodigo(2);
+        it2.setNome("bbb");
+        it2.setDescricao("bbb");
+        itens.put(it2.getCodigo(), it2);
+        
+        Produto p = new Produto(1,it);
+        p.setNome("aa");
+        produtos.put(p.getCodigo(), p);
+    }
     public void exibirMenu(int numeroMenu)
     {
         switch(numeroMenu)
@@ -28,7 +67,7 @@ public class Controlador
                 System.out.println("1 - Cadastrar Cliente");
                 System.out.println("2 - Cadastrar Funcionario");
                 System.out.println("3 - Cadastrar Fornecedor");
-                System.out.println("4 - Efetuar Compra de itens");
+                System.out.println("4 - Registrar Nota Fiscal de Compras");
                 System.out.println("5 - Registrar novo Produto");
                 System.out.println("6 - Editar Itens");
                 System.out.println("7 - Editar Produtos");
@@ -40,6 +79,9 @@ public class Controlador
                 System.out.println("13 - Listar pedidos");
                 System.out.println("14 - Remover pedido");
                 System.out.println("15 - Adicionar checkpoint a um pedido");
+                System.out.println("16 - Cadastrar Itens");
+                System.out.println("17 - Listar Produtos");
+                System.out.println("18 - Listar Itens");
                 System.out.println("Digite a opçao desejada: ");
                 break;
                 
@@ -121,7 +163,7 @@ public class Controlador
     
     public void cadastrarCompra()
     {
-        Compra compra = new Compra();
+        Compra compra;
         Fornecedor fornecedor;
         Funcionario funcionario;
         Item item = new Item();
@@ -146,15 +188,18 @@ public class Controlador
         }
 
         System.out.println("Digite o numero da Nota Fiscal: ");
-        compra.setNotaFiscal(entrada.nextLine());
+        String numeroNota = entrada.nextLine();
 
-        if(verificarNotaFiscal(compra.getNotaFiscal()) == true)
+        if(verificarNotaFiscal(numeroNota) == true)
         {
             System.out.println("Nota fiscal já existente.");
             return;
         }
         
         boolean continuarCadastrando = true;
+        float valorTotal = 0;
+        HashMap<Integer, Item> novosItensCompra = new HashMap<Integer, Item>();
+        
         do
         {
             System.out.println("Que item deseja adicionar à compra?");
@@ -169,22 +214,27 @@ public class Controlador
                     cadastrarItem();
                 }
             }
-
+            listarItens();
             System.out.println("Digite o codigo do item: ");
-            item.setCodigo(entrada.nextInt());
+            int codigoItem = entrada.nextInt();
             entrada.nextLine();
             
-            if(verificarCodigoItem(item) == true)
-            {
+            if(verificarCodigoItem(codigoItem) == true)
+            {               
+                item.setCodigo(codigoItem);
+                item.setNome(procurarItem(codigoItem).getNome());
                 System.out.println("Digite a quantidade comprada: ");
-                item.setQuantidade(entrada.nextFloat());
+                item.setQuantidade(entrada.nextFloat());                
+                entrada.nextLine();
+                System.out.println("Digite o valor unitário do item:");
+                item.setValorCompra(entrada.nextFloat());    
                 entrada.nextLine();
                 
-                System.out.println("Deseja adicionar " + item.getQuantidade() + "x " + item.getDescricao() + " à compra?\n1 - Sim / 2 - Não");
+                System.out.println("Deseja adicionar " + item.getQuantidade() + "x " + item.getNome() + " à compra?\n1 - Sim / 2 - Não");
                 if(entrada.nextInt() == 1)
                 {
-                    item.setQuantidade(item.getQuantidade()+procurarItem(item.getCodigo()).getQuantidade());
-                    itens.put(item.getCodigo(), item);
+                    valorTotal += item.getQuantidade() * item.getValorCompra();
+                    novosItensCompra.put(item.getCodigo(), item);                    
                 }
                 else
                 {
@@ -203,7 +253,9 @@ public class Controlador
             
             entrada.nextLine();
             
-        }while(continuarCadastrando == true);
+        }while(continuarCadastrando == true);        
+        compra = new Compra(numeroNota, valorTotal, funcionario, fornecedor, novosItensCompra, itens);
+        
     }
     public void cadastrarItem()
     {
@@ -215,10 +267,14 @@ public class Controlador
         while(funcionou == false)
         {
             System.out.println("Digite o código do item:");
-            item.setCodigo(entrada.nextInt());
+            int codigoItem = entrada.nextInt();
+            item.setCodigo(codigoItem);
+            boolean teste = verificarCodigoItem(item.getCodigo());
             
-            if(verificarCodigoItem(item) == true)
-                System.out.println("Código já existente!");
+            if(teste == true)
+            {
+                System.out.println("Código já existente!\n");                
+            }
             else
                 funcionou = true;
         }        
@@ -232,12 +288,13 @@ public class Controlador
         Scanner entrada = new Scanner(System.in);
         Item item;
         
-        System.out.println("Digite o código do Item: ");
-        entrada.nextLine();
+        System.out.println("Digite o código do Item: ");       
         int codigoItem = entrada.nextInt();
+        entrada.nextLine();
         item = procurarItem(codigoItem);
-        if(verificarCodigoItem(item) == true)
-        {
+
+        if(verificarCodigoItem(codigoItem) == true)
+        {            
             item.editarDados();
             itens.replace(item.getCodigo(), item);
         }
@@ -256,47 +313,48 @@ public class Controlador
         Item item2;
         Produto produto;
         
-        System.out.println("Digite o código do produto: ");
+        System.out.println("Digite o código do produto: ");            
+        int codigoProduto = entrada.nextInt();
+        entrada.nextLine();        
+        if(verificarCodigoProduto(codigoProduto) == true)
+        {
+            System.out.println("Código já cadastrado");                        
+            return;
+        }
+        listarItens();
+        System.out.println("Digite o código do item que deseja adicionar: ");        
+        int codigoItem = entrada.nextInt();
+        entrada.nextLine();
+        item2 = procurarItem(codigoItem); 
+        if(item2 == null){
+            System.out.println("Código de Item não existente!");
+            return;
+        }
+        produto = new Produto(codigoProduto, item2);
+        produto.adicionarDados();
+        Item item3;
+        do
+        {
+            System.out.println("Deseja adicionar mais algum item ao Produto? (1 - Sim 0 - Não)");
+            opcao = entrada.nextInt();
             entrada.nextLine();
-            int codigoProduto = entrada.nextInt();
-            if(verificarCodigoProduto(codigoProduto) == true)
-            {
-                System.out.println("Código já cadastrado");                        
-                return;
-            }
-            listarItens();
-            System.out.println("Digite o código do item que deseja adicionar: ");
-            entrada.nextLine();
-            int codigoItem = entrada.nextInt();
-            item2 = procurarItem(codigoItem); 
-            if(item2 == null){
-                System.out.println("Código de Item não existente!");
-                return;
-            }
-            produto = new Produto(codigoProduto, item2);
-            produto.adicionarDados();
-            produtos.put(produto.getCodigo(), produto);
-            Item item3;
-            do
-            {
-                System.out.println("Deseja adicionar mais algum item ao Produto? (1 - Sim 0 - Não)");
-                opcao = entrada.nextInt();
-                if(opcao == 1){
-                    listarItens();
-                    System.out.println("Digite o código do item a ser adicionado:");
-                    entrada.nextLine();
-                    int codigoItem2 = entrada.nextInt();
-                    item3 = procurarItem(codigoItem2);
-                    if(item3 == null){
-                        System.out.println("Código de Item não existente!");
-                        return;                        
-                    }else{
-                        produto.adicionarItens(item3);
-                        System.out.println("Item adicionado!");
-                    }
-                }                                        
-            }while(opcao != 0);                                
-            listarProdutos();
+            if(opcao == 1){
+                listarItens();
+                System.out.println("Digite o código do item a ser adicionado:");                
+                int codigoItem2 = entrada.nextInt();
+                entrada.nextLine();
+                item3 = procurarItem(codigoItem2);
+                if(item3 == null){
+                    System.out.println("Código de Item não existente!");
+                    return;                        
+                }else{
+                    produto.adicionarItens(item3);
+                    System.out.println("Item adicionado!");
+                }
+            }                                        
+        }while(opcao != 0);
+        produtos.put(produto.getCodigo(), produto);
+        listarProdutos();
     }
     
     public void editarProduto()
@@ -306,36 +364,34 @@ public class Controlador
         Item item2;
         Produto produto;
         
-        System.out.println("Digite o código do Produto: ");
-        
-                    entrada.nextLine();
-                    int codigoProduto = entrada.nextInt();
-                    produto = procurarProduto(codigoProduto);
-                    if(verificarCodigoProduto(codigoProduto) == true)
-                    {                        
-                        System.out.println("Deseja remover algum item? ");
-                        entrada.nextLine();
-                        int decisao = entrada.nextInt();
-                        if(decisao == 1){
-                            System.out.println("Digite o código do item a ser removido: ");
-                            int codigoItem2 = entrada.nextInt();
-                            item = procurarItem(codigoItem2);
-                            produto.removerItens(item);
-                        }
-                        
-                        System.out.println("Deseja adicionar algum item? ");
-                        int decisao2 = entrada.nextInt();
-                        if(decisao2 == 1){
-                            listarItens();
-                            System.out.println("Digite o código do item escolhido: ");
-                            int codigoItem3 = entrada.nextInt();
-                            item2 = procurarItem(codigoItem3);
-                            produto.adicionarItens(item2);
-                        }
-                    }
-                    produto.editarDados();
-                    produtos.replace(produto.getCodigo(), produto);
-                    listarProdutos();
+        System.out.println("Digite o código do Produto: ");        
+        int codigoProduto = entrada.nextInt();
+        entrada.nextLine();
+        produto = procurarProduto(codigoProduto);
+        if(verificarCodigoProduto(codigoProduto) == true)
+        {                        
+            System.out.println("Deseja remover algum item? ");            
+            int decisao = entrada.nextInt();
+            entrada.nextLine();
+            if(decisao == 1){
+                System.out.println("Digite o código do item a ser removido: ");
+                int codigoItem2 = entrada.nextInt();
+                item = procurarItem(codigoItem2);
+                produto.removerItens(item);
+            }
+
+            System.out.println("Deseja adicionar algum item? ");
+            int decisao2 = entrada.nextInt();
+            if(decisao2 == 1){
+                listarItens();
+                System.out.println("Digite o código do item escolhido: ");
+                int codigoItem3 = entrada.nextInt();
+                item2 = procurarItem(codigoItem3);
+                produto.adicionarItens(item2);
+            }
+        }
+        produto.editarDados();
+        produtos.replace(produto.getCodigo(), produto);
     }
     
     public boolean verificarCpf(Pessoa pessoa)
@@ -351,9 +407,9 @@ public class Controlador
         return fornecedores.containsKey(fornecedor.getCnpj());
     }
     
-    public boolean verificarCodigoItem(Item item)
+    public boolean verificarCodigoItem(int codigo)
     {
-        return itens.containsKey(item.getCodigo());
+        return itens.containsKey(codigo);
     }
     
     public boolean verificarCodigoProduto(int codigoProduto)
@@ -412,12 +468,7 @@ public class Controlador
     
     public Produto procurarProduto(int codigo)
     {
-        for(Map.Entry<Integer, Produto> produto : produtos.entrySet())
-        {
-            if(produto.getKey() == codigo)
-                p = produtos.get(produto.getKey());
-        }
-        return p;
+        return produtos.get(codigo);
     }
     
     /**
