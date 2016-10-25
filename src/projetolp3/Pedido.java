@@ -1,5 +1,6 @@
 package projetolp3;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Pedido {
@@ -9,7 +10,8 @@ public class Pedido {
     private Cliente cliente;
     private Funcionario funcionario;
     private Log log;    
-    private HashMap<Integer, Produto> produtos;
+    //private HashMap<Integer, Produto> produtos;
+    private ArrayList<Produto> produtos;
     
     public Pedido(int numero, int tipoPedido, Cliente cliente, Funcionario funcionario)
     {                      
@@ -17,7 +19,8 @@ public class Pedido {
         this.cliente = cliente;
         this.funcionario = funcionario;
         log = new Log(tipoPedido);
-        produtos = new HashMap<Integer, Produto>();
+        //produtos = new HashMap<Integer, Produto>();
+        produtos = new ArrayList<Produto>();
     }   
 
     public int getNumero() {
@@ -35,7 +38,17 @@ public class Pedido {
     public void setPagamento(String pagamento) {
         this.pagamento = pagamento;
     }
-    
+
+    public ArrayList<Produto> getProdutos()
+    {
+        return produtos;
+    }
+
+    public void setProdutos(ArrayList<Produto> produtos)
+    {
+        this.produtos = produtos;
+    }
+    /*
     public HashMap<Integer, Produto> getProdutos() {
         return produtos;
     }
@@ -44,6 +57,7 @@ public class Pedido {
         this.produtos = produtos;
     }
     
+    */
     /**
      *  Exibe os dados do pedido
      */
@@ -65,7 +79,8 @@ public class Pedido {
      */
     public void adicionarProduto(Produto produto)
     {
-        produtos.put(produto.getCodigo(), produto);
+        //produtos.put(produto.getCodigo(), produto);
+        produtos.add(produto);
     }
     
     public void adicionarCheckpoint()

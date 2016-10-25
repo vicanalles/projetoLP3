@@ -77,7 +77,7 @@ public class Item {
     
     public void exibirDados()
     {
-        System.out.println("Código: " + this.getCodigo());
+        System.out.println("\nCódigo: " + this.getCodigo());
         System.out.println("Nome: " + this.getNome());
         System.out.println("Descrição: " + this.getDescricao());
         System.out.println("Quantidade em estoque: " + this.getQuantidade());

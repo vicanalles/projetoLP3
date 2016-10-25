@@ -733,14 +733,24 @@ public class Controlador
         
         System.out.println("Digite a forma de pagamento: ");
         pedido.setPagamento(entrada.nextLine());
-        
+        /*
         for(Map.Entry<Integer, Produto> produto : pedido.getProdutos().entrySet())  
         {
             for(Map.Entry<Integer, Item> item : produto.getValue().getItens().entrySet())
             {
-                itens.get(item.getValue().getCodigo()).atualizarQuantidade((item.getValue().getQuantidade() /** XXXXXXXX*/) * (-1));
+                itens.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade() * (-1));
             }
         }
+        */
+        
+        for(Produto produto : pedido.getProdutos())
+        {
+            for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
+            {
+                itens.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade() * (-1));
+            }
+        }
+        
         pedidos.put(pedido.getNumero(), pedido);
         System.out.println("Pedido criado com sucesso");
     }
