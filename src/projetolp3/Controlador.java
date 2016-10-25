@@ -46,17 +46,33 @@ public class Controlador
         it.setCodigo(1);
         it.setNome("aaa");
         it.setDescricao("aaa");
+        it.setQuantidade(15);
+        it.setValorCompra(2);
         itens.put(it.getCodigo(), it);
         
         Item it2 = new Item();
         it2.setCodigo(2);
         it2.setNome("bbb");
         it2.setDescricao("bbb");
+        it2.setQuantidade(20);
+        it2.setValorCompra(5);
         itens.put(it2.getCodigo(), it2);
+        
+        Item it3 = new Item();
+        it3.setCodigo(3);
+        it3.setNome("ccc");
+        it3.setDescricao("ccc");
+        it3.setQuantidade(50);
+        it3.setValorCompra(9);
+        itens.put(it3.getCodigo(), it3);
         
         Produto p = new Produto(1,it);
         p.setNome("aa");
         produtos.put(p.getCodigo(), p);
+        
+        Produto p2 = new Produto(2, it2);
+        p2.setNome("bb");
+        produtos.put(p2.getCodigo(), p2);
     }
     public void exibirMenu(int numeroMenu)
     {
@@ -166,7 +182,7 @@ public class Controlador
         Compra compra;
         Fornecedor fornecedor;
         Funcionario funcionario;
-        Item item = new Item();
+        Item item;
         Scanner entrada = new Scanner(System.in);
         
         boolean funcionou = false;
@@ -202,6 +218,7 @@ public class Controlador
         
         do
         {
+            item = new Item();
             System.out.println("Que item deseja adicionar à compra?");
             System.out.println("1 - Adicionar item já cadastrado\n2 - Adicionar item ainda não cadastrado");
             {
@@ -330,9 +347,13 @@ public class Controlador
             System.out.println("Código de Item não existente!");
             return;
         }
+        System.out.println("Digite a quantidade necessária de " + item2.getNome() + " para o produto: ");
+        item2.setQuantidade(entrada.nextFloat());
+        entrada.nextLine();
         produto = new Produto(codigoProduto, item2);
         produto.adicionarDados();
         Item item3;
+        float valorProduto = (item2.getValorVenda() * item2.getQuantidade());
         do
         {
             System.out.println("Deseja adicionar mais algum item ao Produto? (1 - Sim 0 - Não)");
@@ -348,13 +369,22 @@ public class Controlador
                     System.out.println("Código de Item não existente!");
                     return;                        
                 }else{
+                    System.out.println("Digite a quantidade necessária de " + item3.getNome() + " para o produto: ");
+                    item3.setQuantidade(entrada.nextFloat());
+                    entrada.nextLine();
+                    valorProduto += (item3.getValorVenda() * item3.getQuantidade());
                     produto.adicionarItens(item3);
                     System.out.println("Item adicionado!");
                 }
             }                                        
-        }while(opcao != 0);
-        produtos.put(produto.getCodigo(), produto);
-        listarProdutos();
+        }while(opcao != 0);                
+        System.out.println("O valor mínimo de venda do Produto é: " + valorProduto);
+        System.out.println("Digite o valor da mão de obra: ");
+        valorProduto += entrada.nextFloat();
+        entrada.nextLine();
+        produto.setValor(valorProduto);
+        produtos.put(produto.getCodigo(), produto);        
+        System.out.println("Produto adicionado com sucesso!");
     }
     
     public void editarProduto()
@@ -669,6 +699,18 @@ public class Controlador
             }
             else
             {
+                System.out.println("Digite a quantidade do produto:");
+                int qtde = entrada.nextInt();
+                entrada.nextLine();
+                
+                for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
+                {
+                    if((item.getValue().getQuantidade() * qtde) > itens.get(item.getValue().getCodigo()).getQuantidade())
+                    {
+                        System.out.println("Não há ingredientes suficientes para venda desse produto.");
+                        return;
+                    }
+                }
                 System.out.println("Produto adicionado ao pedido.");
                 pedido.adicionarProduto(produto);
             }
@@ -677,6 +719,13 @@ public class Controlador
         System.out.println("Digite a forma de pagamento: ");
         pedido.setPagamento(entrada.nextLine());
         
+        for(Map.Entry<Integer, Produto> produto : pedido.getProdutos().entrySet())  
+        {
+            for(Map.Entry<Integer, Item> item : produto.getValue().getItens())
+            {
+                
+            }
+        }
         pedidos.put(pedido.getNumero(), pedido);
         System.out.println("Pedido criado com sucesso");
     }

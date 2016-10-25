@@ -49,8 +49,12 @@ public class Item {
         return valorCompra;
     }
 
-    public void setValorCompra(float valorcompra) {
+    public void setValorCompra(float valorCompra) {
         this.valorCompra = valorCompra;
+    }
+    
+    public float getValorVenda(){
+        return valorCompra * 1.3f;
     }
     
     public void adicionarDados()
@@ -59,8 +63,7 @@ public class Item {
         System.out.println("Digite o nome do item: ");
         this.setNome(entrada.nextLine());
         System.out.println("Digite a descrição: ");
-        this.setDescricao(entrada.nextLine());
-        
+        this.setDescricao(entrada.nextLine());        
     }
     
     public void editarDados()

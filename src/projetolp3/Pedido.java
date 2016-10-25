@@ -1,8 +1,6 @@
 package projetolp3;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Pedido {
     
@@ -11,7 +9,7 @@ public class Pedido {
     private Cliente cliente;
     private Funcionario funcionario;
     private Log log;    
-    private ArrayList<Produto> produtos;
+    private HashMap<Integer, Produto> produtos;
     
     public Pedido(int numero, int tipoPedido, Cliente cliente, Funcionario funcionario)
     {                      
@@ -19,7 +17,7 @@ public class Pedido {
         this.cliente = cliente;
         this.funcionario = funcionario;
         log = new Log(tipoPedido);
-        produtos = new ArrayList<Produto>();
+        produtos = new HashMap<Integer, Produto>();
     }   
 
     public int getNumero() {
@@ -38,8 +36,12 @@ public class Pedido {
         this.pagamento = pagamento;
     }
     
-    public ArrayList<Produto> getProdutos() {
+    public HashMap<Integer, Produto> getProdutos() {
         return produtos;
+    }
+
+    public void setProdutos(HashMap<Integer, Produto> produtos) {
+        this.produtos = produtos;
     }
     
     /**
@@ -63,7 +65,7 @@ public class Pedido {
      */
     public void adicionarProduto(Produto produto)
     {
-        produtos.add(produto);
+        produtos.put(produto.getCodigo(), produto);
     }
     
     public void adicionarCheckpoint()
