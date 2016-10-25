@@ -77,37 +77,31 @@ public class Controlador
      *Exibe o menu de opções
      * @param numeroMenu o numero do menu a ser exibido
      */
-    public void exibirMenu(int numeroMenu)
+    public void exibirMenu()
     {
-        switch(numeroMenu)
-        {
-            case 0:
-                System.out.println("==========MENU============");
-                System.out.println("1 - Cadastrar Cliente");
-                System.out.println("2 - Cadastrar Funcionario");
-                System.out.println("3 - Cadastrar Fornecedor");
-                System.out.println("4 - Registrar Nota Fiscal de Compras");
-                System.out.println("5 - Registrar novo Produto");
-                System.out.println("6 - Editar Itens");
-                System.out.println("7 - Editar Produtos");
-                System.out.println("8 - Remover Cliente");
-                System.out.println("9 - Remover Funcionario");
-                System.out.println("10 - Remover Fornecedor");
-                System.out.println("11 - Remover Produto");
-                System.out.println("12 - Abrir pedido");
-                System.out.println("13 - Listar pedidos");
-                System.out.println("14 - Remover pedido");
-                System.out.println("15 - Adicionar checkpoint a um pedido");
-                System.out.println("16 - Cadastrar Itens");
-                System.out.println("17 - Listar Produtos");
-                System.out.println("18 - Listar Itens");
-                System.out.println("Digite a opçao desejada: ");
-                break;
-                
-            case 1:
-                
-        }
-        
+        System.out.println("==========MENU============");
+        System.out.println("1 - Cadastrar Cliente");
+        System.out.println("2 - Cadastrar Funcionario");
+        System.out.println("3 - Cadastrar Fornecedor");
+        System.out.println("4 - Registrar Nota Fiscal de Compras");
+        System.out.println("5 - Registrar novo Produto");
+        System.out.println("6 - Editar Itens");
+        System.out.println("7 - Editar Produtos");
+        System.out.println("8 - Remover Cliente");
+        System.out.println("9 - Remover Funcionario");
+        System.out.println("10 - Remover Fornecedor");
+        System.out.println("11 - Remover Produto");
+        System.out.println("12 - Abrir pedido");
+        System.out.println("13 - Listar pedidos");
+        System.out.println("14 - Remover pedido");
+        System.out.println("15 - Adicionar checkpoint a um pedido");
+        System.out.println("16 - Cadastrar Itens");
+        System.out.println("17 - Listar Produtos");
+        System.out.println("18 - Listar Itens");
+        System.out.println("19 - Listar Clientes");
+        System.out.println("20 - Listar Funcionários");
+        System.out.println("21 - Listar Fornecedores");
+        System.out.println("Digite a opçao desejada: ");
     }
     
     /**
@@ -466,26 +460,38 @@ public class Controlador
         return compras.containsKey(notaFiscal);
     }
     
+    /**
+     *Exibe todos os clientes cadastrados
+     */
     public void listarClientes()
     {
         for(Map.Entry<String, Cliente> cliente : clientes.entrySet())
         {
+            System.out.println("____________________________________");
             cliente.getValue().exibirDados();
         }
     }
     
+    /**
+     *Exibe todos os funcionarios cadastrados
+     */
     public void listarFuncionarios()
     {
         for(Map.Entry<String, Funcionario> funcionario : funcionarios.entrySet())
         {
+            System.out.println("____________________________________");
             funcionario.getValue().exibirDados();
         }
     }
     
+    /**
+     *Exibe todos os fornecedores cadastrados
+     */
     public void listarFornecedores()
     {
         for(Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet())
         {
+            System.out.println("____________________________________");
             fornecedor.getValue().exibirDados();
         }
     }

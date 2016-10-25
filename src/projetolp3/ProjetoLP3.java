@@ -30,7 +30,7 @@ public class ProjetoLP3 extends Application {
         
         do
         {
-            controlador.exibirMenu(0);
+            controlador.exibirMenu();
             opcao = entrada.nextInt();
             
             switch(opcao){
@@ -105,6 +105,18 @@ public class ProjetoLP3 extends Application {
                     
                 case 18:
                     controlador.listarItens();
+                    break;
+                    
+                case 19:
+                    controlador.listarClientes();
+                    break;
+                    
+                case 20:
+                    controlador.listarFuncionarios();
+                    break;
+                    
+                case 21:
+                    controlador.listarFornecedores();
                     break;
             }
         }while (opcao != 0);

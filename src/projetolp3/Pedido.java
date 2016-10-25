@@ -75,6 +75,9 @@ public class Pedido {
             System.out.println("Pedido finalizado");
         else
             System.out.println("Pedido não finalizado");
+        System.out.println("Produtos inclusos no pedido: ");
+        for(Produto produto : produtos)
+            System.out.println(produto.getNome());
     }
     
     /**
