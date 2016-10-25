@@ -327,7 +327,7 @@ public class Controlador
     {
         Scanner entrada = new Scanner(System.in);
         int opcao;
-        Item item2;
+        Item item;
         Produto produto;
         
         System.out.println("Digite o código do produto: ");            
@@ -338,22 +338,27 @@ public class Controlador
             System.out.println("Código já cadastrado");                        
             return;
         }
+        System.out.println("Digite o nome do produto: ");
+        String nomeProduto = entrada.nextLine();
         listarItens();
-        System.out.println("Digite o código do item que deseja adicionar: ");        
+        System.out.println("Digite o código do item que deseja adicionar: ");
         int codigoItem = entrada.nextInt();
         entrada.nextLine();
-        item2 = procurarItem(codigoItem); 
-        if(item2 == null){
+        if(verificarCodigoItem(codigoItem) == false){
             System.out.println("Código de Item não existente!");
             return;
         }
-        System.out.println("Digite a quantidade necessária de " + item2.getNome() + " para o produto: ");
-        item2.setQuantidade(entrada.nextFloat());
+        item = new Item();
+        item.setCodigo(codigoItem);
+        item.setNome(procurarItem(codigoItem).getNome());
+        item.setValorCompra(procurarItem(codigoItem).getValorCompra());
+        System.out.println("Digite a quantidade necessária de " + item.getNome() + " para o produto: ");
+        item.setQuantidade(entrada.nextFloat());
         entrada.nextLine();
-        produto = new Produto(codigoProduto, item2);
-        produto.adicionarDados();
-        Item item3;
-        float valorProduto = (item2.getValorVenda() * item2.getQuantidade());
+        produto = new Produto(codigoProduto, item);
+        produto.setNome(nomeProduto);
+        Item item2;
+        float valorProduto = (item.getValorVenda() * item.getQuantidade());
         do
         {
             System.out.println("Deseja adicionar mais algum item ao Produto? (1 - Sim 0 - Não)");
@@ -364,16 +369,19 @@ public class Controlador
                 System.out.println("Digite o código do item a ser adicionado:");                
                 int codigoItem2 = entrada.nextInt();
                 entrada.nextLine();
-                item3 = procurarItem(codigoItem2);
-                if(item3 == null){
+                if(verificarCodigoItem(codigoItem2) == false){
                     System.out.println("Código de Item não existente!");
                     return;                        
                 }else{
-                    System.out.println("Digite a quantidade necessária de " + item3.getNome() + " para o produto: ");
-                    item3.setQuantidade(entrada.nextFloat());
+                    item2 = new Item();
+                    item2.setCodigo(codigoItem2);
+                    item2.setNome(procurarItem(codigoItem2).getNome());
+                    item2.setValorCompra(procurarItem(codigoItem2).getValorCompra());
+                    System.out.println("Digite a quantidade necessária de " + item2.getNome() + " para o produto: ");
+                    item2.setQuantidade(entrada.nextFloat());
                     entrada.nextLine();
-                    valorProduto += (item3.getValorVenda() * item3.getQuantidade());
-                    produto.adicionarItens(item3);
+                    valorProduto += (item2.getValorVenda() * item2.getQuantidade());
+                    produto.adicionarItens(item2);
                     System.out.println("Item adicionado!");
                 }
             }                                        
@@ -676,14 +684,14 @@ public class Controlador
         int codigo;
         do
         {
-            System.out.println("É necessário pelo menos um produto no pedido.\nDigite o código de um produto ou 0 para sair: ");
+            System.out.println("Digite o código de um produto ou 0 para sair: ");
             codigo = entrada.nextInt();
             entrada.nextLine();
             if(codigo == 0)
             {
                 if(pedido.getProdutos().isEmpty() == true)
                 {
-                    System.out.print("Não pode sair. ");
+                    System.out.print("Não pode sair. É necessário pelo menos um produto no pedido.");
                     continue;
                 }
                 else
@@ -703,16 +711,23 @@ public class Controlador
                 int qtde = entrada.nextInt();
                 entrada.nextLine();
                 
+                boolean itensSuficientes = true;
+                //verifica se tem itens suficientes no estoque para vender esse produto
                 for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
                 {
                     if((item.getValue().getQuantidade() * qtde) > itens.get(item.getValue().getCodigo()).getQuantidade())
                     {
                         System.out.println("Não há ingredientes suficientes para venda desse produto.");
-                        return;
+                        itensSuficientes = false;
+                        break;
                     }
                 }
-                System.out.println("Produto adicionado ao pedido.");
-                pedido.adicionarProduto(produto);
+                if(itensSuficientes == true)
+                {
+                    System.out.println("Produto adicionado ao pedido.");
+                    for(int i=0;i<qtde;i++)
+                        pedido.adicionarProduto(produto);
+                }
             }
         }while (true);
         
@@ -723,7 +738,7 @@ public class Controlador
         {
             for(Map.Entry<Integer, Item> item : produto.getValue().getItens().entrySet())
             {
-                itens.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade() * (-1));
+                itens.get(item.getValue().getCodigo()).atualizarQuantidade((item.getValue().getQuantidade() /** XXXXXXXX*/) * (-1));
             }
         }
         pedidos.put(pedido.getNumero(), pedido);
