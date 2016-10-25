@@ -46,7 +46,7 @@ public class Controlador
         it.setCodigo(1);
         it.setNome("aaa");
         it.setDescricao("aaa");
-        it.setQuantidade(15);
+        it.setQuantidade(200);
         it.setValorCompra(2);
         itens.put(it.getCodigo(), it);
         
@@ -54,7 +54,7 @@ public class Controlador
         it2.setCodigo(2);
         it2.setNome("bbb");
         it2.setDescricao("bbb");
-        it2.setQuantidade(20);
+        it2.setQuantidade(100);
         it2.setValorCompra(5);
         itens.put(it2.getCodigo(), it2);
         
