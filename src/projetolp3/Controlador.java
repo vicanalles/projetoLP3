@@ -19,58 +19,7 @@ public class Controlador
     
     public Controlador()
     {
-        Cliente c = new Cliente();
-        c.setCpf("1");
-        c.setNome("a");
-        c.setBairro("a");
-        c.setCep("1");
-        c.setCidade("a");
-        c.setComplemento("a");  
-        clientes.put(c.getCpf(), c);
         
-        Funcionario f = new Funcionario();
-        f.setCpf("2");
-        f.setNome("b");
-        f.setCidade("b");
-        funcionarios.put(f.getCpf(), f);
-        
-        Fornecedor fd = new Fornecedor();
-        fd.setCnpj("3");
-        fd.setNome("c");
-        fd.setNomeFantasia("cc");
-        fornecedores.put(fd.getCnpj(), fd);
-        
-        Item it = new Item();
-        it.setCodigo(1);
-        it.setNome("aaa");
-        it.setDescricao("aaa");
-        it.setQuantidade(200);
-        it.setValorCompra(2);
-        itens.put(it.getCodigo(), it);
-        
-        Item it2 = new Item();
-        it2.setCodigo(2);
-        it2.setNome("bbb");
-        it2.setDescricao("bbb");
-        it2.setQuantidade(100);
-        it2.setValorCompra(5);
-        itens.put(it2.getCodigo(), it2);
-        
-        Item it3 = new Item();
-        it3.setCodigo(3);
-        it3.setNome("ccc");
-        it3.setDescricao("ccc");
-        it3.setQuantidade(50);
-        it3.setValorCompra(9);
-        itens.put(it3.getCodigo(), it3);
-        
-        Produto p = new Produto(1,it);
-        p.setNome("aa");
-        produtos.put(p.getCodigo(), p);
-        
-        Produto p2 = new Produto(2, it2);
-        p2.setNome("bb");
-        produtos.put(p2.getCodigo(), p2);
     }
     
     /**
@@ -247,7 +196,8 @@ public class Controlador
                 item.setValorCompra(entrada.nextFloat());    
                 entrada.nextLine();
                 
-                System.out.println("Deseja adicionar " + item.getQuantidade() + "x " + item.getNome() + " à compra?\n1 - Sim / 2 - Não");
+                System.out.println("Deseja adicionar " + item.getQuantidade() + "x " 
+                        + item.getNome() + " à compra?\n1 - Sim / 2 - Não");
                 if(entrada.nextInt() == 1)
                 {
                     valorTotal += item.getQuantidade() * item.getValorCompra();
@@ -264,14 +214,16 @@ public class Controlador
                 System.out.println("Item não cadastrado.");
             }
             
-            System.out.println("Deseja continuar adicionando itens à compra?\n1 - Sim / 2 - Não");
+            System.out.println("Deseja continuar adicionando itens à compra?\n"
+                    + "1 - Sim / 2 - Não");
             if(entrada.nextInt() == 2)
                 continuarCadastrando = false;
             
             entrada.nextLine();
             
         }while(continuarCadastrando == true);        
-        compra = new Compra(numeroNota, valorTotal, funcionario, fornecedor, novosItensCompra, itens);
+        compra = new Compra(numeroNota, valorTotal, funcionario, fornecedor, 
+                novosItensCompra, itens);
         
     }
     public void cadastrarItem()
