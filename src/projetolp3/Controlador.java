@@ -721,15 +721,14 @@ public class Controlador
         
         for(Map.Entry<Integer, Produto> produto : pedido.getProdutos().entrySet())  
         {
-            for(Map.Entry<Integer, Item> item : produto.getValue().getItens())
+            for(Map.Entry<Integer, Item> item : produto.getValue().getItens().entrySet())
             {
-                
+                itens.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade() * (-1));
             }
         }
         pedidos.put(pedido.getNumero(), pedido);
         System.out.println("Pedido criado com sucesso");
     }
-    
     
     public void listarPedidos()
     {
