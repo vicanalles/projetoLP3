@@ -1,8 +1,6 @@
 
 package projetolp3;
 
-
-import java.awt.RenderingHints;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -74,6 +72,11 @@ public class Controlador
         p2.setNome("bb");
         produtos.put(p2.getCodigo(), p2);
     }
+    
+    /**
+     *Exibe o menu de opções
+     * @param numeroMenu o numero do menu a ser exibido
+     */
     public void exibirMenu(int numeroMenu)
     {
         switch(numeroMenu)
@@ -107,6 +110,9 @@ public class Controlador
         
     }
     
+    /**
+     *Cadastra um novo cliente
+     */
     public void cadastrarCliente()
     {
         Cliente cliente = new Cliente();
@@ -733,15 +739,6 @@ public class Controlador
         
         System.out.println("Digite a forma de pagamento: ");
         pedido.setPagamento(entrada.nextLine());
-        /*
-        for(Map.Entry<Integer, Produto> produto : pedido.getProdutos().entrySet())  
-        {
-            for(Map.Entry<Integer, Item> item : produto.getValue().getItens().entrySet())
-            {
-                itens.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade() * (-1));
-            }
-        }
-        */
         
         for(Produto produto : pedido.getProdutos())
         {

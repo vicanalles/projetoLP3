@@ -22,30 +22,6 @@ public class ProjetoLP3 extends Application {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        //inicio de testes
-        
-        /*Log[] logs = new Log[4];
-        //instancia um log de cada tipo
-        for(int i=0;i<4;i++)
-        {
-            System.out.println("Criando log " + i);
-            logs[i] = new Log(i);
-            
-            for(int j=0;j<6;j++)
-            {
-                logs[i].adicionarCheckPoint();
-                Thread.sleep(2000); 
-            }
-        }
-        //exibe os dados desse log
-        for(int i=0;i<4;i++)
-        {
-            System.out.println("Log " + i);
-            logs[i].exibirDados();
-        }*/        
-                
-        
-        //fim de testes                
         
         Scanner entrada = new Scanner(System.in);
         int opcao;

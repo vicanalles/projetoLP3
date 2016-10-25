@@ -11,14 +11,25 @@ public class Cliente extends Pessoa {
         
     }
         
+    /**
+     * Retorna o numero de filhos que o cliente possui
+     * @return Numero de filhos do cliente
+     */
     public int getNumeroFilhos() {
         return numeroFilhos;
     }
 
+    /**
+     * Altera o numero de filhos que o cliente possui
+     * @param numeroFilhos Numero de filhos do cliente
+     */
     public void setNumeroFilhos(int numeroFilhos) {
         this.numeroFilhos = numeroFilhos;
     }   
     
+    /**
+     *Exibe todos os dados do cliente
+     */
     public void exibirDados()
     {
         System.out.println("Dados do cliente:");
@@ -38,6 +49,9 @@ public class Cliente extends Pessoa {
         System.out.println("Complemento: " + this.getComplemento());
     }
     
+    /**
+     *Adiciona os dados do cliente
+     */
     public void adicionarDados()
     {
         Scanner entrada = new Scanner(System.in);
@@ -51,7 +65,7 @@ public class Cliente extends Pessoa {
         
         boolean funcionou;
         funcionou = false;
-        while(funcionou == false)
+        while(funcionou == false)//fica no loop enquanto a data recebida não estiver no formato especificado
         {
             String data = entrada.nextLine();
             try
