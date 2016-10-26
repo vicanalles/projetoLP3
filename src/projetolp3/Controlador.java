@@ -645,14 +645,23 @@ public class Controlador
         
         System.out.println("Lista de produtos: ");
         listarProdutos();
-        int codigo;
+        
+        
         do
         {
-            System.out.println("Digite o código de um produto ou 0 para sair: ");
-            codigo = entrada.nextInt();
-            entrada.nextLine();
-            if(codigo == 0)
+            System.out.println("Que produto deseja adicionar à compra?");
+            System.out.println("1 - Adicionar produto já cadastrado\n2 - Adicionar produto ainda não cadastrado\n3 - Finalizar Pedido");
             {
+                int opcao = entrada.nextInt();
+                entrada.nextLine();
+
+                if(opcao == 2)
+                {
+                    System.out.println("Cadastre o produto e depois efetue a venda do mesmo.");
+                    cadastrarProduto();
+                }
+                if(opcao == 3)
+                {
                 if(pedido.getProdutos().isEmpty() == true)
                 {
                     System.out.print("Não pode sair. É necessário pelo menos um produto no pedido.");
@@ -662,7 +671,12 @@ public class Controlador
                 {
                     break;
                 }    
+                }
             }
+            listarProdutos();
+            System.out.println("Digite o codigo do produto: ");
+            int codigo = entrada.nextInt();
+            entrada.nextLine();
             
             Produto produto = procurarProduto(codigo);
             if(produto == null)

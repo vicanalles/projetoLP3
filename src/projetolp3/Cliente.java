@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Cliente extends Pessoa {
     
-    private int numeroFilhos;
+    private String produtoFavorito;
     
     public Cliente()
     {
@@ -12,19 +12,19 @@ public class Cliente extends Pessoa {
     }
         
     /**
-     * Retorna o numero de filhos que o cliente possui
-     * @return Numero de filhos do cliente
+     * Retorna o produto favorito do cliente
+     * @return produto favorito do cliente
      */
-    public int getNumeroFilhos() {
-        return numeroFilhos;
+    public String getProdutoFavorito() {
+        return produtoFavorito;
     }
 
     /**
-     * Altera o numero de filhos que o cliente possui
-     * @param numeroFilhos Numero de filhos do cliente
+     * Altera o produto favorito  do cliente 
+     * @param produtoFavorito Nome do produto favorito do cliente
      */
-    public void setNumeroFilhos(int numeroFilhos) {
-        this.numeroFilhos = numeroFilhos;
+    public void setProdutoFavorito(String produtoFavorito) {
+        this.produtoFavorito = produtoFavorito;
     }   
     
     /**
@@ -36,7 +36,7 @@ public class Cliente extends Pessoa {
         System.out.println("Nome: " + this.getNome());
         System.out.println("CPF: " + this.getCpf());
         System.out.println("Sexo: " + this.getSexo());
-        System.out.println("Numero de filhos: " + this.getNumeroFilhos());
+        System.out.println("Produto Favorito: " + this.getProdutoFavorito());
         System.out.println("Data de Nascimento: " + this.getDataNasc());
         System.out.println("Email: " + this.getEmail());
         System.out.println("Telefone: " + this.getTelefone());
@@ -99,8 +99,8 @@ public class Cliente extends Pessoa {
         this.setComplemento(entrada.nextLine());
         System.out.println("Digite o Estado:");
         this.setEstado(entrada.nextLine());
-        System.out.println("Digite o numero de filhos:");
-        this.setNumeroFilhos(entrada.nextInt());
-        entrada.nextLine();
+        System.out.println("Digite o produto favorito:");
+        this.setProdutoFavorito(entrada.nextLine());
+       
     }
 }
