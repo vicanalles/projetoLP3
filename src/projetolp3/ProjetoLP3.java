@@ -21,7 +21,7 @@ public class ProjetoLP3 extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         
         Scanner entrada = new Scanner(System.in);
         int opcao;

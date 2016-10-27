@@ -81,7 +81,8 @@ public class Pedido {
     }
     
     /**
-     * Adiciona um produto à lista de produtos do pedido e atualiza o valor conforme novos produtos são adicionados
+     * Adiciona um produto à lista de produtos do pedido e atualiza o valor 
+     * conforme novos produtos são adicionados
      * @param produto O produto a ser adicionado
      */
     public void adicionarProduto(Produto produto)

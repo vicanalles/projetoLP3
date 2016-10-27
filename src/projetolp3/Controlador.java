@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Controlador 
+public class Controlador
 {    
     Item i;
     Produto p;
@@ -17,9 +17,67 @@ public class Controlador
     HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
     HashMap<String, Compra> compras = new HashMap<String, Compra>(); 
     
-    public Controlador()
+    public Controlador() throws Exception
     {
+        Cliente c = new Cliente();
+        c.setBairro("Cidade Jardim");
+        c.setCep("13566999");
+        c.setCidade("São Carlos");
+        c.setComplemento("Ap 157");
+        c.setCpf("1");
+        c.setDataNasc(DataHora.converterData("18/04/1995"));
+        c.setEmail("email@email.com");
+        c.setEstado("São Paulo");
+        c.setNome("Vinicius");
+        c.setNumero(300);
+        c.setProdutoFavorito("X Bacon");
+        c.setRua("Avenida São Carlos");
+        c.setSexo("M");
+        c.setTelefone("33667788");
+        clientes.put(c.getCpf(), c);
         
+        Funcionario f = new Funcionario();
+        f.setBairro("Santa Felicia");
+        f.setCep("13567987");
+        f.setCidade("São Carlos");
+        f.setComplemento("Casa 2A");
+        f.setCpf("2");
+        f.setDataNasc(DataHora.converterData("09/08/1980"));
+        f.setEmail("email2@email.com");
+        f.setEstado("São Paulo");
+        f.setFuncao("Vendedor");
+        f.setNome("Gabriel Rosales");
+        f.setNumero(789);
+        f.setRua("Rua das Antas");
+        f.setSalario(450.00f);
+        f.setSexo("M");
+        f.setTelefone("33696465");
+        funcionarios.put(f.getCpf(), f);
+        
+        Fornecedor fo = new Fornecedor();
+        fo.setBairro("Capivaras Anonimas");
+        fo.setCep("13444777");
+        fo.setCidade("Ibaté");
+        fo.setCnpj("3");
+        fo.setComplemento("KM 257");
+        fo.setEstado("Acre");
+        fo.setNome("Hebert Santos");
+        fo.setNomeFantasia("Heberty Vyana");
+        fo.setNumero(124);
+        fo.setRua("Rua das Capivaras");
+        fornecedores.put(fo.getCnpj(), fo);
+        
+        Item i1 = new Item();
+        i1.setCodigo(1);
+        i1.setDescricao("Batata");
+        i1.setNome("Batata");
+        itens.put(i1.getCodigo(), i1);
+        
+        Item i2 = new Item();
+        i2.setCodigo(2);
+        i2.setDescricao("Pão");
+        i2.setNome("Pão");
+        itens.put(i2.getCodigo(), i2);
     }
     
     /**
