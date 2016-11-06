@@ -1,4 +1,4 @@
-package projetolp3;
+package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

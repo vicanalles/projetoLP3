@@ -1,5 +1,4 @@
-package projetolp3;
-import java.util.Scanner;
+package Model;
 
 public class Fornecedor {
     
@@ -97,44 +96,5 @@ public class Fornecedor {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-    
-    public void adicionarDados()
-    {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite o nome");
-        this.setNome(entrada.nextLine());
-        System.out.println("Digite o nome fantasia: ");
-        this.setNomeFantasia(entrada.nextLine());
-        System.out.println("Digite o CEP: ");
-        this.setCep(entrada.nextLine());
-        System.out.println("Digite o nome da Rua: ");
-        this.setRua(entrada.nextLine());
-        System.out.println("Digite o numero: ");
-        this.setNumero(entrada.nextInt());
-        System.out.println("Digite o bairro: ");
-        entrada.nextLine();
-        this.setBairro(entrada.nextLine());
-        System.out.println("Digite o nome da cidade: ");
-        this.setCidade(entrada.nextLine());
-        System.out.println("Digite o estado: ");
-        this.setEstado(entrada.nextLine());
-        System.out.println("Digite o complemento: ");
-        this.setComplemento(entrada.nextLine());
-    }
-    
-    public void exibirDados()
-    {
-        System.out.println("Dados do fornecedor: ");
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("CNPJ: " + this.getCnpj());
-        System.out.println("Nome fantasia: " + this.getNomeFantasia());
-        System.out.println("CEP: " + this.getCep());
-        System.out.print("Rua: " + this.getRua());
-        System.out.println("\tNº: " + this.getNumero());
-        System.out.println("Bairro: " + this.getBairro());
-        System.out.print("Cidade: " + this.getCidade());
-        System.out.println("\tEstado: " + this.getEstado());
-        System.out.println("Complemento: " + this.getComplemento());
     }
 }

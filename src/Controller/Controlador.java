@@ -1,6 +1,17 @@
 
-package projetolp3;
+package Controller;
 
+import Model.Cliente;
+import Model.Compra;
+import Model.DataHora;
+import Model.Fornecedor;
+import Model.Funcionario;
+import Model.Item;
+import Model.Log;
+import Model.Pedido;
+import Model.Pessoa;
+import Model.Produto;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -133,10 +144,54 @@ public class Controlador
             else
             {
                 funcionou = true;
-            }
-                
+            }  
         }
-        cliente.adicionarDados(); 
+        
+        System.out.println("Digite o nome do cliente:");
+        cliente.setNome(entrada.nextLine());
+        System.out.println("Digite o sexo M/F:");
+        cliente.setSexo(entrada.nextLine());
+        System.out.println("Digite a data de nascimento no formato dd/MM/yyyy:");
+        Date dataConvertida = new Date();
+        
+        funcionou = false;
+        while(funcionou == false)//fica no loop enquanto a data recebida não estiver no formato especificado
+        {
+            String data = entrada.nextLine();
+            try
+            {
+                dataConvertida = DataHora.converterData(data);
+                funcionou = true;
+            }
+            catch(Exception e)
+            {
+                System.out.println("Data invalida! Digite a data Novamente:");
+
+            }
+        }
+        cliente.setDataNasc(dataConvertida);
+        System.out.println("Digite o e-mail:");
+        cliente.setEmail(entrada.nextLine());
+        System.out.println("Digite telefone");
+        cliente.setTelefone(entrada.nextLine());
+        System.out.println("Digite o cep:");
+        cliente.setCep(entrada.nextLine());
+        System.out.println("Digite Rua:");
+        cliente.setRua(entrada.nextLine());
+        System.out.println("Digite o numero:");
+        cliente.setNumero(entrada.nextInt());
+        entrada.nextLine();
+        System.out.println("Digite o bairro:");
+        cliente.setBairro(entrada.nextLine());
+        System.out.println("Digite a cidade:");
+        cliente.setCidade(entrada.nextLine());
+        System.out.println("Digite o complemento:");
+        cliente.setComplemento(entrada.nextLine());
+        System.out.println("Digite o Estado:");
+        cliente.setEstado(entrada.nextLine());
+        System.out.println("Digite o produto favorito:");
+        cliente.setProdutoFavorito(entrada.nextLine());
+        
         clientes.put(cliente.getCpf(), cliente);
     }
     
@@ -159,7 +214,54 @@ public class Controlador
                 funcionou = true;
         }
         
-        funcionario.adicionarDados();
+        System.out.println("Digite o nome do funcionário: ");
+        funcionario.setNome(entrada.nextLine());
+        System.out.println("Digite a função: ");
+        funcionario.setFuncao(entrada.nextLine());
+        System.out.println("Digite o salário: ");
+        funcionario.setSalario(entrada.nextFloat());
+        entrada.nextLine();
+        System.out.println("Digite o sexo M/F:");
+        funcionario.setSexo(entrada.nextLine());
+        System.out.println("Digite a data de nascimento no formato dd/MM/yyyy:");
+        Date dataConvertida = new Date();
+        
+        funcionou = false;
+        while(funcionou == false)
+        {
+            String data = entrada.nextLine();
+            try
+            {
+                dataConvertida = DataHora.converterData(data);
+                funcionou = true;
+            }
+            catch(Exception e)
+            {
+                System.out.println("Data invalida! Digite a data Novamente:");
+
+            }
+        }
+        funcionario.setDataNasc(dataConvertida);
+        System.out.println("Digite o e-mail:");
+        funcionario.setEmail(entrada.nextLine());
+        System.out.println("Digite telefone");
+        funcionario.setTelefone(entrada.nextLine());
+        System.out.println("Digite o cep:");
+        funcionario.setCep(entrada.nextLine());
+        System.out.println("Digite Rua:");
+        funcionario.setRua(entrada.nextLine());
+        System.out.println("Digite o numero:");
+        funcionario.setNumero(entrada.nextInt());
+        System.out.println("Digite o bairro:");
+        entrada.nextLine();
+        funcionario.setBairro(entrada.nextLine());
+        System.out.println("Digite a cidade:");
+        funcionario.setCidade(entrada.nextLine());
+        System.out.println("Digite o complemento:");
+        funcionario.setComplemento(entrada.nextLine());
+        System.out.println("Digite o Estado:");
+        funcionario.setEstado(entrada.nextLine());
+        
         funcionarios.put(funcionario.getCpf(), funcionario);
     }
     
@@ -180,7 +282,27 @@ public class Controlador
             else
                 funcionou = true;
         }
-        fornecedor.adicionarDados();
+        
+        System.out.println("Digite o nome");
+        fornecedor.setNome(entrada.nextLine());
+        System.out.println("Digite o nome fantasia: ");
+        fornecedor.setNomeFantasia(entrada.nextLine());
+        System.out.println("Digite o CEP: ");
+        fornecedor.setCep(entrada.nextLine());
+        System.out.println("Digite o nome da Rua: ");
+        fornecedor.setRua(entrada.nextLine());
+        System.out.println("Digite o numero: ");
+        fornecedor.setNumero(entrada.nextInt());
+        System.out.println("Digite o bairro: ");
+        entrada.nextLine();
+        fornecedor.setBairro(entrada.nextLine());
+        System.out.println("Digite o nome da cidade: ");
+        fornecedor.setCidade(entrada.nextLine());
+        System.out.println("Digite o estado: ");
+        fornecedor.setEstado(entrada.nextLine());
+        System.out.println("Digite o complemento: ");
+        fornecedor.setComplemento(entrada.nextLine());
+        
         fornecedores.put(fornecedor.getCnpj(), fornecedor);
     }
     
@@ -305,7 +427,12 @@ public class Controlador
             else
                 funcionou = true;
         }        
-        item.adicionarDados();
+        
+        System.out.println("Digite o nome do item: ");
+        item.setNome(entrada.nextLine());
+        System.out.println("Digite a descrição: ");
+        item.setDescricao(entrada.nextLine());
+        
         itens.put(item.getCodigo(), item);
         System.out.println("Item cadastrado com sucesso!");
     }
@@ -322,7 +449,11 @@ public class Controlador
 
         if(verificarCodigoItem(codigoItem) == true)
         {            
-            item.editarDados();
+            System.out.println("Digite o nome do item: ");
+            item.setNome(entrada.nextLine());
+            System.out.println("Digite a descrição do item: ");
+            item.setDescricao(entrada.nextLine());
+            
             itens.replace(item.getCodigo(), item);
         }
         else
@@ -438,7 +569,10 @@ public class Controlador
                 produto.adicionarItens(item2);
             }
         }
-        produto.editarDados();
+        
+        System.out.println("Digite o nome do Produto: ");
+        produto.setNome(entrada.nextLine());
+        
         produtos.replace(produto.getCodigo(), produto);
     }
     
@@ -478,7 +612,7 @@ public class Controlador
         for(Map.Entry<String, Cliente> cliente : clientes.entrySet())
         {
             System.out.println("____________________________________");
-            cliente.getValue().exibirDados();
+            exibirDadosCliente(cliente.getValue());
         }
     }
     
@@ -490,7 +624,7 @@ public class Controlador
         for(Map.Entry<String, Funcionario> funcionario : funcionarios.entrySet())
         {
             System.out.println("____________________________________");
-            funcionario.getValue().exibirDados();
+            exibirDadosFuncionario(funcionario.getValue());
         }
     }
     
@@ -502,7 +636,7 @@ public class Controlador
         for(Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet())
         {
             System.out.println("____________________________________");
-            fornecedor.getValue().exibirDados();
+            exibirDadosFornecedor(fornecedor.getValue());
         }
     }
     
@@ -510,14 +644,14 @@ public class Controlador
     {
         for(Map.Entry<Integer, Item> item : itens.entrySet())
         {
-            item.getValue().exibirDados();
+            exibirDadosItem(item.getValue());
         }
     }
     
     public void listarProdutos(){
         for(Map.Entry<Integer, Produto> produto : produtos.entrySet())
         {
-            produto.getValue().exibirDados();
+            exibirDadosProduto(produto.getValue());
         }        
     }
     
@@ -787,7 +921,7 @@ public class Controlador
         for(Map.Entry<Integer, Pedido> pedido : pedidos.entrySet())
         {
             System.out.println("____________________________________________");
-            pedido.getValue().exibirDados();
+            exibirDadosPedido(pedido.getValue());
         }
     }
     
@@ -807,6 +941,9 @@ public class Controlador
         }
     }
     
+    /**
+     *Adiciona o próximo CheckPoint ao pedido
+     */
     public void adicionarChekpoint()
     {
         Scanner entrada = new Scanner(System.in);
@@ -815,12 +952,140 @@ public class Controlador
         entrada.nextLine();
         Pedido pedido = pedidos.get(numeroPedido);
         if(pedido != null)
-        {
-            pedido.adicionarCheckpoint();
+        {    
+            int posicaoHoraLog = pedido.adicionarCheckpoint();
+            if(posicaoHoraLog == -1)
+            {
+                System.out.println("O pedido já está finalizado");
+            }
+            else
+            {
+                System.out.println(new Log(pedido.getNumero()).getFRASES()[posicaoHoraLog] + " Adicionada.");
+            }
         }
         else
-        {
             System.out.println("Pedido não encontrado.");
+        
+    }
+    
+    /**
+     *Exibe todos os dados do cliente
+     * @param cliente O cliente do qual os dados serão exibidos
+     */
+    public void exibirDadosCliente(Cliente cliente)
+    {
+        System.out.println("Dados do cliente:");
+        System.out.println("Nome: " + cliente.getNome());
+        System.out.println("CPF: " + cliente.getCpf());
+        System.out.println("Sexo: " + cliente.getSexo());
+        System.out.println("Produto Favorito: " + cliente.getProdutoFavorito());
+        System.out.println("Data de Nascimento: " + cliente.getDataNasc());
+        System.out.println("Email: " + cliente.getEmail());
+        System.out.println("Telefone: " + cliente.getTelefone());
+        System.out.println("CEP: " + cliente.getCep());
+        System.out.print("Rua: " + cliente.getRua());
+        System.out.println("\tNº: " + cliente.getNumero());
+        System.out.println("Bairro: " + cliente.getBairro());
+        System.out.println("Cidade: " + cliente.getCidade());
+        System.out.println("Estado: " + cliente.getEstado());
+        System.out.println("Complemento: " + cliente.getComplemento());
+    }
+    
+    /**
+     *Exibe os dados do Fornecedor
+     * @param fornecedor O fornecedor do qual os dados serão exibidos
+     */
+    public void exibirDadosFornecedor(Fornecedor fornecedor)
+    {
+        System.out.println("Dados do fornecedor: ");
+        System.out.println("Nome: " + fornecedor.getNome());
+        System.out.println("CNPJ: " + fornecedor.getCnpj());
+        System.out.println("Nome fantasia: " + fornecedor.getNomeFantasia());
+        System.out.println("CEP: " + fornecedor.getCep());
+        System.out.print("Rua: " + fornecedor.getRua());
+        System.out.println("\tNº: " + fornecedor.getNumero());
+        System.out.println("Bairro: " + fornecedor.getBairro());
+        System.out.print("Cidade: " + fornecedor.getCidade());
+        System.out.println("\tEstado: " + fornecedor.getEstado());
+        System.out.println("Complemento: " + fornecedor.getComplemento());
+    }
+    
+    /**
+     *Exibe os dados do funcionário
+     * @param funcionario O funcionário do qual os dados serão exibidos
+     */
+    public void exibirDadosFuncionario(Funcionario funcionario)
+    {
+        System.out.println("Dados do funcionário:");
+        System.out.println("Nome: " + funcionario.getNome());
+        System.out.println("Função: " + funcionario.getFuncao());
+        System.out.println("Salário: " + funcionario.getSalario());
+        System.out.println("CPF: " + funcionario.getCpf());
+        System.out.println("Sexo: " + funcionario.getSexo());
+        System.out.println("Data de Nascimento: " + funcionario.getDataNasc());
+        System.out.println("Email: " + funcionario.getEmail());
+        System.out.println("Telefone: " + funcionario.getTelefone());
+        System.out.println("CEP: " + funcionario.getCep());
+        System.out.print("Rua: " + funcionario.getRua());
+        System.out.println("\tNº: " + funcionario.getNumero());
+        System.out.println("Bairro: " + funcionario.getBairro());
+        System.out.println("Cidade: " + funcionario.getCidade());
+        System.out.println("Estado: " + funcionario.getEstado());
+        System.out.println("Complemento: " + funcionario.getComplemento());
+    }
+    
+    /**
+     *Exibe os dados do item
+     * @param item O item do qual os dados serão exibidos
+     */
+    public void exibirDadosItem(Item item)
+    {
+        System.out.println("\nCódigo: " + item.getCodigo());
+        System.out.println("Nome: " + item.getNome());
+        System.out.println("Descrição: " + item.getDescricao());
+        System.out.println("Quantidade em estoque: " + item.getQuantidade());
+        System.out.println("Valor do Item: " + item.getValorCompra()); 
+    }
+    
+    /**
+     *  Exibe os dados do pedido
+     * @param pedido o Pedido do qual os dados serão exibidos
+     */
+    public void exibirDadosPedido(Pedido pedido)
+    {
+        System.out.println("Pedido Nº: " + pedido.getNumero());
+        System.out.print("Cliente: " + pedido.getCliente().getNome());
+        System.out.println("\tFuncionário: " + pedido.getFuncionario().getNome());
+        System.out.print("Valor do pedido: " + pedido.getValorPedido());
+        System.out.println("\tForma de pagamento: " + pedido.getPagamento());
+        System.out.println("Log de horários: ");
+        for(int i=0;i<6;i++)
+        {
+            if(pedido.getLog().getHorarios()[i] == null)
+                continue;
+            System.out.println(pedido.getLog().getFRASES()[i] + pedido.getLog().getHorarios()[i].toString());
         }
+        if(pedido.getLog().VerificarFinalizacao())
+            System.out.println("Pedido finalizado");
+        else
+            System.out.println("Pedido não finalizado");
+        System.out.println("Produtos inclusos no pedido: ");
+        for(Produto produto : pedido.getProdutos())
+            System.out.println(produto.getNome());
+    }
+    
+    /**
+     *Exibe os dados do produto
+     * @param produto o produto do qual deseja exibir os dados
+     */
+    public void exibirDadosProduto(Produto produto)
+    {
+        System.out.println("Dados do Produto:");
+        System.out.println("Código " + produto.getCodigo());
+        System.out.println("Nome: " + produto.getNome());
+        System.out.println("Valor Produto: " + produto.getValor());    
+        System.out.println("Itens: ");
+        for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
+            System.out.println(item.getValue().getQuantidade() + " x " + item.getValue().getNome());
     }
 }

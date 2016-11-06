@@ -1,7 +1,6 @@
-package projetolp3;
+package Model;
 
 import java.util.Date;
-import java.util.Scanner;
 
 public class Log {
     
@@ -16,7 +15,7 @@ public class Log {
         "Hora de retorno do entregador: ",
         "Hora de finalização do pedido: "
     };
-    Date horarios[];
+    private Date horarios[];
     int tipoPedido;
     /*
     private Date horaAberturaPedido;
@@ -39,6 +38,21 @@ public class Log {
         this.tipoPedido = tipoPedido;
         horarios = new Date[6];
         horarios[0] = DataHora.getDate();
+    }
+    
+    public Date[] getHorarios()
+    {
+        return horarios;
+    }
+
+    public void setHorarios(Date[] horarios)
+    {
+        this.horarios = horarios;
+    }
+    
+    public String[] getFRASES()
+    {
+        return FRASES;
     }
 /*
     public Date getHoraAberturaPedido() {
@@ -96,26 +110,17 @@ public class Log {
         horarios[5] = horaFinalizacaoPedido;
     }  
     */
-    /**
-     *Exibe os horários contidos no Log
-     */
-    public void exibirDados()
-    {
-        for(int i=0;i<6;i++)
-        {
-            if(horarios[i] == null)
-                continue;
-            System.out.println(FRASES[i] + horarios[i].toString());
-        }
-    }
     
     /**
      * Adiciona a data atual do sistema ao log do pedido.
      * A data a ser adicionada é o próximo checkpoint do log.
      * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um.
+     * @return A posição do log que foi adicionada. Pode retornar entre 0 e 5 caso o checkpoint seja adicionado, ou -1 caso o pedido já esteja finalizado.
      */
-    public void adicionarCheckPoint()
+    public int adicionarCheckPoint()
     {
+        if(VerificarFinalizacao() == true)
+            return -1;
         switch(this.tipoPedido)
         {
             case 0:
@@ -124,8 +129,7 @@ public class Log {
                     if(horarios[i]!=null||i==1||i==2||i==3||i==4)
                         continue;
                     horarios[i] = DataHora.getDate();
-                    System.out.println(FRASES[i] + "Adicionada");
-                    return;
+                    return i;
                 }
                 break;
             case 1:
@@ -134,8 +138,7 @@ public class Log {
                     if(horarios[i]!=null||i==3||i==4)
                         continue;
                     horarios[i] = DataHora.getDate();
-                    System.out.println(FRASES[i] + "Adicionada");
-                    return;
+                    return i;
                 }
                 break;
             case 2:
@@ -144,8 +147,7 @@ public class Log {
                     if(horarios[i]!=null||i==1||i==2)
                         continue;
                     horarios[i] = DataHora.getDate();
-                    System.out.println(FRASES[i] + "Adicionada");
-                    return;
+                    return i;
                 }
                 break;
             case 3:
@@ -154,17 +156,16 @@ public class Log {
                     if(horarios[i]!=null)
                         continue;
                     horarios[i] = DataHora.getDate();
-                    System.out.println(FRASES[i] + "Adicionada");
-                    return;
+                    return i;
                 }
                 break;
         }
-        System.out.println("Pedido já finalizado.");
+        return -1;
     }
     
     /**
      * Verifica se o pedido foi finalizado ou não
-     * @return Boolean true se o pedido foi finalizado ou false se ainda não foi finalizado.
+     * @return true se o pedido foi finalizado ou false se ainda não foi finalizado.
      */
     public boolean VerificarFinalizacao()
     {

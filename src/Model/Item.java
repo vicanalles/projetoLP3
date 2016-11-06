@@ -1,5 +1,4 @@
-package projetolp3;
-import java.util.Scanner;
+package Model;
 
 public class Item {
     
@@ -55,33 +54,6 @@ public class Item {
     
     public float getValorVenda(){
         return valorCompra * 1.3f;
-    }
-    
-    public void adicionarDados()
-    {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite o nome do item: ");
-        this.setNome(entrada.nextLine());
-        System.out.println("Digite a descrição: ");
-        this.setDescricao(entrada.nextLine());        
-    }
-    
-    public void editarDados()
-    {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite o nome do item: ");
-        this.setNome(entrada.nextLine());
-        System.out.println("Digite a descrição do item: ");
-        this.setDescricao(entrada.nextLine());
-    }
-    
-    public void exibirDados()
-    {
-        System.out.println("\nCódigo: " + this.getCodigo());
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("Descrição: " + this.getDescricao());
-        System.out.println("Quantidade em estoque: " + this.getQuantidade());
-        System.out.println("Valor do Item: " + this.getValorCompra()); 
     }
     
     public void atualizarQuantidade(float quantidade)

@@ -1,7 +1,8 @@
 //comentário de teste
 
-package projetolp3;
+package Controller;
 
+import Controller.Controlador;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

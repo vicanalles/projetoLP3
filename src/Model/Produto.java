@@ -1,8 +1,6 @@
-package projetolp3;
+package Model;
 
-import java.util.Scanner;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Produto {
     
@@ -49,36 +47,11 @@ public class Produto {
         this.itens = itens;
     }
     
-    public void adicionarDados()
-    {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite o nome do produto: ");
-        this.setNome(entrada.nextLine());
-    }
-    
-    public void editarDados()
-    {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite o nome do Produto: ");
-        this.setNome(entrada.nextLine());
-    }
-    
     public void removerItens(Item item){
         itens.remove(item.getCodigo());
     }
     
     public void adicionarItens(Item item){
         itens.put(item.getCodigo(), item);
-    }
-    
-    public void exibirDados()
-    {
-        System.out.println("Dados do Produto:");
-        System.out.println("Código " + this.getCodigo());
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("Valor Produto: " + this.getValor());    
-        System.out.println("Itens: ");
-        for(Map.Entry<Integer, Item> i : itens.entrySet())
-            System.out.println(i.getValue().getQuantidade() + " x " + i.getValue().getNome());
     }
 }

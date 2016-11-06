@@ -1,7 +1,6 @@
-package projetolp3;
+package Model;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Pedido {
     
@@ -41,6 +40,36 @@ public class Pedido {
         this.pagamento = pagamento;
     }
 
+    public Cliente getCliente()
+    {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente)
+    {
+        this.cliente = cliente;
+    }
+
+    public Funcionario getFuncionario()
+    {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario)
+    {
+        this.funcionario = funcionario;
+    }
+
+    public Log getLog()
+    {
+        return log;
+    }
+
+    public void setLog(Log log)
+    {
+        this.log = log;
+    }
+    
     public float getValorPedido()
     {
         return valorPedido;
@@ -61,24 +90,7 @@ public class Pedido {
         this.produtos = produtos;
     }
     
-    /**
-     *  Exibe os dados do pedido
-     */
-    public void exibirDados()
-    {
-        System.out.println("Pedido Nº: " + numero);
-        System.out.print("Cliente: " + cliente.getNome());
-        System.out.println("\tFuncionário: " + funcionario.getNome());
-        System.out.print("Valor do pedido: " + valorPedido);
-        System.out.println("\tForma de pagamento: " + pagamento);
-        if(log.VerificarFinalizacao())
-            System.out.println("Pedido finalizado");
-        else
-            System.out.println("Pedido não finalizado");
-        System.out.println("Produtos inclusos no pedido: ");
-        for(Produto produto : produtos)
-            System.out.println(produto.getNome());
-    }
+    
     
     /**
      * Adiciona um produto à lista de produtos do pedido e atualiza o valor 
@@ -104,9 +116,10 @@ public class Pedido {
      * Adiciona a data atual do sistema ao log do pedido.
      * A data a ser adicionada é o próximo checkpoint do log.
      * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um.
+     * @return A posição do log que foi adicionada. Pode retornar entre 0 e 5 caso o checkpoint seja adicionado, ou -1 caso o pedido já esteja finalizado.
      */
-    public void adicionarCheckpoint()
+    public int adicionarCheckpoint()
     {
-        log.adicionarCheckPoint();
+        return log.adicionarCheckPoint();
     }
 }
