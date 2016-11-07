@@ -172,7 +172,7 @@ public class Controlador
         cliente.setDataNasc(dataConvertida);
         System.out.println("Digite o e-mail:");
         cliente.setEmail(entrada.nextLine());
-        System.out.println("Digite telefone");
+        System.out.println("Digite telefone:");
         cliente.setTelefone(entrada.nextLine());
         System.out.println("Digite o cep:");
         cliente.setCep(entrada.nextLine());
@@ -193,6 +193,7 @@ public class Controlador
         cliente.setProdutoFavorito(entrada.nextLine());
         
         clientes.put(cliente.getCpf(), cliente);
+        System.out.println("Cliente cadastrado com sucesso!");
     }
     
     public void cadastrarFuncionario()
@@ -263,6 +264,7 @@ public class Controlador
         funcionario.setEstado(entrada.nextLine());
         
         funcionarios.put(funcionario.getCpf(), funcionario);
+        System.out.println("Funcionário cadastrado com sucesso!");
     }
     
     public void cadastrarFornecedor()
@@ -283,7 +285,7 @@ public class Controlador
                 funcionou = true;
         }
         
-        System.out.println("Digite o nome");
+        System.out.println("Digite o nome: ");
         fornecedor.setNome(entrada.nextLine());
         System.out.println("Digite o nome fantasia: ");
         fornecedor.setNomeFantasia(entrada.nextLine());
@@ -304,6 +306,7 @@ public class Controlador
         fornecedor.setComplemento(entrada.nextLine());
         
         fornecedores.put(fornecedor.getCnpj(), fornecedor);
+        System.out.println("Fornecedor cadastrado com sucesso!");
     }
     
     public void cadastrarCompra()
@@ -427,7 +430,7 @@ public class Controlador
             else
                 funcionou = true;
         }        
-        
+        entrada.nextLine();
         System.out.println("Digite o nome do item: ");
         item.setNome(entrada.nextLine());
         System.out.println("Digite a descrição: ");
