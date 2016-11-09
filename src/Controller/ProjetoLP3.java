@@ -14,7 +14,7 @@ public class ProjetoLP3 extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -23,7 +23,7 @@ public class ProjetoLP3 extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        
+        launch(args);
         Scanner entrada = new Scanner(System.in);
         int opcao;
         
