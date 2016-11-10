@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Compra {
     
-    private String notaFiscal;
+    private long notaFiscal;
     private float valorTotal;
     private Date data;
     private Funcionario funcionario;
@@ -22,7 +22,7 @@ public class Compra {
      * @param novosItensCompra uma HashMap contendo os itens obtidos nessa compra
      * @param itensControlador a HashMap de itens cujas quantidades serão atualizadas conforme os itens dessa compra. Geralmente é a HashMap que representa o estoque.
      */
-    public Compra(String notaFiscal, float valorTotal, Funcionario funcionario, Fornecedor fornecedor, HashMap<Integer, Item> novosItensCompra, HashMap<Integer, Item> itensControlador)
+    public Compra(long notaFiscal, float valorTotal, Funcionario funcionario, Fornecedor fornecedor, HashMap<Integer, Item> novosItensCompra, HashMap<Integer, Item> itensControlador)
     {
         this.notaFiscal = notaFiscal;
         this.valorTotal = valorTotal;
@@ -43,7 +43,7 @@ public class Compra {
      *Retorna a data da compra
      * @return o numero da nota fiscal
      */
-    public String getNotaFiscal() {
+    public long getNotaFiscal() {
         return notaFiscal;
     }
 
@@ -51,7 +51,7 @@ public class Compra {
      *Altera o numero da nota fiscal
      * @param notaFiscal o numero da nota fiscal
      */
-    public void setNotaFiscal(String notaFiscal) {
+    public void setNotaFiscal(long notaFiscal) {
         this.notaFiscal = notaFiscal;
     }
 

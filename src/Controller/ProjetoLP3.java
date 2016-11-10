@@ -23,7 +23,6 @@ public class ProjetoLP3 extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        launch(args);
         Scanner entrada = new Scanner(System.in);
         int opcao;
         
