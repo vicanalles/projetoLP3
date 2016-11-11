@@ -9,8 +9,7 @@ public class Pedido {
     private Cliente cliente;
     private Funcionario funcionario;
     private float valorPedido;
-    private Log log;    
-    //private HashMap<Integer, Produto> produtos;
+    private Log log;
     private ArrayList<Produto> produtos;
     
     public Pedido(int numero, int tipoPedido, Cliente cliente, Funcionario funcionario)
@@ -90,12 +89,11 @@ public class Pedido {
         this.produtos = produtos;
     }
     
-    
-    
     /**
      * Adiciona um produto à lista de produtos do pedido e atualiza o valor 
      * conforme novos produtos são adicionados
      * @param produto O produto a ser adicionado
+     * @param quantidade A quantidade do produto que compõe o pedido
      */
     public void adicionarProduto(Produto produto)
     {
@@ -122,4 +120,6 @@ public class Pedido {
     {
         return log.adicionarCheckPoint();
     }
+
+    
 }

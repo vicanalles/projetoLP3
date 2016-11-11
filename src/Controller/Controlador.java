@@ -26,7 +26,7 @@ public class Controlador
     HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
     HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>();
     HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
-    HashMap<String, Compra> compras = new HashMap<String, Compra>(); 
+    HashMap<Long, Compra> compras = new HashMap<Long, Compra>(); 
     
     public Controlador() throws Exception
     {
@@ -336,7 +336,7 @@ public class Controlador
         }
 
         System.out.println("Digite o numero da Nota Fiscal: ");
-        String numeroNota = entrada.nextLine();
+        long numeroNota = entrada.nextLong();
 
         if(verificarNotaFiscal(numeroNota) == true)
         {
@@ -602,7 +602,7 @@ public class Controlador
         return produtos.containsKey(codigoProduto);
     }
     
-    public boolean verificarNotaFiscal (String notaFiscal)
+    public boolean verificarNotaFiscal (long notaFiscal)
     {
         return compras.containsKey(notaFiscal);
     }
@@ -881,14 +881,14 @@ public class Controlador
             else
             {
                 System.out.println("Digite a quantidade do produto:");
-                int qtde = entrada.nextInt();
+                produto.setQuantidade(entrada.nextInt());
                 entrada.nextLine();
                 
                 boolean itensSuficientes = true;
                 //verifica se tem itens suficientes no estoque para vender esse produto
                 for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
                 {
-                    if((item.getValue().getQuantidade() * qtde) > itens.get(item.getValue().getCodigo()).getQuantidade())
+                    if((item.getValue().getQuantidade() * produto.getQuantidade()) > itens.get(item.getValue().getCodigo()).getQuantidade())
                     {
                         System.out.println("Não há ingredientes suficientes para venda desse produto.");
                         itensSuficientes = false;
@@ -897,9 +897,8 @@ public class Controlador
                 }
                 if(itensSuficientes == true)
                 {
+                    pedido.adicionarProduto(produto);
                     System.out.println("Produto adicionado ao pedido.");
-                    for(int i=0;i<qtde;i++)
-                        pedido.adicionarProduto(produto);
                 }
             }
         }while (true);
@@ -1073,8 +1072,12 @@ public class Controlador
         else
             System.out.println("Pedido não finalizado");
         System.out.println("Produtos inclusos no pedido: ");
+        
         for(Produto produto : pedido.getProdutos())
+        {
+            System.out.print(produto.getQuantidade() + "x ");
             System.out.println(produto.getNome());
+        }
     }
     
     /**

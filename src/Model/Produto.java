@@ -7,6 +7,7 @@ public class Produto {
     private int codigo;
     private String nome;
     private float valor;
+    private int quantidade;
     private HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
     
     public Produto(int codigo, Item i)
@@ -38,6 +39,16 @@ public class Produto {
     public void setNome(String nome) {
         this.nome = nome;
     }    
+    
+    public int getQuantidade()
+    {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade)
+    {
+        this.quantidade = quantidade;
+    }
         
     public HashMap<Integer, Item> getItens() {
         return itens;
