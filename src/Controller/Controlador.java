@@ -3,6 +3,7 @@ package Controller;
 
 import Model.Cliente;
 import Model.Compra;
+import Model.DAO.ItemDAO;
 import Model.DataHora;
 import Model.Fornecedor;
 import Model.Funcionario;
@@ -89,6 +90,8 @@ public class Controlador
         i2.setDescricao("Pão");
         i2.setNome("Pão");
         itens.put(i2.getCodigo(), i2);
+        
+        
     }
     
     /**

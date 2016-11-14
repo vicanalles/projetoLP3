@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Model.DAO;
 
 
 import java.sql.Connection;
@@ -21,6 +21,7 @@ public class ConnectionFactory
         try
         {
             return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "0000");
+            //return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "root");
         }
         catch(SQLException exception)
         {

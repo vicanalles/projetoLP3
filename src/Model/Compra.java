@@ -86,4 +86,21 @@ public class Compra {
     public void setData(Date data) {
         this.data = data;
     }          
+
+    public Funcionario getFuncionario()
+    {
+        return funcionario;
+    }
+
+    public Fornecedor getFornecedor()
+    {
+        return fornecedor;
+    }
+
+    public HashMap<Integer, Item> getItens()
+    {
+        return itens;
+    }
+    
+    
 }

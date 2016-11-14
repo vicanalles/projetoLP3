@@ -16,7 +16,7 @@ public class Log {
         "Hora de finalização do pedido: "
     };
     private Date horarios[];
-    int tipoPedido;
+    private int tipoPedido;
     /*
     private Date horaAberturaPedido;
     private Date horaInicioProducao;
@@ -53,6 +53,11 @@ public class Log {
     public String[] getFRASES()
     {
         return FRASES;
+    }
+    
+    public int getTipoPedido()
+    {
+        return tipoPedido;
     }
 /*
     public Date getHoraAberturaPedido() {
