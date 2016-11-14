@@ -19,7 +19,7 @@ public class ClienteDAO
     
     public ClienteDAO()
     {
-        connection = new ConnectionFactory().getConnection();
+        connection = ConnectionFactory.getInstance().getConnection();
     }
     
     public void create(Cliente cliente)

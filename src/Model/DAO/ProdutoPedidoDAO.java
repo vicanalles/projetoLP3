@@ -16,10 +16,15 @@ import java.sql.PreparedStatement;
  */
 public class ProdutoPedidoDAO
 {
+    Connection connection;
+    
+    public ProdutoPedidoDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Pedido pedido, Produto produto)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "insert into produtoPedido(numeroPedido, codigoProduto, quantidadeProduto) values (?, ?, ?);";
     
         try

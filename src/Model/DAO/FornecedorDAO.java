@@ -15,10 +15,15 @@ import java.sql.PreparedStatement;
  */
 public class FornecedorDAO
 {
+    Connection connection;
+    
+    public FornecedorDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Fornecedor fornecedor)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "insert into fornecedor values (?, ?, ?);";
     
         try

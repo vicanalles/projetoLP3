@@ -15,10 +15,15 @@ import java.sql.PreparedStatement;
  */
 public class ItemCompraDAO
 {
+    Connection connection;
+    
+    public ItemCompraDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(long notaFiscal, Item item)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-        
         String sql = "insert into itemCompra(notaFiscal, codigoItem) values (?, ?);";
         
         try

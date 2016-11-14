@@ -20,7 +20,7 @@ public class PessoaDAO
     
     public PessoaDAO()
     {
-        connection = new ConnectionFactory().getConnection();
+        connection = ConnectionFactory.getInstance().getConnection();
     }
     
     public void create(Pessoa pessoa)

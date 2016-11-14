@@ -20,10 +20,15 @@ import java.util.Map;
  */
 public class CompraDAO
 {
+    Connection connection;
+    
+    public CompraDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Compra compra)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "insert into compra(notaFiscal, valorTotal, data, cpfFuncionario, cnpjFornecedor) values (?, ?, ?, ?, ?);";
     
         try
@@ -67,8 +72,6 @@ public class CompraDAO
     
     public int getNextID()
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "SELECT auto_increment FROM information_schema.tables WHERE TABLE_NAME = 'compra';";
         
         try

@@ -17,10 +17,15 @@ import java.sql.ResultSet;
  */
 public class PedidoDAO
 {
+    Connection connection;
+    
+    public PedidoDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Pedido pedido)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "insert into pedido(numero, valorPedido, pagamento, cpfCliente, cpfFuncionario) values (?, ?, ?, ?, ?);";
     
         try
@@ -66,8 +71,6 @@ public class PedidoDAO
     
     public int getNextID()
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "SELECT auto_increment FROM information_schema.tables WHERE TABLE_NAME = 'pedido';";
         
         try
@@ -79,7 +82,6 @@ public class PedidoDAO
             resultSet.next();
             
             return resultSet.getInt(1);
-            
         }
         catch(Exception e)
         {

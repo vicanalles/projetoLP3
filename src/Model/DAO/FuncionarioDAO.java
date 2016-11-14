@@ -15,10 +15,15 @@ import java.sql.PreparedStatement;
  */
 public class FuncionarioDAO
 {
+    Connection connection;
+    
+    public FuncionarioDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Funcionario funcionario)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         new PessoaDAO().create(funcionario);
         
         String sql = "insert into funcionario(cpf, funcao, salario) values(?, ?, ?);";

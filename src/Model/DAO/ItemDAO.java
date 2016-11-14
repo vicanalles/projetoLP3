@@ -16,10 +16,16 @@ import java.sql.ResultSet;
  */
 public class ItemDAO
 {
+    
+    Connection connection;
+    
+    public ItemDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Item item)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "insert into item(codigo, nome, descricao, quantidade, valorCompra) values (?, ?, ?, ?, ?);";
     
         try
@@ -58,8 +64,6 @@ public class ItemDAO
     
     public int getNextID()
     {
-        Connection connection = new ConnectionFactory().getConnection();
-    
         String sql = "SELECT auto_increment FROM information_schema.tables WHERE TABLE_NAME = 'item';";
         
         try

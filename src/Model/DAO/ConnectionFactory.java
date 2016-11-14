@@ -16,6 +16,21 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory
 {
+    private static ConnectionFactory instance = null;
+    
+    private ConnectionFactory()
+    {
+        
+    }
+    
+    public static ConnectionFactory getInstance()
+    {
+        if(instance == null)
+            instance = new ConnectionFactory();
+        
+        return instance;
+    }
+    
     public Connection getConnection()
     {
         try
@@ -29,3 +44,21 @@ public class ConnectionFactory
         }
     }
 }
+
+/*
+public class ConnectionFactory
+{
+    public Connection getConnection()
+    {
+        try
+        {
+            return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "0000");
+            //return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "root");
+        }
+        catch(SQLException exception)
+        {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+*/

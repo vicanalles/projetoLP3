@@ -17,10 +17,15 @@ import java.sql.PreparedStatement;
  */
 public class LogDAO
 {
+    Connection connection;
+    
+    public LogDAO()
+    {
+        connection = ConnectionFactory.getInstance().getConnection();
+    }
+    
     public void create(Pedido pedido, Log log)
     {
-        Connection connection = new ConnectionFactory().getConnection();
-        
         String sql = "insert into log(numeroPedido, tipoPedido, horaAberturaPedido) values (?, ?, ?);";
     
         try

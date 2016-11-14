@@ -19,7 +19,7 @@ public class EnderecoFornecedorDAO
     
     public EnderecoFornecedorDAO()
     {
-        connection = new ConnectionFactory().getConnection();
+        connection = ConnectionFactory.getInstance().getConnection();
     }
     
     public void create(Fornecedor fornecedor)
