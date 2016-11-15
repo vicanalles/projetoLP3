@@ -5,10 +5,14 @@
  */
 package Model.DAO;
 
+import Model.Cliente;
 import Model.Pessoa;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -48,12 +52,7 @@ public class PessoaDAO
             e.printStackTrace();
         }
     }
-    
-    public void read()
-    {
         
-    }
-    
     public void update()
     {
         

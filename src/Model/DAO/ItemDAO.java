@@ -47,9 +47,35 @@ public class ItemDAO
         }
     }
     
-    public void read()
+    public Item selectByCodigo(int codigo)
     {
+        Item item = new Item();
         
+        String sql = "select (codigo, nome, descricao, quantidade, valorCompra) from item where codigo = ?;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, codigo);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next())
+            {
+                item.setCodigo(resultSet.getInt(1));
+                item.setNome(resultSet.getString(2));
+                item.setDescricao(resultSet.getString(3));
+                item.setQuantidade(resultSet.getFloat(4));
+                item.setValorCompra(resultSet.getFloat(5));
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return item;
     }
     
     public void update()

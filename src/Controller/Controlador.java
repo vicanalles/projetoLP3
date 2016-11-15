@@ -3,7 +3,6 @@ package Controller;
 
 import Model.Cliente;
 import Model.Compra;
-import Model.DAO.ItemDAO;
 import Model.DataHora;
 import Model.Fornecedor;
 import Model.Funcionario;

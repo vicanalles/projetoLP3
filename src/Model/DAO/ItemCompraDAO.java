@@ -8,6 +8,9 @@ package Model.DAO;
 import Model.Item;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -42,9 +45,31 @@ public class ItemCompraDAO
         }
     }
     
-    public void read()
+    public HashMap<Integer, Item> selectByNotaFiscalCompra(long notaFiscal)
     {
+        HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
         
+        String sql = "select * from itemCompra where notaFiscal = ?;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setLong(1, notaFiscal);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next())
+            {
+                itens.put(resultSet.getInt(1), new ItemDAO().selectByCodigo(resultSet.getInt(1)));
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return itens;
     }
     
     public void update()

@@ -6,8 +6,10 @@
 package Model.DAO;
 
 import Model.Fornecedor;
+import Model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -45,9 +47,45 @@ public class FornecedorDAO
         }
     }
     
-    public void read()
+    public Fornecedor selectByCnpj(String cnpj)
     {
+        String sql = "select f.cnpj, f.nome, f.nomeFantasia, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from fornecedor f inner join enderecoFornecedor e on f.cnpj = e.cnpjFornecedor where f.cnpj = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, cnpj);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next())
+            {
+                Fornecedor fornecedor = new Fornecedor();
+
+                fornecedor.setCnpj(resultSet.getString(1));
+                fornecedor.setNome(resultSet.getString(2));
+                fornecedor.setNomeFantasia(resultSet.getString(3));
+                fornecedor.setCep(resultSet.getString(4));
+                fornecedor.setRua(resultSet.getString(5));
+                fornecedor.setNumero(resultSet.getInt(6));
+                fornecedor.setBairro(resultSet.getString(7));
+                fornecedor.setCidade(resultSet.getString(8));
+                fornecedor.setEstado(resultSet.getString(9));
+                fornecedor.setComplemento(resultSet.getString(10));
+
+                preparedStatement.close();
+
+                return fornecedor;
+            }
+            
+            return null;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public void update()

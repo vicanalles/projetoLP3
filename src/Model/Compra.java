@@ -13,6 +13,11 @@ public class Compra {
     private Fornecedor fornecedor;
     private HashMap<Integer, Item> itens;
     
+    public Compra()
+    {
+        
+    }
+    
     /**
      *Instancia uma nova compra
      * @param notaFiscal o numero da nota fiscal
@@ -92,15 +97,28 @@ public class Compra {
         return funcionario;
     }
 
+    public void setFuncionario(Funcionario funcionario)
+    {
+        this.funcionario = funcionario;
+    }
+
     public Fornecedor getFornecedor()
     {
         return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor)
+    {
+        this.fornecedor = fornecedor;
     }
 
     public HashMap<Integer, Item> getItens()
     {
         return itens;
     }
-    
-    
+
+    public void setItens(HashMap<Integer, Item> itens)
+    {
+        this.itens = itens;
+    }
 }

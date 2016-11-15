@@ -48,7 +48,7 @@ public class EnderecoFornecedorDAO
         }
     }
     
-    public void read()
+    public void selectByCnpjFornecedor(String cnpj)
     {
         
     }

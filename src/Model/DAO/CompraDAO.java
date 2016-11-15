@@ -55,9 +55,38 @@ public class CompraDAO
         }
     }
     
-    public void read()
+    public HashMap<Long, Compra> selectAll()
     {
+        HashMap<Long, Compra> compras = new HashMap<Long, Compra>();
         
+        String sql = "select (notaFiscal, valorTotal, data, cpfFuncionario, cnpjFornecedor) from compra;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next())
+            {
+                Compra compra = new Compra();
+                
+                compra.setNotaFiscal(resultSet.getLong(1));
+                compra.setValorTotal(resultSet.getFloat(2));
+                compra.setData(resultSet.getDate(3));
+                compra.setFuncionario(new FuncionarioDAO().selectByCpf(resultSet.getString(4)));
+                compra.setFornecedor(new FornecedorDAO().selectByCnpj(resultSet.getString(5)));
+                compra.setItens(new ItemCompraDAO().selectByNotaFiscalCompra(compra.getNotaFiscal()));
+                
+                compras.put(compra.getNotaFiscal(), compra);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return compras;
     }
     
     public void update()
