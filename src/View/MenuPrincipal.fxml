@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPaneMenuPrincipal" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuPrincipalController">
+   <children>
+      <TabPane fx:id="tabPaneMenuPrincipal" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="tabMenuClientes" onSelectionChanged="#showAnchorPaneClientes" text="Clientes">
+            <content>
+              <AnchorPane fx:id="anchorPaneClientes" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab fx:id="tabMenuFuncionarios" onSelectionChanged="#showAnchorPaneFuncionarios" text="Funcionarios">
+            <content>
+              <AnchorPane fx:id="anchorPaneFuncionarios" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab fx:id="tabMenuFornecedores" onSelectionChanged="#showAnchorPaneFornecedores" text="Fornecedores">
+               <content>
+                  <AnchorPane fx:id="anchorPaneFornecedores" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab fx:id="tabMenuItens" onSelectionChanged="#showAnchorPaneItens" text="Itens">
+               <content>
+                  <AnchorPane fx:id="anchorPaneItens" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab fx:id="tabMenuProdutos" onSelectionChanged="#showAnchorPaneProdutos" text="Produtos">
+               <content>
+                  <AnchorPane fx:id="anchorPaneProdutos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab fx:id="tabMenuPedidos" onSelectionChanged="#showAnchorPanePedidos" text="Pedidos">
+               <content>
+                  <AnchorPane fx:id="anchorPanePedidos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

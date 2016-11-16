@@ -5,7 +5,9 @@ package Controller;
 import Controller.Controlador;
 import java.util.Scanner;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,15 +16,20 @@ public class ProjetoLP3 extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/TelaLogin.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
+    
+    public static void fecharJanela(Event event){
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+    }        
 
     public static void main(String[] args) throws Exception {
+        launch(args);
         Scanner entrada = new Scanner(System.in);
         int opcao;
         
