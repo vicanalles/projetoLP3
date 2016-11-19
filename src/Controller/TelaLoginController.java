@@ -54,7 +54,7 @@ public class TelaLoginController implements Initializable {
         senha = txtSenha.getText();
         
         if(usuario.equals("admin") && senha.equals("admin")){
-            Parent root = FXMLLoader.load(getClass().getResource("../View/MenuPrincipal.fxml"));            
+            Parent root = FXMLLoader.load(getClass().getResource("/View/MenuPrincipal.fxml"));            
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

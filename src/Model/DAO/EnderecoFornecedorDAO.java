@@ -53,13 +53,48 @@ public class EnderecoFornecedorDAO
         
     }
     
-    public void update()
+    public void update(Fornecedor fornecedor)
     {
+        String sql = "update enderecoFornecedor set cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cnpjFornecedor = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, fornecedor.getCep());
+            preparedStatement.setString(2, fornecedor.getRua());
+            preparedStatement.setInt(3, fornecedor.getNumero());
+            preparedStatement.setString(4, fornecedor.getBairro());
+            preparedStatement.setString(5, fornecedor.getCidade());
+            preparedStatement.setString(6, fornecedor.getEstado());
+            preparedStatement.setString(7, fornecedor.getComplemento());
+            preparedStatement.setString(8, fornecedor.getCnpj());
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
-    public void delete()
+    public void delete(String cnpj)
     {
+        String sql = "delete from enderecoFornecedor where cnpjFornecedor = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(8, cnpj);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

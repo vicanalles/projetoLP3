@@ -29,7 +29,7 @@ public class PessoaDAO
     
     public void create(Pessoa pessoa)
     {
-        String sql = "insert into pessoa(cpf, nome, sexo, dataNasc, email, telefone) values('?', '?', '?', '?', '?', '?');";
+        String sql = "insert into pessoa(cpf, nome, sexo, dataNasc, email, telefone) values(?, ?, ?, ?, ?, ?);";
         
         try
         {
@@ -37,7 +37,7 @@ public class PessoaDAO
             
             preparedStatement.setString(1, pessoa.getCpf());
             preparedStatement.setString(2, pessoa.getNome());
-            preparedStatement.setString(3, pessoa.getNome());
+            preparedStatement.setString(3, pessoa.getSexo());
             preparedStatement.setDate(4, new Date(pessoa.getDataNasc().getTime()));
             preparedStatement.setString(5, pessoa.getEmail());
             preparedStatement.setString(6, pessoa.getTelefone());
@@ -58,8 +58,22 @@ public class PessoaDAO
         
     }
     
-    public void delete()
+    public void delete(String cpf)
     {
+        String sql = "delete from pessoa where cpf = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, cpf);
+            
+            preparedStatement.executeQuery();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

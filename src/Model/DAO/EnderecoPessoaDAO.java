@@ -25,7 +25,7 @@ public class EnderecoPessoaDAO
     
     public void create(Pessoa pessoa)
     {
-        String sql = "insert into enderecoPessoa(cpfPessoa, cep, rua, numero, bairro, cidade, estado, complemento) values('?', '?', '?', ?, '?', '?', '?', '?');";
+        String sql = "insert into enderecoPessoa(cpfPessoa, cep, rua, numero, bairro, cidade, estado, complemento) values(?, ?, ?, ?, ?, ?, ?, ?);";
         
         try
         {
@@ -37,8 +37,8 @@ public class EnderecoPessoaDAO
             preparedStatement.setInt(4, pessoa.getNumero());
             preparedStatement.setString(5, pessoa.getBairro());
             preparedStatement.setString(6, pessoa.getCidade());
-            preparedStatement.setString(5, pessoa.getEstado());
-            preparedStatement.setString(6, pessoa.getComplemento());
+            preparedStatement.setString(7, pessoa.getEstado());
+            preparedStatement.setString(8, pessoa.getComplemento());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -54,13 +54,48 @@ public class EnderecoPessoaDAO
         
     }
     
-    public void update()
+    public void update(Pessoa pessoa)
     {
+        String sql = "update enderecoPessoa set cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cpfPessoa = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, pessoa.getCep());
+            preparedStatement.setString(2, pessoa.getRua());
+            preparedStatement.setInt(3, pessoa.getNumero());
+            preparedStatement.setString(4, pessoa.getBairro());
+            preparedStatement.setString(5, pessoa.getCidade());
+            preparedStatement.setString(6, pessoa.getEstado());
+            preparedStatement.setString(7, pessoa.getComplemento());
+            preparedStatement.setString(8, pessoa.getCpf());
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
-    public void delete()
+    public void delete(String cpf)
     {
+        String sql = "delete from enderecoPessoa where cpfPessoa = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(8, cpf);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
