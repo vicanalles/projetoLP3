@@ -15,6 +15,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import Model.DAO.ClienteDAO;
+import Model.DAO.FuncionarioDAO;
+import Model.DAO.FornecedorDAO;
 
 public class Controlador
 {    
@@ -89,8 +92,6 @@ public class Controlador
         i2.setDescricao("Pão");
         i2.setNome("Pão");
         itens.put(i2.getCodigo(), i2);
-        
-        
     }
     
     /**

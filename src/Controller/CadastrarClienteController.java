@@ -1,26 +1,28 @@
 package Controller;
 
 import Model.Cliente;
-import Model.DAO.ConnectionFactory;
-import java.io.IOException;
+import Model.DAO.ClienteDAO;
+import Model.DataHora;
 import java.net.URL;
-import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 
 public class CadastrarClienteController implements Initializable {   
 
@@ -91,15 +93,30 @@ public class CadastrarClienteController implements Initializable {
     @FXML
     private Button btnRemoverCliente;
     @FXML
-    private TableView<?> tableViewClientes;
+    private TableView<Cliente> tableViewClientes;
     @FXML
-    private TableColumn<?, ?> tableColumnClientes;
+    private TableColumn<Cliente, String> tableColumnClientes;
     @FXML
     private ComboBox<String> cbxEstadoCliente;
+    
+    private ObservableList<Cliente> observableListClientes;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencheComboBoxEstado();
+        ArrayList<Cliente> clientes = new ClienteDAO().selectByName("");
+        
+        tableColumnClientes.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        
+        observableListClientes = FXCollections.observableArrayList(clientes);
+        
+        tableViewClientes.setItems(observableListClientes);
+        
+        ToggleGroup toggleGroup = new ToggleGroup();
+        
+        rbtnClienteMasculino.setToggleGroup(toggleGroup);
+        rbtnClienteFeminino.setToggleGroup(toggleGroup);
     }   
     
     public void preencheComboBoxEstado(){                
@@ -129,6 +146,46 @@ public class CadastrarClienteController implements Initializable {
         cbxEstadoCliente.getItems().add("Santa Catarina - SC");
         cbxEstadoCliente.getItems().add("São Paulo - SP");
         cbxEstadoCliente.getItems().add("Sergipe - SE");
-        cbxEstadoCliente.getItems().add("Tocantins - TO");        
+        cbxEstadoCliente.getItems().add("Tocantins - TO");
+    }
+    
+    private static String converterEstado(String estadoCompleto)
+    {
+        char[] siglaEstado = new char[2];
+        estadoCompleto.getChars(estadoCompleto.length()-2, estadoCompleto.length(), siglaEstado, 0);
+        return new String(siglaEstado);
+    }
+
+    @FXML
+    private void btnCadastrarCliente_OnAction(ActionEvent event)
+    {
+        Cliente cliente = new Cliente();
+        
+        cliente.setBairro(txtBairroCliente.getText());
+        cliente.setCep(txtCepCliente.getText());
+        cliente.setCidade(txtCidadeCliente.getText());
+        cliente.setComplemento(txtComplementoCliente.getText());
+        cliente.setCpf(txtCpfCliente.getText());
+        try
+        {
+            cliente.setDataNasc(DataHora.converterData(txtDataNascimentoCliente.getText()));
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cliente.setEmail(txtEmailCliente.getText());
+        cliente.setEstado(converterEstado(cbxEstadoCliente.getValue()));
+        cliente.setNome(txtNomeCliente.getText());
+        cliente.setNumero(Integer.parseInt(txtNumeroCliente.getText()));
+        cliente.setProdutoFavorito(txtProdutoFavoritoCliente.getText());
+        cliente.setRua(txtRuaCliente.getText());
+        if(rbtnClienteMasculino.isSelected())
+            cliente.setSexo("M");
+        if(rbtnClienteFeminino.isSelected())
+            cliente.setSexo("F");
+        cliente.setTelefone(txtTelefoneCliente.getText());
+        
+        new ClienteDAO().create(cliente);
     }
 }

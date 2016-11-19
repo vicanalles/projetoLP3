@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
@@ -29,7 +28,7 @@ public class ClienteDAO
     {
         new PessoaDAO().create(cliente);
         
-        String sql = "insert into cliente(cpf, produtoFavorito) values('?', '?');";
+        String sql = "insert into cliente(cpf, produtoFavorito) values(?, ?);";
         
         try
         {
@@ -49,19 +48,17 @@ public class ClienteDAO
     
     public ArrayList<Cliente> selectByName(String nome)
     {
-        String sql;
-        if(nome.equals(""))
-            sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, c.produtofavorito from pessoa p, cliente c where p.cpf in (select cpf from cliente);";
-        else
-            sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, c.produtofavorito from pessoa p, cliente c where p.nome like '%" + nome + "%' and p.cpf in (select cpf from cliente);";
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, c.produtofavorito, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from pessoa p, cliente c, enderecoPessoa e where p.nome like ? and p.cpf = c.cpf and p.cpf = e.cpfPessoa;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(1, "%" + nome + "%");
             
-            ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+            ResultSet resultSet = preparedStatement.executeQuery();
             
             while(resultSet.next())
             {
@@ -74,16 +71,23 @@ public class ClienteDAO
                 cliente.setEmail(resultSet.getString(5));
                 cliente.setTelefone(resultSet.getString(6));
                 cliente.setProdutoFavorito(resultSet.getString(7));
+                cliente.setCep(resultSet.getString(8));
+                cliente.setRua(resultSet.getString(9));
+                cliente.setNumero(resultSet.getInt(10));
+                cliente.setBairro(resultSet.getString(11));
+                cliente.setCidade(resultSet.getString(12));
+                cliente.setEstado(resultSet.getString(13));
+                cliente.setComplemento(resultSet.getString(14));
                 
                 clientes.add(cliente);
             }
-            return clientes;
+            preparedStatement.close();
         }
         catch(Exception e)
         {
             e.printStackTrace();
-            return null;
         }
+        return clientes;
     }
     
     public void update()
@@ -91,8 +95,25 @@ public class ClienteDAO
         
     }
     
-    public void delete()
+    public void delete(String cpf)
     {
+        String sql = "delete from cliente where cpf = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, cpf);
+            
+            preparedStatement.executeQuery();
+            preparedStatement.close();
+            
+            new EnderecoPessoaDAO().delete(cpf);
+            new PessoaDAO().delete(cpf);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
