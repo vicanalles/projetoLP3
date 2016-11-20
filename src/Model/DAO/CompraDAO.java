@@ -94,15 +94,29 @@ public class CompraDAO
         
     }
     
-    public void delete()
+    public void delete(long notaFiscal)
     {
+        String sql = "delete from compra where notaFiscal = ?";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setLong(1, notaFiscal);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public int getNextID()
     {
         String sql = "SELECT auto_increment FROM information_schema.tables WHERE TABLE_NAME = 'compra';";
-        
+        int id = 0;
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -111,13 +125,15 @@ public class CompraDAO
             
             resultSet.next();
             
-            return resultSet.getInt(1);
+            id = resultSet.getInt(1);
             
+            preparedStatement.close();
         }
         catch(Exception e)
         {
             e.printStackTrace();
-            return 0;
         }
+        
+        return id;
     }
 }

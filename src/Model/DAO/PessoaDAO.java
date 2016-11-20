@@ -53,9 +53,31 @@ public class PessoaDAO
         }
     }
         
-    public void update()
+    public void update(Pessoa pessoa)
     {
+        String sql = "update pessoa set cpf = ?, nome = ?, sexo = ?, dataNasc = ?, email = ?, telefone = ? where cpf = ?;";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, pessoa.getCpf());
+            preparedStatement.setString(2, pessoa.getNome());
+            preparedStatement.setString(3, pessoa.getSexo());
+            preparedStatement.setDate(4, new Date(pessoa.getDataNasc().getTime()));
+            preparedStatement.setString(5, pessoa.getEmail());
+            preparedStatement.setString(6, pessoa.getTelefone());
+            preparedStatement.setString(7, pessoa.getCpf());
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+            
+            new EnderecoPessoaDAO().create(pessoa);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void delete(String cpf)

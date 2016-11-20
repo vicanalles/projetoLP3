@@ -88,9 +88,28 @@ public class FornecedorDAO
         }
     }
     
-    public void update()
+    public void update(Fornecedor fornecedor)
     {
-        
+        String sql = "update fornecedor set cnpj = ?, nome = ?, nomeFantasia = ? where cnpj = ?;";
+    
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, fornecedor.getCnpj());
+            preparedStatement.setString(2, fornecedor.getNome());
+            preparedStatement.setString(3, fornecedor.getNomeFantasia());
+            preparedStatement.setString(4, fornecedor.getCnpj());
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+            
+            new EnderecoFornecedorDAO().update(fornecedor);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void delete()

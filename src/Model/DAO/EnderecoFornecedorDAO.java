@@ -55,20 +55,21 @@ public class EnderecoFornecedorDAO
     
     public void update(Fornecedor fornecedor)
     {
-        String sql = "update enderecoFornecedor set cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cnpjFornecedor = ?;";
+        String sql = "update enderecoFornecedor set cnpjFornecedor = ?, cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cnpjFornecedor = ?;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, fornecedor.getCep());
-            preparedStatement.setString(2, fornecedor.getRua());
-            preparedStatement.setInt(3, fornecedor.getNumero());
-            preparedStatement.setString(4, fornecedor.getBairro());
-            preparedStatement.setString(5, fornecedor.getCidade());
-            preparedStatement.setString(6, fornecedor.getEstado());
-            preparedStatement.setString(7, fornecedor.getComplemento());
-            preparedStatement.setString(8, fornecedor.getCnpj());
+            preparedStatement.setString(1, fornecedor.getCnpj());
+            preparedStatement.setString(2, fornecedor.getCep());
+            preparedStatement.setString(3, fornecedor.getRua());
+            preparedStatement.setInt(4, fornecedor.getNumero());
+            preparedStatement.setString(5, fornecedor.getBairro());
+            preparedStatement.setString(6, fornecedor.getCidade());
+            preparedStatement.setString(7, fornecedor.getEstado());
+            preparedStatement.setString(8, fornecedor.getComplemento());
+            preparedStatement.setString(9, fornecedor.getCnpj());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -87,7 +88,7 @@ public class EnderecoFornecedorDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(8, cnpj);
+            preparedStatement.setString(1, cnpj);
             
             preparedStatement.execute();
             preparedStatement.close();

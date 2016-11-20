@@ -88,7 +88,7 @@ public class EnderecoPessoaDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(8, cpf);
+            preparedStatement.setString(1, cpf);
             
             preparedStatement.execute();
             preparedStatement.close();

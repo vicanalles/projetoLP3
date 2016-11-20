@@ -39,8 +39,6 @@ public class FuncionarioDAO
             
             preparedStatement.execute();
             preparedStatement.close();
-            
-            new EnderecoPessoaDAO().create(funcionario);
         }
         catch(Exception e)
         {
@@ -87,9 +85,28 @@ public class FuncionarioDAO
         }
     }
     
-    public void update()
+    public void update(Funcionario funcionario)
     {
+        new PessoaDAO().update(funcionario);
         
+        String sql = "update funcionario set cpf = ?, funcao = ?, salario = ? where cpf = ?;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, funcionario.getCpf());
+            preparedStatement.setString(2, funcionario.getFuncao());
+            preparedStatement.setFloat(3, funcionario.getSalario());
+            preparedStatement.setString(4, funcionario.getCpf());
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void delete()
