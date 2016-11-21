@@ -35,8 +35,8 @@ public class ConnectionFactory
     {
         try
         {
-            return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "0000");
-            //return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "root");
+            //return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "0000");
+            return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "root");
         }
         catch(SQLException exception)
         {

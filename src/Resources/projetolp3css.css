@@ -1,0 +1,32 @@
+.button.cadastrar{
+    -fx-background-image: url("bt_inserir.png");
+    -fx-pref-height: 40px;
+    -fx-pref-width: 90px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.button.editar{
+    -fx-background-image: url("bt_alterar.png");
+    -fx-pref-height: 40px;
+    -fx-pref-width: 90px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.button.remover{
+    -fx-background-image: url("bt_remover.png");
+    -fx-pref-height: 40px;
+    -fx-pref-width: 90px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.anchor-pane{
+    -fx-background-color: white;
+    -fx-background-image: url("menuPrincipal.png");
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 300;
+}
+
+

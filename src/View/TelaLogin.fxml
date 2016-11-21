@@ -47,7 +47,7 @@
       </Button>
       <ImageView fx:id="imgAcessoRestrito" fitHeight="200.0" fitWidth="190.0" layoutX="45.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@homemTernoEditado.png" />
+            <Image url="@../Resources/homemTernoEditado.png" />
          </image>
       </ImageView>
    </children>

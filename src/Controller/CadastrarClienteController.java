@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -100,24 +102,51 @@ public class CadastrarClienteController implements Initializable {
     private ComboBox<String> cbxEstadoCliente;
     
     private ObservableList<Cliente> observableListClientes;
+    @FXML
+    private TextField txtPesquisar;
+    
+    ArrayList<Cliente> clientes;
     
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        preencheComboBoxEstado();
-        ArrayList<Cliente> clientes = new ClienteDAO().selectByName("");
+        preencheComboBoxEstado();                
         
-        tableColumnClientes.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        
-        observableListClientes = FXCollections.observableArrayList(clientes);
-        
-        tableViewClientes.setItems(observableListClientes);
+        preencherTableView(new ClienteDAO().selectByName(""));
         
         ToggleGroup toggleGroup = new ToggleGroup();
         
         rbtnClienteMasculino.setToggleGroup(toggleGroup);
         rbtnClienteFeminino.setToggleGroup(toggleGroup);
+        
+        txtPesquisar.setPromptText("Nome ou CPF");
+        
+        txtPesquisar.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+                String pesquisa = txtPesquisar.getText();
+                long cpf;
+                try
+                {
+                    cpf = Long.parseLong(pesquisa);
+                    preencherTableView(new ClienteDAO().selectByCpf(pesquisa));
+                }
+                catch(Exception e)
+                {
+                    preencherTableView(new ClienteDAO().selectByName(pesquisa));
+                }
+            }
+        });
     }   
+    
+    public void preencherTableView(ArrayList<Cliente> clientes)
+    {        
+        tableColumnClientes.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        
+        observableListClientes = FXCollections.observableArrayList(clientes);
+        
+        tableViewClientes.setItems(observableListClientes);
+    }
     
     public void preencheComboBoxEstado(){                
         cbxEstadoCliente.getItems().add("Acre - AC");
@@ -187,5 +216,7 @@ public class CadastrarClienteController implements Initializable {
         cliente.setTelefone(txtTelefoneCliente.getText());
         
         new ClienteDAO().create(cliente);
+        
+        preencherTableView(new ClienteDAO().selectByName(""));
     }
 }

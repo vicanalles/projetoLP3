@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCadastrarProduto" prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarProdutoController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCadastrarProduto" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarProdutoController">
    <children>
       <Label fx:id="lblGerenciamentoProdutos" layoutX="413.0" layoutY="34.0" text="Gerenciamento de Produtos">
          <font>
@@ -35,7 +35,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <TableView fx:id="tableViewProdutos" layoutX="49.0" layoutY="31.0" prefHeight="461.0" prefWidth="237.0">
+      <TableView fx:id="tableViewProdutos" layoutX="49.0" layoutY="89.0" prefHeight="407.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="tableColumnProdutos" prefWidth="236.0" text="Produtos" />
         </columns>
@@ -61,8 +61,13 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btnNovoProduto" layoutX="423.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Novo" />
-      <Button fx:id="btnEditarProduto" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Editar" />
-      <Button fx:id="btnRemoverProduto" layoutX="681.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Remover" />
+      <Button fx:id="btnNovoProduto" layoutX="423.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
+      <Button fx:id="btnEditarProduto" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
+      <Button fx:id="btnRemoverProduto" layoutX="681.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
+      <TextField layoutX="49.0" layoutY="53.0" prefWidth="237.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

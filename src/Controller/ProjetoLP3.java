@@ -30,7 +30,7 @@ public class ProjetoLP3 extends Application {
 
     public static void main(String[] args) throws Exception {
         launch(args);
-        Scanner entrada = new Scanner(System.in);
+        /*Scanner entrada = new Scanner(System.in);
         int opcao;
         
         Controlador controlador = new Controlador();
@@ -127,7 +127,7 @@ public class ProjetoLP3 extends Application {
                     break;
             }
         }while (opcao != 0);
-        System.exit(0);
+        System.exit(0);*/
     }
     
 }

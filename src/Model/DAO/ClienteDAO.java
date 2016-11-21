@@ -90,6 +90,50 @@ public class ClienteDAO
         return clientes;
     }
     
+    public ArrayList<Cliente> selectByCpf(String cpf)
+    {
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, c.produtofavorito, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from pessoa p, cliente c, enderecoPessoa e where c.cpf like ? and p.cpf = c.cpf and p.cpf = e.cpfPessoa;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, cpf + "%");
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next())
+            {
+                Cliente cliente = new Cliente();
+                
+                cliente.setCpf(resultSet.getString(1));
+                cliente.setNome(resultSet.getString(2));
+                cliente.setSexo(resultSet.getString(3));
+                cliente.setDataNasc(resultSet.getDate(4));
+                cliente.setEmail(resultSet.getString(5));
+                cliente.setTelefone(resultSet.getString(6));
+                cliente.setProdutoFavorito(resultSet.getString(7));
+                cliente.setCep(resultSet.getString(8));
+                cliente.setRua(resultSet.getString(9));
+                cliente.setNumero(resultSet.getInt(10));
+                cliente.setBairro(resultSet.getString(11));
+                cliente.setCidade(resultSet.getString(12));
+                cliente.setEstado(resultSet.getString(13));
+                cliente.setComplemento(resultSet.getString(14));
+                
+                clientes.add(cliente);
+            }
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return clientes;
+    }
+    
     public void update(Cliente cliente, String cpfAntigo)
     {
         

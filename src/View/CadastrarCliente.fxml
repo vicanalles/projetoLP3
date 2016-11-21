@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCadastroCliente" prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarClienteController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCadastroCliente" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarClienteController">
    <children>
       <Label fx:id="lblCadastroClientes" layoutX="413.0" layoutY="34.0" text="Gerenciamento de Clientes">
          <font>
@@ -148,9 +143,9 @@
          </font>
       </Label>
       <TextField fx:id="txtComplementoCliente" layoutX="765.0" layoutY="368.0" prefHeight="26.0" prefWidth="114.0" />
-      <Button fx:id="btnCadastrarCliente" layoutX="431.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnCadastrarCliente_OnAction" prefHeight="40.0" prefWidth="90.0" text="Cadastrar" />
-      <Button fx:id="btnEditarCliente" layoutX="560.0" layoutY="431.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Editar" />
-      <Button fx:id="btnRemoverCliente" layoutX="689.0" layoutY="431.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Remover" />
+      <Button fx:id="btnCadastrarCliente" layoutX="431.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnCadastrarCliente_OnAction" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
+      <Button fx:id="btnEditarCliente" layoutX="560.0" layoutY="431.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
+      <Button fx:id="btnRemoverCliente" layoutX="689.0" layoutY="431.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
       <Label fx:id="lblCepCliente" layoutX="595.0" layoutY="249.0" text="CEP:">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -161,11 +156,16 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <TableView fx:id="tableViewClientes" layoutX="49.0" layoutY="35.0" prefHeight="461.0" prefWidth="237.0">
+      <TableView fx:id="tableViewClientes" layoutX="49.0" layoutY="89.0" prefHeight="407.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="tableColumnClientes" prefWidth="236.0" text="Clientes" />
         </columns>
       </TableView>
       <ComboBox fx:id="cbxEstadoCliente" layoutX="384.0" layoutY="368.0" prefHeight="28.0" prefWidth="237.0" />
+      <TextField fx:id="txtPesquisar" layoutX="49.0" layoutY="53.0" prefHeight="28.0" prefWidth="237.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

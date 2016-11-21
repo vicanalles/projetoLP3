@@ -64,11 +64,7 @@ public class CadastrarPedidoController implements Initializable {
         cbxTipoPagamentoPedido.getItems().add("Dinheiro");
         cbxTipoPagamentoPedido.getItems().add("Cartão de Débito");
         cbxTipoPagamentoPedido.getItems().add("Cartão de Crédito");
-        cbxTipoPagamentoPedido.getItems().add("Cheque");
-        
-        cbxSelecaoTipoPedido.getItems().add("Finalizado");
-        cbxSelecaoTipoPedido.getItems().add("Em andamento");
-        cbxSelecaoTipoPedido.getItems().add("Não finalizado");
+        cbxTipoPagamentoPedido.getItems().add("Cheque");                
     }    
     
 }

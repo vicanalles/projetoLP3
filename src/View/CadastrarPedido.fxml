@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPanePedidos" prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarPedidoController">
+<AnchorPane id="AnchorPane" fx:id="anchorPanePedidos" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarPedidoController">
    <children>
       <Label fx:id="lblGerenciamentoPedidos" layoutX="413.0" layoutY="34.0" text="Gerenciamento de Pedidos">
          <font>
@@ -42,10 +42,10 @@
         </columns>
       </TableView>
       <Button fx:id="btnAdicionarProdutosPedido" layoutX="580.0" layoutY="260.0" mnemonicParsing="false" text="&lt;&lt;" />
-      <Button fx:id="btnNovoPedido" layoutX="423.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Novo" />
-      <Button fx:id="btnEditarPedido" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Editar" />
-      <Button fx:id="btnCancelarPedido" layoutX="681.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Cancelar" />
-      <TableView fx:id="tableViewPedidos" layoutX="49.0" layoutY="69.0" prefHeight="423.0" prefWidth="237.0">
+      <Button fx:id="btnNovoPedido" layoutX="423.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
+      <Button fx:id="btnEditarPedido" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
+      <Button fx:id="btnCancelarPedido" layoutX="681.0" layoutY="452.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
+      <TableView fx:id="tableViewPedidos" layoutX="49.0" layoutY="89.0" prefHeight="407.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="tableColumnPedidos" prefWidth="236.0" text="Pedidos" />
         </columns>
@@ -60,7 +60,6 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="cbxSelecaoTipoPedido" layoutX="49.0" layoutY="31.0" prefWidth="150.0" />
       <Button fx:id="btnAdicionarCheckPoint" layoutX="705.0" layoutY="133.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" text="Adicionar CheckPoint" />
       <Label fx:id="lblStatus" layoutX="655.0" layoutY="99.0" text="Status:">
          <font>
@@ -72,5 +71,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField layoutX="49.0" layoutY="53.0" prefWidth="237.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

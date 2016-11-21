@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCadastroFuncionario" prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarFuncionarioController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCadastroFuncionario" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarFuncionarioController">
    <children>
       <Label fx:id="lblGerenciamentoFuncionarios" layoutX="370.0" layoutY="34.0" text="Gerenciamento de Funcionários">
          <font>
@@ -167,14 +167,19 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btnCadastrarFuncionario" layoutX="437.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Cadastrar" />
-      <Button fx:id="btnEditarFuncionario" layoutX="567.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Editar" />
-      <Button fx:id="btnRemoverFuncionario" layoutX="697.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Remover" />
-      <TableView fx:id="tableViewFuncionarios" layoutX="49.0" layoutY="34.0" prefHeight="461.0" prefWidth="237.0">
+      <Button fx:id="btnCadastrarFuncionario" layoutX="437.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
+      <Button fx:id="btnEditarFuncionario" layoutX="567.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
+      <Button fx:id="btnRemoverFuncionario" layoutX="697.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
+      <TableView fx:id="tableViewFuncionarios" layoutX="49.0" layoutY="89.0" prefHeight="407.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="tableColumnFuncionarios" prefWidth="236.0" text="Funcionarios" />
         </columns>
       </TableView>
       <ComboBox fx:id="cbxEstadoFuncionario" layoutX="384.0" layoutY="408.0" prefHeight="28.0" prefWidth="237.0" />
+      <TextField layoutX="49.0" layoutY="53.0" prefWidth="237.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
