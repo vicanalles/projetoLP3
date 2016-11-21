@@ -43,9 +43,24 @@ public class ItemProdutoDAO
         }
     }
     
-    public void read()
+    public void read(int codigoItem)
     {
+        String sql = "delete from itemProduto where codigoItem = ?";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, codigoItem);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void update()

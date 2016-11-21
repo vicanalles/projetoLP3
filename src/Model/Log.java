@@ -25,7 +25,6 @@ public class Log {
     private Date horaRetornoEntrega;
     */
     
-    //construtor
     /**
      * @param tipoPedido Pode receber um único inteiro de 0 a 3, que define o tipo do pedido:
      * 0 - Não inclui produção nem entrega
@@ -59,62 +58,55 @@ public class Log {
     {
         return tipoPedido;
     }
-/*
+
     public Date getHoraAberturaPedido() {
-        //return horaAberturaPedido;
         return horarios[0];
     }
     
+    public void setHoraAberturaPedido(Date horaAberturaPedido) {
+        horarios[0] = horaAberturaPedido;
+    }
+    
     public Date getHoraInicioProducao() {
-        //return horaInicioProducao;
         return horarios[1];
     }
 
     public void setHoraInicioProducao(Date horaInicioProducao) {
-        //this.horaInicioProducao = horaInicioProducao;
         horarios[1] = horaInicioProducao;
     }
 
     public Date getHoraTerminoProducao() {
-        //return horaTerminoProducao;
         return horarios[2];
     }
 
     public void setHoraTerminoProducao(Date horaTerminoProducao) {
-        //this.horaTerminoProducao = horaTerminoProducao;
         horarios[2] = horaTerminoProducao;
     }
 
     public Date getHoraSaidaEntrega() {
-        //return horaSaidaEntrega;
         return horarios[3];
     }
 
     public void setHoraSaidaEntrega(Date horaSaidaEntrega) {
-        //this.horaSaidaEntrega = horaSaidaEntrega;
         horarios[3] = horaSaidaEntrega;
     }
 
     public Date getHoraRetornoEntrega() {
-        //return horaRetornoEntrega;
         return horarios[4];
     }
 
     public void setHoraRetornoEntrega(Date horaRetornoEntrega) {
-        //this.horaRetornoEntrega = horaRetornoEntrega;
         horarios[4] = horaRetornoEntrega;
     }
     
     public Date getHoraFinalizacaoPedido() {
-        //return horaRetornoEntrega;
         return horarios[5];
     }
 
     public void setHoraFinalizacaoPedido(Date horaFinalizacaoPedido) {
-        //this.horaRetornoEntrega = horaRetornoEntrega;
         horarios[5] = horaFinalizacaoPedido;
     }  
-    */
+    
     
     /**
      * Adiciona a data atual do sistema ao log do pedido.

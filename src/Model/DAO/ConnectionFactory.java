@@ -44,21 +44,3 @@ public class ConnectionFactory
         }
     }
 }
-
-/*
-public class ConnectionFactory
-{
-    public Connection getConnection()
-    {
-        try
-        {
-            return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "0000");
-            //return DriverManager.getConnection("jdbc:mysql://localhost/projetolp3", "root", "root");
-        }
-        catch(SQLException exception)
-        {
-            throw new RuntimeException(exception);
-        }
-    }
-}
-*/

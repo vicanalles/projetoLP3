@@ -18,6 +18,7 @@ import java.util.Scanner;
 import Model.DAO.ClienteDAO;
 import Model.DAO.FuncionarioDAO;
 import Model.DAO.FornecedorDAO;
+import java.util.ArrayList;
 
 public class Controlador
 {    
@@ -26,7 +27,7 @@ public class Controlador
     HashMap<String, Cliente> clientes = new HashMap<String,Cliente>();
     HashMap<String, Funcionario> funcionarios = new HashMap<String, Funcionario>();
     HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
-    HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
+    ArrayList<Item> itens = new ArrayList<Item>();
     HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>();
     HashMap<Integer, Pedido> pedidos = new HashMap<Integer, Pedido>();
     HashMap<Long, Compra> compras = new HashMap<Long, Compra>(); 
@@ -85,13 +86,13 @@ public class Controlador
         i1.setCodigo(1);
         i1.setDescricao("Batata");
         i1.setNome("Batata");
-        itens.put(i1.getCodigo(), i1);
+        itens.add(i1.getCodigo(), i1);
         
         Item i2 = new Item();
         i2.setCodigo(2);
         i2.setDescricao("Pão");
         i2.setNome("Pão");
-        itens.put(i2.getCodigo(), i2);
+        itens.add(i2.getCodigo(), i2);
     }
     
     /**
@@ -349,7 +350,7 @@ public class Controlador
         
         boolean continuarCadastrando = true;
         float valorTotal = 0;
-        HashMap<Integer, Item> novosItensCompra = new HashMap<Integer, Item>();
+        ArrayList<Item> novosItensCompra = new ArrayList<Item>();
         
         do
         {
@@ -387,7 +388,7 @@ public class Controlador
                 if(entrada.nextInt() == 1)
                 {
                     valorTotal += item.getQuantidade() * item.getValorCompra();
-                    novosItensCompra.put(item.getCodigo(), item);                    
+                    novosItensCompra.add(item.getCodigo(), item);                    
                 }
                 else
                 {
@@ -439,7 +440,7 @@ public class Controlador
         System.out.println("Digite a descrição: ");
         item.setDescricao(entrada.nextLine());
         
-        itens.put(item.getCodigo(), item);
+        itens.add(item.getCodigo(), item);
         System.out.println("Item cadastrado com sucesso!");
     }
     
@@ -460,7 +461,7 @@ public class Controlador
             System.out.println("Digite a descrição do item: ");
             item.setDescricao(entrada.nextLine());
             
-            itens.replace(item.getCodigo(), item);
+            //itens.replace(item.getCodigo(), item);
         }
         else
         {
@@ -597,7 +598,13 @@ public class Controlador
     
     public boolean verificarCodigoItem(int codigo)
     {
-        return itens.containsKey(codigo);
+        for(Item item : itens)
+        {
+            if(item.getCodigo() == codigo)
+                return true;
+        }
+        
+        return false;
     }
     
     public boolean verificarCodigoProduto(int codigoProduto)
@@ -648,9 +655,9 @@ public class Controlador
     
     public void listarItens()
     {
-        for(Map.Entry<Integer, Item> item : itens.entrySet())
+        for(Item item : itens)
         {
-            exibirDadosItem(item.getValue());
+            exibirDadosItem(item);
         }
     }
     

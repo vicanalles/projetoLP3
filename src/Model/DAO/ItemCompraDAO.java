@@ -45,9 +45,9 @@ public class ItemCompraDAO
         }
     }
     
-    public HashMap<Integer, Item> selectByNotaFiscalCompra(long notaFiscal)
+    public ArrayList<Item> selectByNotaFiscalCompra(long notaFiscal)
     {
-        HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
+        ArrayList<Item> itens = new ArrayList<Item>();
         
         String sql = "select * from itemCompra where notaFiscal = ?;";
         
@@ -61,7 +61,7 @@ public class ItemCompraDAO
             
             while(resultSet.next())
             {
-                itens.put(resultSet.getInt(1), new ItemDAO().selectByCodigo(resultSet.getInt(1)));
+                itens.add(new ItemDAO().selectByCodigo(resultSet.getInt(1)));
             }
         }
         catch(Exception e)

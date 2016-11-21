@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ public class Compra {
     private Date data;
     private Funcionario funcionario;
     private Fornecedor fornecedor;
-    private HashMap<Integer, Item> itens;
+    private ArrayList<Item> itens;
     
     public Compra()
     {
@@ -27,7 +28,7 @@ public class Compra {
      * @param novosItensCompra uma HashMap contendo os itens obtidos nessa compra
      * @param itensControlador a HashMap de itens cujas quantidades serão atualizadas conforme os itens dessa compra. Geralmente é a HashMap que representa o estoque.
      */
-    public Compra(long notaFiscal, float valorTotal, Funcionario funcionario, Fornecedor fornecedor, HashMap<Integer, Item> novosItensCompra, HashMap<Integer, Item> itensControlador)
+    public Compra(long notaFiscal, float valorTotal, Funcionario funcionario, Fornecedor fornecedor, ArrayList<Item> novosItensCompra, ArrayList<Item> itensControlador)
     {
         this.notaFiscal = notaFiscal;
         this.valorTotal = valorTotal;
@@ -37,10 +38,10 @@ public class Compra {
         this.data = DataHora.getDate();
         
         //para cada item comprado, atualiza a quantidade e o valor desse item na HashMap que representa o estoque
-        for(Map.Entry<Integer, Item> item : novosItensCompra.entrySet())
+        for(Item item : novosItensCompra)
         {
-            itensControlador.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade());
-            itensControlador.get(item.getValue().getCodigo()).setValorCompra(item.getValue().getValorCompra());
+            itensControlador.get(item.getCodigo()).atualizarQuantidade(item.getQuantidade());
+            itensControlador.get(item.getCodigo()).setValorCompra(item.getValorCompra());
         }
     }    
  
@@ -112,12 +113,12 @@ public class Compra {
         this.fornecedor = fornecedor;
     }
 
-    public HashMap<Integer, Item> getItens()
+    public ArrayList<Item> getItens()
     {
         return itens;
     }
 
-    public void setItens(HashMap<Integer, Item> itens)
+    public void setItens(ArrayList<Item> itens)
     {
         this.itens = itens;
     }

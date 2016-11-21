@@ -10,6 +10,7 @@ import Model.Pedido;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -45,9 +46,39 @@ public class LogDAO
         }
     }
     
-    public void read()
+    public Log selectByNumeroPedido(int numeroPedido)
     {
+        String sql = "select * from log where numeroPedido = ?";
+        Log log = null;
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, numeroPedido);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            resultSet.next();
+            
+            log = new Log(resultSet.getInt(2));
+            
+            log.setHoraAberturaPedido(resultSet.getDate(3));
+            log.setHoraInicioProducao(resultSet.getDate(4));
+            log.setHoraTerminoProducao(resultSet.getDate(5));
+            log.setHoraSaidaEntrega(resultSet.getDate(6));
+            log.setHoraRetornoEntrega(resultSet.getDate(7));
+            log.setHoraFinalizacaoPedido(resultSet.getDate(8));
+            
+            preparedStatement.close();
+            
+            return log;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public void update()

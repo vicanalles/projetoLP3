@@ -83,9 +83,24 @@ public class ItemDAO
         
     }
     
-    public void delete()
+    public void delete(int codigo)
     {
+        String sql = "delete from item where codigo = ?";
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, codigo);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public int getNextID()
@@ -106,7 +121,8 @@ public class ItemDAO
         catch(Exception e)
         {
             e.printStackTrace();
-            return 0;
         }
+        
+        return 0;
     }
 }

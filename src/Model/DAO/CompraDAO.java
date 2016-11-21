@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -44,9 +44,9 @@ public class CompraDAO
             preparedStatement.execute();
             preparedStatement.close();
             
-            for (Map.Entry<Integer, Item> item : compra.getItens().entrySet())
+            for (Item item : compra.getItens())
             {
-                new ItemCompraDAO().create(compra.getNotaFiscal(), item.getValue());
+                new ItemCompraDAO().create(compra.getNotaFiscal(), item);
             }
         }
         catch(Exception e)
@@ -55,9 +55,9 @@ public class CompraDAO
         }
     }
     
-    public HashMap<Long, Compra> selectAll()
+    public ArrayList<Compra> selectAll()
     {
-        HashMap<Long, Compra> compras = new HashMap<Long, Compra>();
+        ArrayList<Compra> compras = new ArrayList<Compra>();
         
         String sql = "select (notaFiscal, valorTotal, data, cpfFuncionario, cnpjFornecedor) from compra;";
         
@@ -78,7 +78,7 @@ public class CompraDAO
                 compra.setFornecedor(new FornecedorDAO().selectByCnpj(resultSet.getString(5)));
                 compra.setItens(new ItemCompraDAO().selectByNotaFiscalCompra(compra.getNotaFiscal()));
                 
-                compras.put(compra.getNotaFiscal(), compra);
+                compras.add(compra);
             }
         }
         catch(Exception e)

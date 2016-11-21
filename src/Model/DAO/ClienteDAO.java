@@ -90,7 +90,7 @@ public class ClienteDAO
         return clientes;
     }
     
-    public void update()
+    public void update(Cliente cliente, String cpfAntigo)
     {
         
     }
