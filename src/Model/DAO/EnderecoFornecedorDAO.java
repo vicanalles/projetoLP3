@@ -23,8 +23,10 @@ public class EnderecoFornecedorDAO
     }
     
     public void create(Fornecedor fornecedor)
-    {
-        String sql = "insert into enderecoFornecedor(cnpjFornecedor, cep, rua, numero, bairro, cidade, estado, complemento) values('?', '?', '?', ?, '?', '?', '?', '?');";
+    {   
+       
+        
+        String sql = "insert into enderecoFornecedor(cnpjFornecedor, cep, rua, numero, bairro, cidade, estado, complemento) values(?, ?, ?, ?, ?, ?, ?, ?);";
         
         try
         {

@@ -1,7 +1,15 @@
 package Controller;
 
+import Model.DAO.FornecedorDAO;
+import Model.Fornecedor;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class CadastrarFornecedorController implements Initializable {
@@ -59,21 +68,58 @@ public class CadastrarFornecedorController implements Initializable {
     @FXML
     private Button btnRemoverFornecedor;
     @FXML
-    private TableView<?> tableViewFornecedor;
+    private TableView<Fornecedor> tableViewFornecedor;
     @FXML
-    private TableColumn<?, ?> tableColumnFornecedor;
+    private TableColumn<Fornecedor, String> tableColumnFornecedor;
     @FXML
     private Label lblCNPJFornecedor;
     @FXML
     private TextField txtCNPJFornecedor;
     @FXML
     private ComboBox<String> cbxEstadoFornecedor;
-
+    @FXML
+    private ObservableList<Fornecedor> observableListFornecedores;
+    @FXML
+    private TextField txtPesquisa;
+    
+    ArrayList<Fornecedor> fornecedores;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencheComboBoxEstado();
-    }    
+        
+        preencherTableView(new FornecedorDAO().selectByName(""));
+        
+        txtPesquisa.setPromptText("NomeFantasia ou CNPJ");
+        txtPesquisa.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+                String pesquisa = txtPesquisa.getText();
+                long cnpj;
+                try
+                {
+                    cnpj = Long.parseLong(pesquisa);
+                    ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+                    fornecedores.add(new FornecedorDAO().selectByCnpj(pesquisa));
+                    preencherTableView(fornecedores);
+                }
+                catch(Exception e)
+                {
+                    preencherTableView(new FornecedorDAO().selectByName(pesquisa));
+                }
+            }
+        });
+     }
+          
+    
+    public void preencherTableView(ArrayList<Fornecedor> fornecedores)
+    {        
+        tableColumnFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        
+        observableListFornecedores = FXCollections.observableArrayList(fornecedores);
+        
+        tableViewFornecedor.setItems(observableListFornecedores);
+    }
     
     public void preencheComboBoxEstado(){                
         cbxEstadoFornecedor.getItems().add("Acre - AC");
@@ -104,4 +150,31 @@ public class CadastrarFornecedorController implements Initializable {
         cbxEstadoFornecedor.getItems().add("Sergipe - SE");
         cbxEstadoFornecedor.getItems().add("Tocantins - TO");        
     }
+
+    @FXML
+    private void cadastrarFornecedor(ActionEvent event) {
+        
+        Fornecedor fornecedor = new Fornecedor();
+        
+        
+        fornecedor.setBairro(txtBairroFornecedor.getText());
+        fornecedor.setCep(txtCepFornecedor.getText());
+        fornecedor.setCidade(txtCidadeFornecedor.getText());
+        fornecedor.setCnpj(txtCNPJFornecedor.getText());
+        fornecedor.setComplemento(txtComplementoFornecedor.getText());
+        fornecedor.setEstado(Utilities.converterEstado(cbxEstadoFornecedor.getValue()));
+        fornecedor.setNome(txtNomeFornecedor.getText());
+        fornecedor.setNomeFantasia(txtNomeFantasiaFornecedor.getText());
+        fornecedor.setNumero(Integer.parseInt(txtNumeroFornecedor.getText()));
+        fornecedor.setRua(txtRuaFornecedor.getText());
+        
+        new FornecedorDAO().create(fornecedor);
+        
+        
+        preencherTableView(new FornecedorDAO().selectByName(""));
+        
+        
+    }
+    
+    
 }
