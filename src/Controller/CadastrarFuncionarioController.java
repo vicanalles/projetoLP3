@@ -1,7 +1,19 @@
 package Controller;
 
+import Model.Cliente;
+import Model.DAO.ClienteDAO;
+import Model.DAO.FuncionarioDAO;
+import Model.DataHora;
+import Model.Funcionario;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +24,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class CadastrarFuncionarioController implements Initializable {
@@ -87,15 +101,58 @@ public class CadastrarFuncionarioController implements Initializable {
     @FXML
     private Button btnRemoverFuncionario;
     @FXML
-    private TableView<?> tableViewFuncionarios;
+    private TableView<Funcionario> tableViewFuncionarios;
     @FXML
-    private TableColumn<?, ?> tableColumnFuncionarios;
+    private TableColumn<Funcionario, String> tableColumnFuncionarios;
     @FXML
     private ComboBox<String> cbxEstadoFuncionario;
+    
+    private ObservableList<Funcionario> observableListFuncionarios;
+    @FXML
+    private TextField txtPesquisa;
+    
+    ArrayList<Funcionario> funcionarios;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencheComboBoxEstado();
+        
+        preencherTableView(new FuncionarioDAO().selectByName(""));
+        
+        ToggleGroup toggleGroup = new ToggleGroup();
+        
+        rbtnFuncionarioMasculino.setToggleGroup(toggleGroup);
+        rbtnFuncionarioFeminino.setToggleGroup(toggleGroup);
+        
+        txtPesquisa.setPromptText("Nome ou CPF");
+        
+        txtPesquisa.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+                String pesquisa = txtPesquisa.getText();
+                long cpf;
+                try
+                {
+                    cpf = Long.parseLong(pesquisa);
+                    ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+                    funcionarios.add(new FuncionarioDAO().selectByCpf(pesquisa));
+                    preencherTableView(funcionarios);
+                }
+                catch(Exception e)
+                {
+                    preencherTableView(new FuncionarioDAO().selectByName(pesquisa));
+                }
+            }
+        });
+    }
+    
+    public void preencherTableView(ArrayList<Funcionario> funcionarios)
+    {        
+        tableColumnFuncionarios.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        
+        observableListFuncionarios = FXCollections.observableArrayList(funcionarios);
+        
+        tableViewFuncionarios.setItems(observableListFuncionarios);
     }
     
     public void preencheComboBoxEstado(){                
@@ -126,5 +183,41 @@ public class CadastrarFuncionarioController implements Initializable {
         cbxEstadoFuncionario.getItems().add("São Paulo - SP");
         cbxEstadoFuncionario.getItems().add("Sergipe - SE");
         cbxEstadoFuncionario.getItems().add("Tocantins - TO");        
+    }
+
+    @FXML
+    private void cadastrarFuncionario(ActionEvent event) {
+        
+        Funcionario funcionario = new Funcionario();
+        
+        funcionario.setBairro(txtBairroFuncionario.getText());
+        funcionario.setCep(txtCepFuncionario.getText());
+        funcionario.setCidade(txtCidadeFuncionario.getText());
+        funcionario.setComplemento(txtComplementoFuncionario.getText());
+        funcionario.setCpf(txtCpfFuncionario.getText());
+        try
+        {
+            funcionario.setDataNasc(DataHora.converterData(txtDataNascimentoFuncionario.getText()));
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(CadastrarFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        funcionario.setEmail(txtEmailFuncionario.getText());
+        funcionario.setEstado(Utilities.converterEstado(cbxEstadoFuncionario.getValue()));
+        funcionario.setNome(txtNomeFuncionario.getText());
+        funcionario.setNumero(Integer.parseInt(txtNumeroFuncionario.getText()));
+        funcionario.setFuncao(txtFuncaoFuncionario.getText());
+        funcionario.setSalario(Float.parseFloat(txtSalarioFuncionario.getText()));
+        funcionario.setRua(txtRuaFuncionario.getText());
+        if(rbtnFuncionarioMasculino.isSelected())
+            funcionario.setSexo("M");
+        if(rbtnFuncionarioFeminino.isSelected())
+            funcionario.setSexo("F");
+        funcionario.setTelefone(txtTelefoneFuncionario.getText());
+        
+        new FuncionarioDAO().create(funcionario);
+        
+        preencherTableView(new FuncionarioDAO().selectByName(""));
     }
 }

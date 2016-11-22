@@ -176,14 +176,7 @@ public class CadastrarClienteController implements Initializable {
         cbxEstadoCliente.getItems().add("São Paulo - SP");
         cbxEstadoCliente.getItems().add("Sergipe - SE");
         cbxEstadoCliente.getItems().add("Tocantins - TO");
-    }
-    
-    private static String converterEstado(String estadoCompleto)
-    {
-        char[] siglaEstado = new char[2];
-        estadoCompleto.getChars(estadoCompleto.length()-2, estadoCompleto.length(), siglaEstado, 0);
-        return new String(siglaEstado);
-    }
+    }        
 
     @FXML
     private void btnCadastrarCliente_OnAction(ActionEvent event)
@@ -204,7 +197,7 @@ public class CadastrarClienteController implements Initializable {
             Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         cliente.setEmail(txtEmailCliente.getText());
-        cliente.setEstado(converterEstado(cbxEstadoCliente.getValue()));
+        cliente.setEstado(Utilities.converterEstado(cbxEstadoCliente.getValue()));
         cliente.setNome(txtNomeCliente.getText());
         cliente.setNumero(Integer.parseInt(txtNumeroCliente.getText()));
         cliente.setProdutoFavorito(txtProdutoFavoritoCliente.getText());

@@ -167,7 +167,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btnCadastrarFuncionario" layoutX="437.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
+      <Button fx:id="btnCadastrarFuncionario" layoutX="437.0" layoutY="453.0" mnemonicParsing="false" onAction="#cadastrarFuncionario" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
       <Button fx:id="btnEditarFuncionario" layoutX="567.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
       <Button fx:id="btnRemoverFuncionario" layoutX="697.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
       <TableView fx:id="tableViewFuncionarios" layoutX="49.0" layoutY="89.0" prefHeight="407.0" prefWidth="237.0">
@@ -176,7 +176,7 @@
         </columns>
       </TableView>
       <ComboBox fx:id="cbxEstadoFuncionario" layoutX="384.0" layoutY="408.0" prefHeight="28.0" prefWidth="237.0" />
-      <TextField layoutX="49.0" layoutY="53.0" prefWidth="237.0">
+      <TextField fx:id="txtPesquisa" layoutX="49.0" layoutY="53.0" prefWidth="237.0">
          <font>
             <Font size="14.0" />
          </font>

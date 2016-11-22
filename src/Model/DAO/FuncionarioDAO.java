@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO;
 
 import Model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -48,17 +44,55 @@ public class FuncionarioDAO
     
     public Funcionario selectByCpf(String cpf)
     {
-        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, f.funcao, f.salario from pessoa p, funcionario f where p.cpf = ?;";
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, f.funcao, f.salario from pessoa p, funcionario f where p.cpf like ?;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, cpf);
+            preparedStatement.setString(1, cpf + "%");
+            
+            ResultSet resultSet = preparedStatement.executeQuery();                        
+            
+            Funcionario funcionario = new Funcionario();
+            
+            if(resultSet.next())
+            {                
+                funcionario.setCpf(resultSet.getString(1));
+                funcionario.setNome(resultSet.getString(2));
+                funcionario.setSexo(resultSet.getString(3));
+                funcionario.setDataNasc(resultSet.getDate(4));
+                funcionario.setEmail(resultSet.getString(5));
+                funcionario.setTelefone(resultSet.getString(6));
+                funcionario.setFuncao(resultSet.getString(7));
+                funcionario.setSalario(resultSet.getFloat(8));
+                                
+                preparedStatement.close();                
+            }                        
+            return funcionario;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ArrayList<Funcionario> selectByName(String nome)
+    {
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, f.funcao, f.salario, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from pessoa p, funcionario f, enderecoPessoa e where p.nome like ? and p.cpf = f.cpf and p.cpf = e.cpfPessoa;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, "%" + nome + "%");
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
-            if(resultSet.next())
+            ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+            
+            while(resultSet.next())
             {
                 Funcionario funcionario = new Funcionario();
 
@@ -70,13 +104,18 @@ public class FuncionarioDAO
                 funcionario.setTelefone(resultSet.getString(6));
                 funcionario.setFuncao(resultSet.getString(7));
                 funcionario.setSalario(resultSet.getFloat(8));
+                funcionario.setCep(resultSet.getString(9));
+                funcionario.setRua(resultSet.getString(10));
+                funcionario.setNumero(resultSet.getInt(11));
+                funcionario.setBairro(resultSet.getString(12));
+                funcionario.setCidade(resultSet.getString(13));
+                funcionario.setEstado(resultSet.getString(14));
+                funcionario.setComplemento(resultSet.getString(15));
 
-                preparedStatement.close();
-
-                return funcionario;
+                funcionarios.add(funcionario);
             }
-            
-            return null;
+            preparedStatement.close();
+            return funcionarios;
         }
         catch(Exception e)
         {
