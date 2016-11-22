@@ -197,14 +197,14 @@ public class CadastrarFuncionarioController implements Initializable {
         funcionario.setCpf(txtCpfFuncionario.getText());
         try
         {
-            funcionario.setDataNasc(DataHora.converterData(txtDataNascimentoFuncionario.getText()));
+            funcionario.setDataNasc(DataHora.convertStringToDate(txtDataNascimentoFuncionario.getText()));
         }
         catch (Exception ex)
         {
             Logger.getLogger(CadastrarFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
         funcionario.setEmail(txtEmailFuncionario.getText());
-        funcionario.setEstado(Utilities.converterEstado(cbxEstadoFuncionario.getValue()));
+        funcionario.setEstado(Utilities.converterParaSigla(cbxEstadoFuncionario.getValue()));
         funcionario.setNome(txtNomeFuncionario.getText());
         funcionario.setNumero(Integer.parseInt(txtNumeroFuncionario.getText()));
         funcionario.setFuncao(txtFuncaoFuncionario.getText());

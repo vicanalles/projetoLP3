@@ -40,7 +40,7 @@ public class Controlador
         c.setCidade("São Carlos");
         c.setComplemento("Ap 157");
         c.setCpf("1");
-        c.setDataNasc(DataHora.converterData("18/04/1995"));
+        c.setDataNasc(DataHora.convertStringToDate("18/04/1995"));
         c.setEmail("email@email.com");
         c.setEstado("São Paulo");
         c.setNome("Vinicius");
@@ -57,7 +57,7 @@ public class Controlador
         f.setCidade("São Carlos");
         f.setComplemento("Casa 2A");
         f.setCpf("2");
-        f.setDataNasc(DataHora.converterData("09/08/1980"));
+        f.setDataNasc(DataHora.convertStringToDate("09/08/1980"));
         f.setEmail("email2@email.com");
         f.setEstado("São Paulo");
         f.setFuncao("Vendedor");
@@ -164,7 +164,7 @@ public class Controlador
             String data = entrada.nextLine();
             try
             {
-                dataConvertida = DataHora.converterData(data);
+                dataConvertida = DataHora.convertStringToDate(data);
                 funcionou = true;
             }
             catch(Exception e)
@@ -237,7 +237,7 @@ public class Controlador
             String data = entrada.nextLine();
             try
             {
-                dataConvertida = DataHora.converterData(data);
+                dataConvertida = DataHora.convertStringToDate(data);
                 funcionou = true;
             }
             catch(Exception e)

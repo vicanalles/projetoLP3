@@ -31,9 +31,17 @@ public class DataHora {
      * @return A data é retornada no tipo Java.Util.Date
      * @throws Exception Se a String recebida não estiver no formato especificado acima
      */
-    public static Date converterData(String data) throws Exception
+    public static Date convertStringToDate(String data) throws Exception
     {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.parse(data);
+    }
+    
+    public static String convertDateToString(Date data) throws Exception
+    {
+        //java.util.Date d = new java.util.Date();
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+         //vai te retorna uma String
+        return f.format(data);
     }
 }
