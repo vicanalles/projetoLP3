@@ -95,7 +95,7 @@ public class FornecedorDAO
     
     public ArrayList<Fornecedor> selectByName(String nomeFantasia)
     {
-        String sql = "select f.cnpj, f.nome, f.nomeFantasia, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from fornecedor f, enderecoFornecedor e where f.nomeFantasia like ? and f.cnpj = e.cnpjFornecedor;";
+        String sql = "select f.cnpj, f.nome, f.nomeFantasia, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from fornecedor f, enderecoFornecedor e where f.nomeFantasia like ? and f.cnpj = e.cnpjFornecedor;";
         
         try
         {

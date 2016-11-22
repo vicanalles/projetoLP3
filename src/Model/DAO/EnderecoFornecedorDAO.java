@@ -38,8 +38,8 @@ public class EnderecoFornecedorDAO
             preparedStatement.setInt(4, fornecedor.getNumero());
             preparedStatement.setString(5, fornecedor.getBairro());
             preparedStatement.setString(6, fornecedor.getCidade());
-            preparedStatement.setString(5, fornecedor.getEstado());
-            preparedStatement.setString(6, fornecedor.getComplemento());
+            preparedStatement.setString(7, fornecedor.getEstado());
+            preparedStatement.setString(8, fornecedor.getComplemento());
             
             preparedStatement.execute();
             preparedStatement.close();

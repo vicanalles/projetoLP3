@@ -114,7 +114,7 @@ public class CadastrarFornecedorController implements Initializable {
     
     public void preencherTableView(ArrayList<Fornecedor> fornecedores)
     {        
-        tableColumnFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tableColumnFornecedor.setCellValueFactory(new PropertyValueFactory<>("nomeFantasia"));
         
         observableListFornecedores = FXCollections.observableArrayList(fornecedores);
         
@@ -155,8 +155,7 @@ public class CadastrarFornecedorController implements Initializable {
     private void cadastrarFornecedor(ActionEvent event) {
         
         Fornecedor fornecedor = new Fornecedor();
-        
-        
+                
         fornecedor.setBairro(txtBairroFornecedor.getText());
         fornecedor.setCep(txtCepFornecedor.getText());
         fornecedor.setCidade(txtCidadeFornecedor.getText());
@@ -168,8 +167,7 @@ public class CadastrarFornecedorController implements Initializable {
         fornecedor.setNumero(Integer.parseInt(txtNumeroFornecedor.getText()));
         fornecedor.setRua(txtRuaFornecedor.getText());
         
-        new FornecedorDAO().create(fornecedor);
-        
+        new FornecedorDAO().create(fornecedor);        
         
         preencherTableView(new FornecedorDAO().selectByName(""));
         
