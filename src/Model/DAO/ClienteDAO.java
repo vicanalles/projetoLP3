@@ -45,14 +45,14 @@ public class ClienteDAO
     {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         
-        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, c.produtofavorito from pessoa p, cliente c, where p.nome like ? and p.cpf = c.cpf;";
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, c.produtofavorito from pessoa p, cliente c where p.nome like ? and p.cpf = c.cpf;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
             preparedStatement.setString(1, "%" + nome + "%");
-            System.out.println(preparedStatement);
+            
             ResultSet resultSet = preparedStatement.executeQuery();
             
             while(resultSet.next())

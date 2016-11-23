@@ -110,8 +110,6 @@ public class CadastrarClienteController implements Initializable {
     private TextField txtPesquisar;
     
     ArrayList<Cliente> clientes;
-    @FXML
-    private Pane paneDadosCliente;
     
 
     @Override

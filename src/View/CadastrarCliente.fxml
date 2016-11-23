@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="anchorPaneCadastroCliente" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarClienteController">
@@ -168,6 +167,5 @@
          </font>
       </TextField>
       <ComboBox fx:id="cbxEstadoCliente" layoutX="384.0" layoutY="368.0" prefHeight="28.0" prefWidth="237.0" />
-      <Pane fx:id="paneDadosCliente" layoutX="300.0" layoutY="79.0" prefHeight="417.0" prefWidth="589.0" />
    </children>
 </AnchorPane>
