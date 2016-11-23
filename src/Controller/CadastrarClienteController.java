@@ -28,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class CadastrarClienteController implements Initializable {   
 
@@ -109,6 +110,8 @@ public class CadastrarClienteController implements Initializable {
     private TextField txtPesquisar;
     
     ArrayList<Cliente> clientes;
+    @FXML
+    private Pane paneDadosCliente;
     
 
     @Override
