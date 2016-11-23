@@ -107,9 +107,27 @@ public class ItemDAO
         }
     }
     
-    public void update()
+    public void update(Item item)
     {
-        
+        String sql = "update item set nome = ?, descricao = ?, quantidade = ?, valorCompra = ? where codigo = ?;";
+    
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                        
+            preparedStatement.setString(1, item.getNome());
+            preparedStatement.setString(2, item.getDescricao());
+            preparedStatement.setFloat(3, item.getQuantidade());
+            preparedStatement.setFloat(4, item.getValorCompra());            
+            preparedStatement.setInt(5, item.getCodigo());
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void delete(int codigo)

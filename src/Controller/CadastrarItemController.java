@@ -63,6 +63,7 @@ public class CadastrarItemController implements Initializable {
     ArrayList<Item> itens;
     
     boolean editando = false;
+    boolean itemCadastrado = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,8 +130,11 @@ public class CadastrarItemController implements Initializable {
             item.setQuantidade(Float.parseFloat(txtQuantidadeItens.getText()));
             item.setValorCompra(Float.parseFloat(txtValorCompraItens.getText()));
             item.setDescricao(txtDescricaoItens.getText());
-            
-            new ItemDAO().create(item);
+            if(itemCadastrado == false){                            
+                new ItemDAO().create(item);
+            }else{
+                new ItemDAO().update(item);
+            }            
             editando = false;
             preencherTableView(new ItemDAO().selectByName(""));            
         }                
@@ -138,20 +142,26 @@ public class CadastrarItemController implements Initializable {
 
     @FXML
     private void OnMouseClicked_TableViewItens() {
-        Item item = tableViewItens.getSelectionModel().getSelectedItem();
+        try{
+            Item item = tableViewItens.getSelectionModel().getSelectedItem();
         
-        lblNumeroCodigoItens.setText(Integer.toString(item.getCodigo()));
-        txtNomeItens.setText(item.getNome());
-        txtQuantidadeItens.setText(Float.toString(item.getQuantidade()));
-        txtValorCompraItens.setText(Float.toString(item.getValorCompra()));
-        txtDescricaoItens.setText(item.getDescricao());
+            lblNumeroCodigoItens.setText(Integer.toString(item.getCodigo()));
+            txtNomeItens.setText(item.getNome());
+            txtQuantidadeItens.setText(Float.toString(item.getQuantidade()));
+            txtValorCompraItens.setText(Float.toString(item.getValorCompra()));
+            txtDescricaoItens.setText(item.getDescricao());
+
+            txtDescricaoItens.setEditable(false);
+            txtNomeItens.setEditable(false);
+            txtQuantidadeItens.setEditable(false);
+            txtValorCompraItens.setEditable(false);
+
+            itemCadastrado = true;
+            editando = false;
+        }catch(Exception e){
+            
+        }
         
-        txtDescricaoItens.setEditable(false);
-        txtNomeItens.setEditable(false);
-        txtQuantidadeItens.setEditable(false);
-        txtValorCompraItens.setEditable(false);
-        
-        editando = false;
     }   
 
     @FXML
@@ -160,6 +170,19 @@ public class CadastrarItemController implements Initializable {
         txtNomeItens.setEditable(true);
         txtQuantidadeItens.setEditable(true);
         txtValorCompraItens.setEditable(true);
+        
+        editando = true;
+    }
+
+    @FXML
+    private void removerItem(ActionEvent event) {        
+        new ItemDAO().delete(Integer.parseInt(lblNumeroCodigoItens.getText()));
+        lblNumeroCodigoItens.setText("");
+        txtNomeItens.setText("");
+        txtDescricaoItens.setText("");
+        txtQuantidadeItens.setText("");
+        txtValorCompraItens.setText("");
+        preencherTableView(new ItemDAO().selectByName(""));
     }
     
     

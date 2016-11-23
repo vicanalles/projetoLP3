@@ -66,7 +66,7 @@
       </TextField>
       <Button fx:id="btnCadastrarItens" layoutX="436.0" layoutY="363.0" mnemonicParsing="false" onAction="#cadastrarItem" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
       <Button fx:id="btnEditarItens" layoutX="566.0" layoutY="363.0" mnemonicParsing="false" onMouseClicked="#OnMouseClicked_BtnEditarItens" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
-      <Button fx:id="btnRemoverItens" layoutX="696.0" layoutY="363.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
+      <Button fx:id="btnRemoverItens" layoutX="696.0" layoutY="363.0" mnemonicParsing="false" onAction="#removerItem" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
       <TableView fx:id="tableViewItens" layoutX="49.0" layoutY="89.0" onKeyReleased="#OnMouseClicked_TableViewItens" onMouseClicked="#OnMouseClicked_TableViewItens" prefHeight="407.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="tableColumnItens" prefWidth="236.0" text="Itens" />

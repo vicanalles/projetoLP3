@@ -135,7 +135,7 @@ public class CadastrarFuncionarioController implements Initializable {
                 {
                     cpf = Long.parseLong(pesquisa);
                     ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
-                    funcionarios.add(new FuncionarioDAO().selectByCpf(pesquisa));
+                    funcionarios.add(new FuncionarioDAO().selectOneByCpf(pesquisa));
                     preencherTableView(funcionarios);
                 }
                 catch(Exception e)
@@ -204,7 +204,7 @@ public class CadastrarFuncionarioController implements Initializable {
             Logger.getLogger(CadastrarFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
         funcionario.setEmail(txtEmailFuncionario.getText());
-        funcionario.setEstado(Utilities.converterParaSigla(cbxEstadoFuncionario.getValue()));
+        funcionario.setEstado(cbxEstadoFuncionario.getValue());
         funcionario.setNome(txtNomeFuncionario.getText());
         funcionario.setNumero(Integer.parseInt(txtNumeroFuncionario.getText()));
         funcionario.setFuncao(txtFuncaoFuncionario.getText());

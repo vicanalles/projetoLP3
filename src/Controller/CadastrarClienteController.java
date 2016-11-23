@@ -111,7 +111,8 @@ public class CadastrarClienteController implements Initializable {
     
     ArrayList<Cliente> clientes;
     
-
+    boolean editando = false;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencheComboBoxEstado();                
@@ -201,7 +202,7 @@ public class CadastrarClienteController implements Initializable {
             Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         cliente.setEmail(txtEmailCliente.getText());
-        cliente.setEstado(Utilities.converterParaSigla(cbxEstadoCliente.getValue()));
+        cliente.setEstado(cbxEstadoCliente.getValue());
         cliente.setNome(txtNomeCliente.getText());
         cliente.setNumero(Integer.parseInt(txtNumeroCliente.getText()));
         cliente.setProdutoFavorito(txtProdutoFavoritoCliente.getText());

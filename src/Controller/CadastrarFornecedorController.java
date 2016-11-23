@@ -161,7 +161,7 @@ public class CadastrarFornecedorController implements Initializable {
         fornecedor.setCidade(txtCidadeFornecedor.getText());
         fornecedor.setCnpj(txtCNPJFornecedor.getText());
         fornecedor.setComplemento(txtComplementoFornecedor.getText());
-        fornecedor.setEstado(Utilities.converterParaSigla(cbxEstadoFornecedor.getValue()));
+        fornecedor.setEstado(cbxEstadoFornecedor.getValue());
         fornecedor.setNome(txtNomeFornecedor.getText());
         fornecedor.setNomeFantasia(txtNomeFantasiaFornecedor.getText());
         fornecedor.setNumero(Integer.parseInt(txtNumeroFornecedor.getText()));
