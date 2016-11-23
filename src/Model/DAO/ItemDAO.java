@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO;
 
+import Model.Funcionario;
 import Model.Item;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
-/**
- *
- * @author Rafael
- */
 public class ItemDAO
 {
     
@@ -51,7 +44,7 @@ public class ItemDAO
     {
         Item item = new Item();
         
-        String sql = "select (codigo, nome, descricao, quantidade, valorCompra) from item where codigo = ?;";
+        String sql = "select codigo, nome, descricao, quantidade, valorCompra from item where codigo = ?;";
         
         try
         {
@@ -76,6 +69,42 @@ public class ItemDAO
         }
         
         return item;
+    }
+    
+    public ArrayList<Item> selectByName(String nome)
+    {
+        String sql = "select codigo, nome, descricao, quantidade, valorCompra from item where nome like ?;";
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, "%" + nome + "%");
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            ArrayList<Item> itens = new ArrayList<Item>();
+            
+            while(resultSet.next())
+            {
+                Item item = new Item();
+
+                item.setCodigo(resultSet.getInt(1));
+                item.setNome(resultSet.getString(2));
+                item.setDescricao(resultSet.getString(3));
+                item.setQuantidade(resultSet.getFloat(4));
+                item.setValorCompra(resultSet.getFloat(5));
+
+                itens.add(item);
+            }
+            preparedStatement.close();
+            return itens;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public void update()
