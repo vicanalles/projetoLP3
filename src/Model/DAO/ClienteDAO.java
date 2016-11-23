@@ -152,7 +152,6 @@ public class ClienteDAO
             preparedStatement.executeQuery();
             preparedStatement.close();
             
-            new EnderecoPessoaDAO().delete(cpf);
             new PessoaDAO().delete(cpf);
         }
         catch(Exception e)
