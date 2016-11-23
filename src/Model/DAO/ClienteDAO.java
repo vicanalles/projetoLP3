@@ -44,7 +44,7 @@ public class ClienteDAO
     public ArrayList<Cliente> selectByName(String nome)
     {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-        
+        //teste
         String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, c.produtofavorito from pessoa p, cliente c where p.nome like ? and p.cpf = c.cpf;";
         
         try
