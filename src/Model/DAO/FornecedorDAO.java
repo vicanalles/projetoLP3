@@ -26,9 +26,7 @@ public class FornecedorDAO
     
     public void create(Fornecedor fornecedor)
     {
-        
-        
-        String sql = "insert into fornecedor(cnpj, nome, nomeFantasia) values (?, ?, ?);";
+        String sql = "insert into fornecedor(cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
         try
         {
@@ -37,11 +35,17 @@ public class FornecedorDAO
             preparedStatement.setString(1, fornecedor.getCnpj());
             preparedStatement.setString(2, fornecedor.getNome());
             preparedStatement.setString(3, fornecedor.getNomeFantasia());
+            preparedStatement.setString(4, fornecedor.getTelefone());
+            preparedStatement.setString(5, fornecedor.getCep());
+            preparedStatement.setString(6, fornecedor.getRua());
+            preparedStatement.setInt(7, fornecedor.getNumero());
+            preparedStatement.setString(8, fornecedor.getBairro());
+            preparedStatement.setString(9, fornecedor.getCidade());
+            preparedStatement.setString(10, fornecedor.getEstado());
+            preparedStatement.setString(11, fornecedor.getComplemento());
             
             preparedStatement.execute();
             preparedStatement.close();
-            
-            new EnderecoFornecedorDAO().create(fornecedor);
             
         }
         catch(Exception e)
@@ -50,9 +54,15 @@ public class FornecedorDAO
         }
     }
     
-    public Fornecedor selectByCnpj(String cnpj)
+    public Fornecedor selectOneByCnpj(String string)
     {
-        String sql = "select f.cnpj, f.nome, f.nomeFantasia, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from fornecedor f inner join enderecoFornecedor e on f.cnpj = e.cnpjFornecedor where f.cnpj = ?;";
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public ArrayList<Fornecedor> selectByCnpj(String cnpj)
+    {
+        String sql = "select cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento from fornecedor where cnpj like ?;";
+        ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
         
         try
         {
@@ -62,40 +72,37 @@ public class FornecedorDAO
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
-            Fornecedor fornecedor = new Fornecedor();
-            
-            if(resultSet.next())
+            while(resultSet.next())
             {
-                
+                Fornecedor fornecedor = new Fornecedor();
+                preparedStatement.setString(1, fornecedor.getCnpj());
+                preparedStatement.setString(2, fornecedor.getNome());
+                preparedStatement.setString(3, fornecedor.getNomeFantasia());
+                preparedStatement.setString(4, fornecedor.getTelefone());
+                preparedStatement.setString(5, fornecedor.getCep());
+                preparedStatement.setString(6, fornecedor.getRua());
+                preparedStatement.setInt(7, fornecedor.getNumero());
+                preparedStatement.setString(8, fornecedor.getBairro());
+                preparedStatement.setString(9, fornecedor.getCidade());
+                preparedStatement.setString(10, fornecedor.getEstado());
+                preparedStatement.setString(11, fornecedor.getComplemento());
 
-                fornecedor.setCnpj(resultSet.getString(1));
-                fornecedor.setNome(resultSet.getString(2));
-                fornecedor.setNomeFantasia(resultSet.getString(3));
-                fornecedor.setCep(resultSet.getString(4));
-                fornecedor.setRua(resultSet.getString(5));
-                fornecedor.setNumero(resultSet.getInt(6));
-                fornecedor.setBairro(resultSet.getString(7));
-                fornecedor.setCidade(resultSet.getString(8));
-                fornecedor.setEstado(resultSet.getString(9));
-                fornecedor.setComplemento(resultSet.getString(10));
-
-                preparedStatement.close();
-
-                return fornecedor;
+                fornecedores.add(fornecedor);
             }
-            
-            return null;
+            preparedStatement.close();
         }
         catch(Exception e)
         {
             e.printStackTrace();
-            return null;
         }
+        
+        return fornecedores;
     }
     
-    public ArrayList<Fornecedor> selectByName(String nomeFantasia)
+    public ArrayList<Fornecedor> selectByFantasyName(String nomeFantasia)
     {
-        String sql = "select f.cnpj, f.nome, f.nomeFantasia, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from fornecedor f, enderecoFornecedor e where f.nomeFantasia like ? and f.cnpj = e.cnpjFornecedor;";
+        String sql = "select cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento from fornecedor where nomeFantasia like ?;";
+        ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
         
         try
         {
@@ -105,38 +112,38 @@ public class FornecedorDAO
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
-            ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-            
             while(resultSet.next())
             {
                 Fornecedor fornecedor = new Fornecedor();
 
-                fornecedor.setCnpj(resultSet.getString(1));
-                fornecedor.setNome(resultSet.getString(2));
-                fornecedor.setNomeFantasia(resultSet.getString(3));
-                fornecedor.setCep(resultSet.getString(4));
-                fornecedor.setRua(resultSet.getString(5));
-                fornecedor.setNumero(resultSet.getInt(6));
-                fornecedor.setBairro(resultSet.getString(7));
-                fornecedor.setCidade(resultSet.getString(8));
-                fornecedor.setEstado(resultSet.getString(9));
-                fornecedor.setComplemento(resultSet.getString(10));;
+                preparedStatement.setString(1, fornecedor.getCnpj());
+                preparedStatement.setString(2, fornecedor.getNome());
+                preparedStatement.setString(3, fornecedor.getNomeFantasia());
+                preparedStatement.setString(4, fornecedor.getTelefone());
+                preparedStatement.setString(5, fornecedor.getCep());
+                preparedStatement.setString(6, fornecedor.getRua());
+                preparedStatement.setInt(7, fornecedor.getNumero());
+                preparedStatement.setString(8, fornecedor.getBairro());
+                preparedStatement.setString(9, fornecedor.getCidade());
+                preparedStatement.setString(10, fornecedor.getEstado());
+                preparedStatement.setString(11, fornecedor.getComplemento());
 
                 fornecedores.add(fornecedor);
             }
+            
             preparedStatement.close();
-            return fornecedores;
         }
         catch(Exception e)
         {
             e.printStackTrace();
-            return null;
         }
+        
+        return fornecedores;
     }
     
-    public void update(Fornecedor fornecedor)
+    public void update(Fornecedor fornecedor, String cnpjAntigo)
     {
-        String sql = "update fornecedor set cnpj = ?, nome = ?, nomeFantasia = ? where cnpj = ?;";
+        String sql = "update fornecedor set cnpj = ?, nome = ?, nomeFantasia = ?, cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cnpj = ?;";
     
         try
         {
@@ -145,12 +152,17 @@ public class FornecedorDAO
             preparedStatement.setString(1, fornecedor.getCnpj());
             preparedStatement.setString(2, fornecedor.getNome());
             preparedStatement.setString(3, fornecedor.getNomeFantasia());
-            preparedStatement.setString(4, fornecedor.getCnpj());
+            preparedStatement.setString(4, fornecedor.getCep());
+            preparedStatement.setString(5, fornecedor.getRua());
+            preparedStatement.setInt(6, fornecedor.getNumero());
+            preparedStatement.setString(7, fornecedor.getBairro());
+            preparedStatement.setString(8, fornecedor.getCidade());
+            preparedStatement.setString(9, fornecedor.getEstado());
+            preparedStatement.setString(10, fornecedor.getComplemento());
+            preparedStatement.setString(11, cnpjAntigo);
             
             preparedStatement.execute();
             preparedStatement.close();
-            
-            new EnderecoFornecedorDAO().update(fornecedor);
         }
         catch(Exception e)
         {
@@ -162,4 +174,6 @@ public class FornecedorDAO
     {
         
     }
+
+    
 }

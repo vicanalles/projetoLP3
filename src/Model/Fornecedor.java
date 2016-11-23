@@ -5,6 +5,7 @@ public class Fornecedor {
     private String cnpj;
     private String nome;
     private String nomeFantasia;
+    private String telefone;
     private String cep;
     private String rua;
     private int numero;
@@ -40,6 +41,16 @@ public class Fornecedor {
 
     public void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
+    }
+    
+    public String getTelefone()
+    {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone)
+    {
+        this.telefone = telefone;
     }
 
     public String getCep() {

@@ -45,14 +45,14 @@ public class ClienteDAO
     {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         
-        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, c.produtofavorito, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from pessoa p, cliente c, enderecoPessoa e where p.nome like ? and p.cpf = c.cpf and p.cpf = e.cpfPessoa;";
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, c.produtofavorito from pessoa p, cliente c, where p.nome like ? and p.cpf = c.cpf;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
             preparedStatement.setString(1, "%" + nome + "%");
-            
+            System.out.println(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
             
             while(resultSet.next())
@@ -65,14 +65,16 @@ public class ClienteDAO
                 cliente.setDataNasc(resultSet.getDate(4));
                 cliente.setEmail(resultSet.getString(5));
                 cliente.setTelefone(resultSet.getString(6));
-                cliente.setProdutoFavorito(resultSet.getString(7));
-                cliente.setCep(resultSet.getString(8));
-                cliente.setRua(resultSet.getString(9));
-                cliente.setNumero(resultSet.getInt(10));
-                cliente.setBairro(resultSet.getString(11));
-                cliente.setCidade(resultSet.getString(12));
-                cliente.setEstado(resultSet.getString(13));
-                cliente.setComplemento(resultSet.getString(14));
+                
+                cliente.setCep(resultSet.getString(7));
+                cliente.setRua(resultSet.getString(8));
+                cliente.setNumero(resultSet.getInt(9));
+                cliente.setBairro(resultSet.getString(10));
+                cliente.setCidade(resultSet.getString(11));
+                cliente.setEstado(resultSet.getString(12));
+                cliente.setComplemento(resultSet.getString(13));
+                
+                cliente.setProdutoFavorito(resultSet.getString(14));
                 
                 clientes.add(cliente);
             }

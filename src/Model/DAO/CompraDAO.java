@@ -75,7 +75,7 @@ public class CompraDAO
                 compra.setValorTotal(resultSet.getFloat(2));
                 compra.setData(resultSet.getDate(3));
                 compra.setFuncionario(new FuncionarioDAO().selectByCpf(resultSet.getString(4)));
-                compra.setFornecedor(new FornecedorDAO().selectByCnpj(resultSet.getString(5)));
+                compra.setFornecedor(new FornecedorDAO().selectOneByCnpj(resultSet.getString(5)));
                 compra.setItens(new ItemCompraDAO().selectByNotaFiscalCompra(compra.getNotaFiscal()));
                 
                 compras.add(compra);

@@ -44,7 +44,7 @@ public class FuncionarioDAO
     
     public Funcionario selectByCpf(String cpf)
     {
-        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, f.funcao, f.salario from pessoa p, funcionario f where p.cpf like ?;";
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, f.funcao, f.salario from pessoa p, funcionario f where p.cpf like ? and p.cpf = f.cpf;";
         
         try
         {
@@ -64,8 +64,15 @@ public class FuncionarioDAO
                 funcionario.setDataNasc(resultSet.getDate(4));
                 funcionario.setEmail(resultSet.getString(5));
                 funcionario.setTelefone(resultSet.getString(6));
-                funcionario.setFuncao(resultSet.getString(7));
-                funcionario.setSalario(resultSet.getFloat(8));
+                funcionario.setCep(resultSet.getString(7));
+                funcionario.setRua(resultSet.getString(8));
+                funcionario.setNumero(resultSet.getInt(9));
+                funcionario.setBairro(resultSet.getString(10));
+                funcionario.setCidade(resultSet.getString(11));
+                funcionario.setEstado(resultSet.getString(12));
+                funcionario.setComplemento(resultSet.getString(13));
+                funcionario.setFuncao(resultSet.getString(14));
+                funcionario.setSalario(resultSet.getFloat(15));
                                 
                 preparedStatement.close();                
             }                        
@@ -80,7 +87,7 @@ public class FuncionarioDAO
     
     public ArrayList<Funcionario> selectByName(String nome)
     {
-        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, f.funcao, f.salario, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from pessoa p, funcionario f, enderecoPessoa e where p.nome like ? and p.cpf = f.cpf and p.cpf = e.cpfPessoa;";
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, f.funcao, f.salario from pessoa p, funcionario f where p.nome like ? and p.cpf = f.cpf;";
         
         try
         {
@@ -102,15 +109,15 @@ public class FuncionarioDAO
                 funcionario.setDataNasc(resultSet.getDate(4));
                 funcionario.setEmail(resultSet.getString(5));
                 funcionario.setTelefone(resultSet.getString(6));
-                funcionario.setFuncao(resultSet.getString(7));
-                funcionario.setSalario(resultSet.getFloat(8));
-                funcionario.setCep(resultSet.getString(9));
-                funcionario.setRua(resultSet.getString(10));
-                funcionario.setNumero(resultSet.getInt(11));
-                funcionario.setBairro(resultSet.getString(12));
-                funcionario.setCidade(resultSet.getString(13));
-                funcionario.setEstado(resultSet.getString(14));
-                funcionario.setComplemento(resultSet.getString(15));
+                funcionario.setCep(resultSet.getString(7));
+                funcionario.setRua(resultSet.getString(8));
+                funcionario.setNumero(resultSet.getInt(9));
+                funcionario.setBairro(resultSet.getString(10));
+                funcionario.setCidade(resultSet.getString(11));
+                funcionario.setEstado(resultSet.getString(12));
+                funcionario.setComplemento(resultSet.getString(13));
+                funcionario.setFuncao(resultSet.getString(14));
+                funcionario.setSalario(resultSet.getFloat(15));
 
                 funcionarios.add(funcionario);
             }
@@ -124,20 +131,19 @@ public class FuncionarioDAO
         }
     }
     
-    public void update(Funcionario funcionario)
+    public void update(Funcionario funcionario, String novoCpf)
     {
-        new PessoaDAO().update(funcionario);
+        new PessoaDAO().update(funcionario, novoCpf);
         
-        String sql = "update funcionario set cpf = ?, funcao = ?, salario = ? where cpf = ?;";
+        String sql = "update funcionario set funcao = ?, salario = ? where cpf = ?;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, funcionario.getCpf());
             preparedStatement.setString(2, funcionario.getFuncao());
             preparedStatement.setFloat(3, funcionario.getSalario());
-            preparedStatement.setString(4, funcionario.getCpf());
+            preparedStatement.setString(4, novoCpf);
             
             preparedStatement.execute();
             preparedStatement.close();

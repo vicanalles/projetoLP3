@@ -29,7 +29,7 @@ public class PessoaDAO
     
     public void create(Pessoa pessoa)
     {
-        String sql = "insert into pessoa(cpf, nome, sexo, dataNasc, email, telefone) values(?, ?, ?, ?, ?, ?);";
+        String sql = "insert into pessoa(cpf, nome, sexo, dataNasc, email, telefone, cep, rua, numero, bairro, cidade, estado, complemento) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         try
         {
@@ -41,11 +41,16 @@ public class PessoaDAO
             preparedStatement.setDate(4, new Date(pessoa.getDataNasc().getTime()));
             preparedStatement.setString(5, pessoa.getEmail());
             preparedStatement.setString(6, pessoa.getTelefone());
+            preparedStatement.setString(7, pessoa.getCep());
+            preparedStatement.setString(8, pessoa.getRua());
+            preparedStatement.setInt(9, pessoa.getNumero());
+            preparedStatement.setString(10, pessoa.getBairro());
+            preparedStatement.setString(11, pessoa.getCidade());
+            preparedStatement.setString(12, pessoa.getEstado());
+            preparedStatement.setString(13, pessoa.getComplemento());
             
             preparedStatement.execute();
             preparedStatement.close();
-            
-            new EnderecoPessoaDAO().create(pessoa);
         }
         catch(Exception e)
         {
@@ -53,26 +58,31 @@ public class PessoaDAO
         }
     }
         
-    public void update(Pessoa pessoa)
+    public void update(Pessoa pessoa, String novoCpf)
     {
-        String sql = "update pessoa set cpf = ?, nome = ?, sexo = ?, dataNasc = ?, email = ?, telefone = ? where cpf = ?;";
+        String sql = "update pessoa set cpf = ?, nome = ?, sexo = ?, dataNasc = ?, email = ?, telefone = ?, cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cpf = ?;";
         
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, pessoa.getCpf());
+            preparedStatement.setString(1, novoCpf);
             preparedStatement.setString(2, pessoa.getNome());
             preparedStatement.setString(3, pessoa.getSexo());
             preparedStatement.setDate(4, new Date(pessoa.getDataNasc().getTime()));
             preparedStatement.setString(5, pessoa.getEmail());
             preparedStatement.setString(6, pessoa.getTelefone());
-            preparedStatement.setString(7, pessoa.getCpf());
+            preparedStatement.setString(7, pessoa.getCep());
+            preparedStatement.setString(8, pessoa.getRua());
+            preparedStatement.setInt(9, pessoa.getNumero());
+            preparedStatement.setString(10, pessoa.getBairro());
+            preparedStatement.setString(11, pessoa.getCidade());
+            preparedStatement.setString(12, pessoa.getEstado());
+            preparedStatement.setString(13, pessoa.getComplemento());
+            preparedStatement.setString(14, pessoa.getCpf());
             
             preparedStatement.execute();
             preparedStatement.close();
-            
-            new EnderecoPessoaDAO().create(pessoa);
         }
         catch(Exception e)
         {

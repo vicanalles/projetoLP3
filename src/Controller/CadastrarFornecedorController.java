@@ -88,7 +88,7 @@ public class CadastrarFornecedorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         preencheComboBoxEstado();
         
-        preencherTableView(new FornecedorDAO().selectByName(""));
+        preencherTableView(new FornecedorDAO().selectByFantasyName(""));
         
         txtPesquisa.setPromptText("NomeFantasia ou CNPJ");
         txtPesquisa.textProperty().addListener(new ChangeListener<String>() {
@@ -100,12 +100,12 @@ public class CadastrarFornecedorController implements Initializable {
                 {
                     cnpj = Long.parseLong(pesquisa);
                     ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-                    fornecedores.add(new FornecedorDAO().selectByCnpj(pesquisa));
+                    fornecedores.add(new FornecedorDAO().selectOneByCnpj(pesquisa));
                     preencherTableView(fornecedores);
                 }
                 catch(Exception e)
                 {
-                    preencherTableView(new FornecedorDAO().selectByName(pesquisa));
+                    preencherTableView(new FornecedorDAO().selectByFantasyName(pesquisa));
                 }
             }
         });
@@ -169,7 +169,7 @@ public class CadastrarFornecedorController implements Initializable {
         
         new FornecedorDAO().create(fornecedor);        
         
-        preencherTableView(new FornecedorDAO().selectByName(""));
+        preencherTableView(new FornecedorDAO().selectByFantasyName(""));
         
         
     }
