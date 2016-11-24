@@ -174,9 +174,34 @@ public class FornecedorDAO
         }
     }
     
-    public void delete()
+    public void delete(String cnpjFornecedor)
     {
-        
+        String sql = "delete from fornecedor where cnpjFornecedor = ?;";
+    
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, fornecedor.getCnpj());
+            preparedStatement.setString(2, fornecedor.getNome());
+            preparedStatement.setString(3, fornecedor.getNomeFantasia());
+            preparedStatement.setString(4, fornecedor.getCep());
+            preparedStatement.setString(5, fornecedor.getRua());
+            preparedStatement.setInt(6, fornecedor.getNumero());
+            preparedStatement.setString(7, fornecedor.getBairro());
+            preparedStatement.setString(8, fornecedor.getCidade());
+            preparedStatement.setString(9, fornecedor.getEstado());
+            preparedStatement.setString(10, fornecedor.getComplemento());
+            preparedStatement.setString(11, fornecedor.getAnotacoes());
+            preparedStatement.setString(12, cnpjAntigo);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     
