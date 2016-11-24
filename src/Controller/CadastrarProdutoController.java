@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class CadastrarProdutoController implements Initializable {
@@ -54,5 +56,35 @@ public class CadastrarProdutoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
+
+    @FXML
+    private void tableViewProdutos_OnClick(MouseEvent event)
+    {
+    }
+
+    @FXML
+    private void tableViewItensProduto_OnClick(MouseEvent event)
+    {
+    }
+
+    @FXML
+    private void tableViewItens_OnClick(MouseEvent event)
+    {
+    }
+
+    @FXML
+    private void cadastrarProduto_OnAction(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void editarProduto_OnAction(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void removerProduto_OnAction(ActionEvent event)
+    {
+    }
     
 }

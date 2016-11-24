@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class CadastrarPedidoController implements Initializable {
@@ -51,13 +54,13 @@ public class CadastrarPedidoController implements Initializable {
     @FXML
     private TextField txtValorTotalPedido;
     @FXML
-    private ComboBox<String> cbxSelecaoTipoPedido;
-    @FXML
     private Button btnAdicionarCheckPoint;
     @FXML
     private Label lblStatus;
     @FXML
     private Label lblStatusPedido;
+    @FXML
+    private Label lblNomeCliente;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,5 +69,35 @@ public class CadastrarPedidoController implements Initializable {
         cbxTipoPagamentoPedido.getItems().add("Cartão de Crédito");
         cbxTipoPagamentoPedido.getItems().add("Cheque");                
     }    
+
+    @FXML
+    private void tableViewItensPedido_OnClick(ContextMenuEvent event)
+    {
+    }
+
+    @FXML
+    private void tableViewProdutos_OnClick(ContextMenuEvent event)
+    {
+    }
+
+    @FXML
+    private void cadastrarItem_OnAction(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void editarItem_OnAction(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void removerItem_OnAction(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void tableViewPedidos_OnClick(MouseEvent event)
+    {
+    }
     
 }
