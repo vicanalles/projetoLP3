@@ -112,6 +112,8 @@ public class CadastrarClienteController implements Initializable {
     ArrayList<Cliente> clientes;
     
     boolean editando = false;
+    boolean clienteCadastrado = false;
+    String cpfAntigo;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -186,34 +188,47 @@ public class CadastrarClienteController implements Initializable {
     @FXML
     private void btnCadastrarCliente_OnAction(ActionEvent event)
     {
+        setEditableTrue();
         Cliente cliente = new Cliente();
         
-        cliente.setBairro(txtBairroCliente.getText());
-        cliente.setCep(txtCepCliente.getText());
-        cliente.setCidade(txtCidadeCliente.getText());
-        cliente.setComplemento(txtComplementoCliente.getText());
-        cliente.setCpf(txtCpfCliente.getText());
-        try
-        {
-            cliente.setDataNasc(DataHora.convertStringToDate(txtDataNascimentoCliente.getText()));
-        }
-        catch (Exception ex)
-        {
-            Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        cliente.setEmail(txtEmailCliente.getText());
-        cliente.setEstado(cbxEstadoCliente.getValue());
-        cliente.setNome(txtNomeCliente.getText());
-        cliente.setNumero(Integer.parseInt(txtNumeroCliente.getText()));
-        cliente.setProdutoFavorito(txtProdutoFavoritoCliente.getText());
-        cliente.setRua(txtRuaCliente.getText());
-        if(rbtnClienteMasculino.isSelected())
-            cliente.setSexo("M");
-        if(rbtnClienteFeminino.isSelected())
-            cliente.setSexo("F");
-        cliente.setTelefone(txtTelefoneCliente.getText());
-        
-        new ClienteDAO().create(cliente);
+        if(btnCadastrarCliente.getText().equals("Novo")){
+            clienteCadastrado = false;
+            setTextFieldText();
+            btnCadastrarCliente.setText("Salvar");
+        }else if(btnCadastrarCliente.getText().equals("Salvar")){
+            cliente.setBairro(txtBairroCliente.getText());
+            cliente.setCep(txtCepCliente.getText());
+            cliente.setCidade(txtCidadeCliente.getText());
+            cliente.setComplemento(txtComplementoCliente.getText());
+            cliente.setCpf(txtCpfCliente.getText());
+            try
+            {
+                cliente.setDataNasc(DataHora.convertStringToDate(txtDataNascimentoCliente.getText()));
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cliente.setEmail(txtEmailCliente.getText());
+            cliente.setEstado(cbxEstadoCliente.getValue());
+            cliente.setNome(txtNomeCliente.getText());
+            cliente.setNumero(Integer.parseInt(txtNumeroCliente.getText()));
+            cliente.setProdutoFavorito(txtProdutoFavoritoCliente.getText());
+            cliente.setRua(txtRuaCliente.getText());
+            if(rbtnClienteMasculino.isSelected())
+                cliente.setSexo("M");
+            if(rbtnClienteFeminino.isSelected())
+                cliente.setSexo("F");
+            cliente.setTelefone(txtTelefoneCliente.getText());
+            setEditableFalse();
+            
+            if(clienteCadastrado == false){
+                new ClienteDAO().create(cliente);
+            }else{
+                new ClienteDAO().update(cliente, cpfAntigo);
+            }
+            btnCadastrarCliente.setText("Novo");
+        }                
         
         preencherTableView(new ClienteDAO().selectByName(""));
     }
@@ -221,31 +236,103 @@ public class CadastrarClienteController implements Initializable {
     @FXML
     private void OnMouseClicked_TableViewClientes()
     {
-        Cliente cliente = tableViewClientes.getSelectionModel().getSelectedItem();
+        try{                    
+            Cliente cliente = tableViewClientes.getSelectionModel().getSelectedItem();
+
+            txtBairroCliente.setText(cliente.getBairro());
+            txtCepCliente.setText(cliente.getCep());
+            txtCidadeCliente.setText(cliente.getCidade());
+            txtComplementoCliente.setText(cliente.getComplemento());
+            txtCpfCliente.setText(cliente.getCpf());
+            try
+            {
+                txtDataNascimentoCliente.setText(DataHora.convertDateToString(cliente.getDataNasc()));
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            txtEmailCliente.setText(cliente.getEmail());
+            cbxEstadoCliente.setValue(cliente.getEstado());
+            txtNomeCliente.setText(cliente.getNome());
+            txtNumeroCliente.setText(Integer.toString(cliente.getNumero()));
+            txtProdutoFavoritoCliente.setText(cliente.getProdutoFavorito());
+            txtRuaCliente.setText(cliente.getRua());
+            if(cliente.getSexo().equalsIgnoreCase("M"))
+                rbtnClienteMasculino.setSelected(true);
+            else
+                rbtnClienteFeminino.setSelected(true);
+            txtTelefoneCliente.setText(cliente.getTelefone());
+            btnCadastrarCliente.setText("Novo");
+            setEditableFalse();
+            clienteCadastrado = true;
+            
+        }catch(Exception e){
+            
+        }
+    }
+    
+    private void setEditableFalse(){
+        txtBairroCliente.setEditable(false);
+        txtCepCliente.setEditable(false);
+        txtCidadeCliente.setEditable(false);
+        txtComplementoCliente.setEditable(false);
+        txtCpfCliente.setEditable(false);
+        txtDataNascimentoCliente.setEditable(false);
+        txtEmailCliente.setEditable(false);
+        txtNomeCliente.setEditable(false);
+        txtNumeroCliente.setEditable(false);
+        txtProdutoFavoritoCliente.setEditable(false);
+        txtRuaCliente.setEditable(false);
+        txtTelefoneCliente.setEditable(false);
+    }
+    
+    private void setEditableTrue(){
+        txtBairroCliente.setEditable(true);
+        txtCepCliente.setEditable(true);
+        txtCidadeCliente.setEditable(true);
+        txtComplementoCliente.setEditable(true);
+        txtCpfCliente.setEditable(true);
+        txtDataNascimentoCliente.setEditable(true);
+        txtEmailCliente.setEditable(true);
+        txtNomeCliente.setEditable(true);
+        txtNumeroCliente.setEditable(true);
+        txtProdutoFavoritoCliente.setEditable(true);
+        txtRuaCliente.setEditable(true);
+        txtTelefoneCliente.setEditable(true);
+    }
+    
+    private void setTextFieldText(){
+        txtBairroCliente.setText("");
+        txtCepCliente.setText("");
+        txtCidadeCliente.setText("");
+        txtComplementoCliente.setText("");
+        txtCpfCliente.setText("");
+        txtDataNascimentoCliente.setText("");
+        txtEmailCliente.setText("");
+        txtNomeCliente.setText("");
+        txtNumeroCliente.setText("");
+        txtProdutoFavoritoCliente.setText("");
+        txtRuaCliente.setText("");
+        txtTelefoneCliente.setText("");
+        rbtnClienteFeminino.setSelected(false);
+        rbtnClienteMasculino.setSelected(false);
+        cbxEstadoCliente.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void btnEditarCliente_OnAction(ActionEvent event) {
+        btnCadastrarCliente.setText("Salvar");
+        setEditableTrue();
+        clienteCadastrado = true;
+        cpfAntigo = txtCpfCliente.getText();
+    }
+
+    @FXML
+    private void btnRemoverCliente_OnAction(ActionEvent event) {
+        new ClienteDAO().delete(txtCpfCliente.getText());
+        preencherTableView(new ClienteDAO().selectByName(""));
+        setTextFieldText();
         
-        txtBairroCliente.setText(cliente.getBairro());
-        txtCepCliente.setText(cliente.getCep());
-        txtCidadeCliente.setText(cliente.getCidade());
-        txtComplementoCliente.setText(cliente.getComplemento());
-        txtCpfCliente.setText(cliente.getCpf());
-        try
-        {
-            txtDataNascimentoCliente.setText(DataHora.convertDateToString(cliente.getDataNasc()));
-        }
-        catch (Exception ex)
-        {
-            Logger.getLogger(CadastrarClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        txtEmailCliente.setText(cliente.getEmail());
-        cbxEstadoCliente.setValue(cliente.getEstado());
-        txtNomeCliente.setText(cliente.getNome());
-        txtNumeroCliente.setText(Integer.toString(cliente.getNumero()));
-        txtProdutoFavoritoCliente.setText(cliente.getProdutoFavorito());
-        txtRuaCliente.setText(cliente.getRua());
-        if(cliente.getSexo().equalsIgnoreCase("M"))
-            rbtnClienteMasculino.setSelected(true);
-        else
-            rbtnClienteFeminino.setSelected(true);
-        txtTelefoneCliente.setText(cliente.getTelefone());
     }
 }

@@ -127,7 +127,7 @@ public class CadastrarItemController implements Initializable {
             item.setQuantidade(Float.parseFloat(txtQuantidadeItens.getText()));
             item.setValorCompra(Float.parseFloat(txtValorCompraItens.getText()));
             item.setDescricao(txtDescricaoItens.getText());
-                     
+            setTextFieldText();
             //editando = false;
             //itemCadastrado = true;
             if(itemCadastrado == false){                            
@@ -171,11 +171,7 @@ public class CadastrarItemController implements Initializable {
     @FXML
     private void removerItem(ActionEvent event) {        
         new ItemDAO().delete(Integer.parseInt(lblNumeroCodigoItens.getText()));
-        lblNumeroCodigoItens.setText("");
-        txtNomeItens.setText("");
-        txtDescricaoItens.setText("");
-        txtQuantidadeItens.setText("");
-        txtValorCompraItens.setText("");
+        setTextFieldText();
         preencherTableView(new ItemDAO().selectByName(""));
     }
     
@@ -193,5 +189,14 @@ public class CadastrarItemController implements Initializable {
         txtNomeItens.setEditable(true);
         txtQuantidadeItens.setEditable(true);
         txtValorCompraItens.setEditable(true);
+    }
+    
+    private void setTextFieldText()
+    {
+        lblNumeroCodigoItens.setText("");
+        txtNomeItens.setText("");
+        txtDescricaoItens.setText("");
+        txtQuantidadeItens.setText("");
+        txtValorCompraItens.setText("");
     }
 }

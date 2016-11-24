@@ -106,7 +106,6 @@ public class CadastrarFuncionarioController implements Initializable {
     private TableColumn<Funcionario, String> tableColumnFuncionarios;
     @FXML
     private ComboBox<String> cbxEstadoFuncionario;
-    @FXML
     private ObservableList<Funcionario> observableListFuncionarios;
     @FXML
     private TextField txtPesquisa;

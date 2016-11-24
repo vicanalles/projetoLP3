@@ -143,9 +143,9 @@
          </font>
       </Label>
       <TextField fx:id="txtComplementoCliente" layoutX="765.0" layoutY="368.0" prefHeight="26.0" prefWidth="114.0" />
-      <Button fx:id="btnCadastrarCliente" layoutX="431.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnCadastrarCliente_OnAction" prefHeight="40.0" prefWidth="90.0" styleClass="cadastrar" />
-      <Button fx:id="btnEditarCliente" layoutX="560.0" layoutY="431.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="editar" />
-      <Button fx:id="btnRemoverCliente" layoutX="689.0" layoutY="431.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="remover" />
+      <Button fx:id="btnCadastrarCliente" layoutX="431.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnCadastrarCliente_OnAction" prefHeight="40.0" prefWidth="90.0" text="Novo" />
+      <Button fx:id="btnEditarCliente" layoutX="560.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnEditarCliente_OnAction" prefHeight="40.0" prefWidth="90.0" text="Editar" />
+      <Button fx:id="btnRemoverCliente" layoutX="689.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnRemoverCliente_OnAction" prefHeight="40.0" prefWidth="90.0" text="Remover" />
       <Label fx:id="lblCepCliente" layoutX="595.0" layoutY="249.0" text="CEP:">
          <font>
             <Font name="System Bold" size="16.0" />

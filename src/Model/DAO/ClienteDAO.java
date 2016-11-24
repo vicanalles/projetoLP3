@@ -131,27 +131,27 @@ public class ClienteDAO
     
     public void update(Cliente cliente, String cpfAntigo)
     {
+        new PessoaDAO().update(cliente, cpfAntigo);
         
-    }
-    
-    public void delete(String cpf)
-    {
-        String sql = "delete from cliente where cpf = ?;";
+        String sql = "update cliente set produtoFavorito = ? where cpf = ?;";
         
-        try
-        {
+        try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, cpf);
+            preparedStatement.setString(1, cliente.getProdutoFavorito());
+            preparedStatement.setString(2, cliente.getCpf());
             
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             preparedStatement.close();
-            
-            new PessoaDAO().delete(cpf);
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
+    }
+    
+    public void delete(String cpf)
+    {
+        new PessoaDAO().delete(cpf);
     }
 }

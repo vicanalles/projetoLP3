@@ -58,7 +58,7 @@ public class PessoaDAO
         }
     }
         
-    public void update(Pessoa pessoa, String novoCpf)
+    public void update(Pessoa pessoa, String cpfAntigo)
     {
         String sql = "update pessoa set cpf = ?, nome = ?, sexo = ?, dataNasc = ?, email = ?, telefone = ?, cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cpf = ?;";
         
@@ -66,7 +66,7 @@ public class PessoaDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, novoCpf);
+            preparedStatement.setString(1, pessoa.getCpf());
             preparedStatement.setString(2, pessoa.getNome());
             preparedStatement.setString(3, pessoa.getSexo());
             preparedStatement.setDate(4, new Date(pessoa.getDataNasc().getTime()));
@@ -79,7 +79,7 @@ public class PessoaDAO
             preparedStatement.setString(11, pessoa.getCidade());
             preparedStatement.setString(12, pessoa.getEstado());
             preparedStatement.setString(13, pessoa.getComplemento());
-            preparedStatement.setString(14, pessoa.getCpf());
+            preparedStatement.setString(14, cpfAntigo);
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -100,7 +100,7 @@ public class PessoaDAO
             
             preparedStatement.setString(1, cpf);
             
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             preparedStatement.close();
         }
         catch(Exception e)

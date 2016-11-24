@@ -77,7 +77,6 @@ public class CadastrarFornecedorController implements Initializable {
     private TextField txtCNPJFornecedor;
     @FXML
     private ComboBox<String> cbxEstadoFornecedor;
-    @FXML
     private ObservableList<Fornecedor> observableListFornecedores;
     @FXML
     private TextField txtPesquisa;
