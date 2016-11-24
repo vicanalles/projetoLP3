@@ -13,6 +13,7 @@ public class Fornecedor {
     private String cidade;
     private String estado;
     private String complemento;
+    private String anotacoes;
     
     public Fornecedor()
     {
@@ -107,5 +108,15 @@ public class Fornecedor {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public String getAnotacoes()
+    {
+        return anotacoes;
+    }
+
+    public void setAnotacoes(String anotacoes)
+    {
+        this.anotacoes = anotacoes;
     }
 }

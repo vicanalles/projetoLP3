@@ -17,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -82,6 +83,10 @@ public class CadastrarFornecedorController implements Initializable {
     private TextField txtPesquisa;
     
     ArrayList<Fornecedor> fornecedores;
+    @FXML
+    private TextField txtTelefoneFornecedor;
+    @FXML
+    private TextArea txtAnotacoes;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,7 +113,17 @@ public class CadastrarFornecedorController implements Initializable {
                 }
             }
         });
-     }
+        
+        txtAnotacoes.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+            if (txtAnotacoes.getText().length() > 300) {
+                String s = txtAnotacoes.getText().substring(0, 300);
+                txtAnotacoes.setText(s);
+            }
+        }
+        });
+    }
           
     
     public void preencherTableView(ArrayList<Fornecedor> fornecedores)
@@ -165,6 +180,8 @@ public class CadastrarFornecedorController implements Initializable {
         fornecedor.setNomeFantasia(txtNomeFantasiaFornecedor.getText());
         fornecedor.setNumero(Integer.parseInt(txtNumeroFornecedor.getText()));
         fornecedor.setRua(txtRuaFornecedor.getText());
+        fornecedor.setTelefone(txtTelefoneFornecedor.getText());
+        fornecedor.setAnotacoes(txtAnotacoes.getText());
         
         new FornecedorDAO().create(fornecedor);        
         

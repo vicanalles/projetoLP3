@@ -26,7 +26,7 @@ public class FornecedorDAO
     
     public void create(Fornecedor fornecedor)
     {
-        String sql = "insert into fornecedor(cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into fornecedor(cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento, anotacoes) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
         try
         {
@@ -43,6 +43,7 @@ public class FornecedorDAO
             preparedStatement.setString(9, fornecedor.getCidade());
             preparedStatement.setString(10, fornecedor.getEstado());
             preparedStatement.setString(11, fornecedor.getComplemento());
+            preparedStatement.setString(12, fornecedor.getAnotacoes());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -61,7 +62,7 @@ public class FornecedorDAO
     
     public ArrayList<Fornecedor> selectByCnpj(String cnpj)
     {
-        String sql = "select cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento from fornecedor where cnpj like ?;";
+        String sql = "select cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento, anotacoes from fornecedor where cnpj like ?;";
         ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
         
         try
@@ -86,6 +87,7 @@ public class FornecedorDAO
                 preparedStatement.setString(9, fornecedor.getCidade());
                 preparedStatement.setString(10, fornecedor.getEstado());
                 preparedStatement.setString(11, fornecedor.getComplemento());
+                preparedStatement.setString(12, fornecedor.getAnotacoes());
 
                 fornecedores.add(fornecedor);
             }
@@ -101,7 +103,7 @@ public class FornecedorDAO
     
     public ArrayList<Fornecedor> selectByFantasyName(String nomeFantasia)
     {
-        String sql = "select cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento from fornecedor where nomeFantasia like ?;";
+        String sql = "select cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento, anotacoes from fornecedor where nomeFantasia like ?;";
         ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
         
         try
@@ -127,6 +129,7 @@ public class FornecedorDAO
                 preparedStatement.setString(9, fornecedor.getCidade());
                 preparedStatement.setString(10, fornecedor.getEstado());
                 preparedStatement.setString(11, fornecedor.getComplemento());
+                preparedStatement.setString(12, fornecedor.getAnotacoes());
 
                 fornecedores.add(fornecedor);
             }
@@ -143,7 +146,7 @@ public class FornecedorDAO
     
     public void update(Fornecedor fornecedor, String cnpjAntigo)
     {
-        String sql = "update fornecedor set cnpj = ?, nome = ?, nomeFantasia = ?, cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cnpj = ?;";
+        String sql = "update fornecedor set cnpj = ?, nome = ?, nomeFantasia = ?, cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ?, anotacoes = ? where cnpj = ?;";
     
         try
         {
@@ -159,7 +162,8 @@ public class FornecedorDAO
             preparedStatement.setString(8, fornecedor.getCidade());
             preparedStatement.setString(9, fornecedor.getEstado());
             preparedStatement.setString(10, fornecedor.getComplemento());
-            preparedStatement.setString(11, cnpjAntigo);
+            preparedStatement.setString(11, fornecedor.getAnotacoes());
+            preparedStatement.setString(12, cnpjAntigo);
             
             preparedStatement.execute();
             preparedStatement.close();
