@@ -176,9 +176,9 @@ public class FuncionarioDAO
         }
     }
     
-    public void update(Funcionario funcionario, String novoCpf)
+    public void update(Funcionario funcionario, String cpfAntigo)
     {
-        new PessoaDAO().update(funcionario, novoCpf);
+        new PessoaDAO().update(funcionario, cpfAntigo);
         
         String sql = "update funcionario set funcao = ?, salario = ? where cpf = ?;";
         
@@ -188,7 +188,7 @@ public class FuncionarioDAO
             
             preparedStatement.setString(2, funcionario.getFuncao());
             preparedStatement.setFloat(3, funcionario.getSalario());
-            preparedStatement.setString(4, novoCpf);
+            preparedStatement.setString(4, funcionario.getCpf());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -199,8 +199,27 @@ public class FuncionarioDAO
         }
     }
     
-    public void delete()
+    public void delete(String cpf)
     {
-        
+        if(new ClienteDAO().selectOneByCpf(cpf) == null)
+            new PessoaDAO().delete(cpf);
+        else
+        {
+            String sql = "delete from funcionario where cpf = ?;";
+            
+            try
+            {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                
+                preparedStatement.setString(1, cpf);
+                
+                preparedStatement.execute();
+                preparedStatement.close();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }

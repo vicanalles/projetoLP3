@@ -129,6 +129,46 @@ public class ClienteDAO
         return clientes;
     }
     
+    public Cliente selectOneByCpf(String cpf)
+    {
+        String sql = "select p.cpf, p.nome, p.sexo, p.dataNasc, p.email, p.telefone, p.cep, p.rua, p.numero, p.bairro, p.cidade, p.estado, p.complemento, c.produtofavorito from pessoa p, cliente c where c.cpf = ? and p.cpf = c.cpf;";
+        Cliente cliente = new Cliente();
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, cpf);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next())
+            {
+                cliente.setCpf(resultSet.getString(1));
+                cliente.setNome(resultSet.getString(2));
+                cliente.setSexo(resultSet.getString(3));
+                cliente.setDataNasc(resultSet.getDate(4));
+                cliente.setEmail(resultSet.getString(5));
+                cliente.setTelefone(resultSet.getString(6));                
+                cliente.setCep(resultSet.getString(7));
+                cliente.setRua(resultSet.getString(8));
+                cliente.setNumero(resultSet.getInt(9));
+                cliente.setBairro(resultSet.getString(10));
+                cliente.setCidade(resultSet.getString(11));
+                cliente.setEstado(resultSet.getString(12));
+                cliente.setComplemento(resultSet.getString(13));                
+                cliente.setProdutoFavorito(resultSet.getString(14));
+            }
+            preparedStatement.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return cliente;
+    }
+    
     public void update(Cliente cliente, String cpfAntigo)
     {
         new PessoaDAO().update(cliente, cpfAntigo);
@@ -152,6 +192,25 @@ public class ClienteDAO
     
     public void delete(String cpf)
     {
-        new PessoaDAO().delete(cpf);
+        if(new FuncionarioDAO().selectOneByCpf(cpf) == null)
+            new PessoaDAO().delete(cpf);
+        else
+        {
+            String sql = "delete from cliente where cpf = ?;";
+            
+            try
+            {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                
+                preparedStatement.setString(1, cpf);
+                
+                preparedStatement.execute();
+                preparedStatement.close();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }

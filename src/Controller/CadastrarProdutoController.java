@@ -1,7 +1,11 @@
 package Controller;
 
+import Model.Item;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -51,6 +56,9 @@ public class CadastrarProdutoController implements Initializable {
     private Button btnEditarProduto;
     @FXML
     private Button btnRemoverProduto;
+    
+    private ObservableList<Item> observableListItens;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,6 +68,7 @@ public class CadastrarProdutoController implements Initializable {
     @FXML
     private void tableViewProdutos_OnClick(MouseEvent event)
     {
+        
     }
 
     @FXML
@@ -87,4 +96,12 @@ public class CadastrarProdutoController implements Initializable {
     {
     }
     
+    public void preencherTableView(ArrayList<Item> itens)
+    {        
+        tableColumnItens.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        
+        observableListItens = FXCollections.observableArrayList(itens);
+        
+        tableViewItens.setItems(observableListItens);
+    }
 }

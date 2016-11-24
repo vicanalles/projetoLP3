@@ -109,8 +109,6 @@ public class CadastrarClienteController implements Initializable {
     @FXML
     private TextField txtPesquisar;
     
-    ArrayList<Cliente> clientes;
-    
     boolean editando = false;
     boolean clienteCadastrado = false;
     String cpfAntigo;
