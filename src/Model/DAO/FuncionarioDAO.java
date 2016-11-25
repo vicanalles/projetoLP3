@@ -95,7 +95,7 @@ public class FuncionarioDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, cpf + "%");
+            preparedStatement.setString(1, "%" + cpf + "%");
             
             ResultSet resultSet = preparedStatement.executeQuery();                                                
             
@@ -186,9 +186,9 @@ public class FuncionarioDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(2, funcionario.getFuncao());
-            preparedStatement.setFloat(3, funcionario.getSalario());
-            preparedStatement.setString(4, funcionario.getCpf());
+            preparedStatement.setString(1, funcionario.getFuncao());
+            preparedStatement.setFloat(2, funcionario.getSalario());
+            preparedStatement.setString(3, funcionario.getCpf());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -200,26 +200,23 @@ public class FuncionarioDAO
     }
     
     public void delete(String cpf)
-    {
-        if(new ClienteDAO().selectOneByCpf(cpf) == null)
-            new PessoaDAO().delete(cpf);
-        else
-        {
-            String sql = "delete from funcionario where cpf = ?;";
+    {                
+        new PessoaDAO().delete(cpf);
+        
+        String sql = "delete from funcionario where cpf = ?;";
+        
+        try{
             
-            try
-            {
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                
-                preparedStatement.setString(1, cpf);
-                
-                preparedStatement.execute();
-                preparedStatement.close();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setString(1, cpf);
+            
+            preparedStatement.execute();
+            preparedStatement.close();            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }

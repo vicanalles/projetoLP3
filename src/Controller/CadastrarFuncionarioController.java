@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Cliente;
-import Model.DAO.ClienteDAO;
 import Model.DAO.FuncionarioDAO;
 import Model.DataHora;
 import Model.Funcionario;
@@ -26,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class CadastrarFuncionarioController implements Initializable {
@@ -111,9 +111,13 @@ public class CadastrarFuncionarioController implements Initializable {
     private TextField txtPesquisa;
     
     ArrayList<Funcionario> funcionarios;
+    
+    boolean funcionarioCadastrado = false;
+    String cpfAntigo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setEditableFalse();
         preencheComboBoxEstado();
         
         preencherTableView(new FuncionarioDAO().selectByName(""));
@@ -185,38 +189,157 @@ public class CadastrarFuncionarioController implements Initializable {
     }
 
     @FXML
-    private void cadastrarFuncionario(ActionEvent event) {
-        
+    private void cadastrarFuncionario(ActionEvent event) 
+    {
+        setEditableTrue();
         Funcionario funcionario = new Funcionario();
         
-        funcionario.setBairro(txtBairroFuncionario.getText());
-        funcionario.setCep(txtCepFuncionario.getText());
-        funcionario.setCidade(txtCidadeFuncionario.getText());
-        funcionario.setComplemento(txtComplementoFuncionario.getText());
-        funcionario.setCpf(txtCpfFuncionario.getText());
-        try
+        if(btnCadastrarFuncionario.getText().equals("Novo"))
         {
-            funcionario.setDataNasc(DataHora.convertStringToDate(txtDataNascimentoFuncionario.getText()));
-        }
-        catch (Exception ex)
-        {
-            Logger.getLogger(CadastrarFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        funcionario.setEmail(txtEmailFuncionario.getText());
-        funcionario.setEstado(cbxEstadoFuncionario.getValue());
-        funcionario.setNome(txtNomeFuncionario.getText());
-        funcionario.setNumero(Integer.parseInt(txtNumeroFuncionario.getText()));
-        funcionario.setFuncao(txtFuncaoFuncionario.getText());
-        funcionario.setSalario(Float.parseFloat(txtSalarioFuncionario.getText()));
-        funcionario.setRua(txtRuaFuncionario.getText());
-        if(rbtnFuncionarioMasculino.isSelected())
-            funcionario.setSexo("M");
-        if(rbtnFuncionarioFeminino.isSelected())
-            funcionario.setSexo("F");
-        funcionario.setTelefone(txtTelefoneFuncionario.getText());
-        
-        new FuncionarioDAO().create(funcionario);
-        
+            funcionarioCadastrado = false;
+            setTextFieldText();
+            btnCadastrarFuncionario.setText("Salvar");
+        }else if(btnCadastrarFuncionario.getText().equals("Salvar")){
+            funcionario.setBairro(txtBairroFuncionario.getText());
+            funcionario.setCep(txtCepFuncionario.getText());
+            funcionario.setCidade(txtCidadeFuncionario.getText());
+            funcionario.setComplemento(txtComplementoFuncionario.getText());
+            funcionario.setCpf(txtCpfFuncionario.getText());
+            try
+            {
+                funcionario.setDataNasc(DataHora.convertStringToDate(txtDataNascimentoFuncionario.getText()));
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(CadastrarFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            funcionario.setEmail(txtEmailFuncionario.getText());
+            funcionario.setEstado(cbxEstadoFuncionario.getValue());
+            funcionario.setNome(txtNomeFuncionario.getText());
+            funcionario.setNumero(Integer.parseInt(txtNumeroFuncionario.getText()));
+            funcionario.setFuncao(txtFuncaoFuncionario.getText());
+            funcionario.setSalario(Float.parseFloat(txtSalarioFuncionario.getText()));
+            funcionario.setRua(txtRuaFuncionario.getText());
+            if(rbtnFuncionarioMasculino.isSelected())
+                funcionario.setSexo("M");
+            if(rbtnFuncionarioFeminino.isSelected())
+                funcionario.setSexo("F");
+            funcionario.setTelefone(txtTelefoneFuncionario.getText());
+            setEditableFalse();
+            
+            if(funcionarioCadastrado == false){
+                new FuncionarioDAO().create(funcionario);
+            }else{
+                new FuncionarioDAO().update(funcionario, cpfAntigo);
+            }
+            btnCadastrarFuncionario.setText("Novo");
+        }                
         preencherTableView(new FuncionarioDAO().selectByName(""));
     }
+    
+    @FXML
+    private void OnMouseClicked_TableViewFuncionarios(MouseEvent event) 
+    {
+        try{
+            Funcionario funcionario = tableViewFuncionarios.getSelectionModel().getSelectedItem();
+
+            txtBairroFuncionario.setText(funcionario.getBairro());
+            txtCepFuncionario.setText(funcionario.getCep());
+            txtCidadeFuncionario.setText(funcionario.getCidade());
+            txtComplementoFuncionario.setText(funcionario.getComplemento());
+            txtCpfFuncionario.setText(funcionario.getCpf());
+            try
+            {
+                txtDataNascimentoFuncionario.setText(DataHora.convertDateToString(funcionario.getDataNasc()));
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(CadastrarFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            txtEmailFuncionario.setText(funcionario.getEmail());
+            cbxEstadoFuncionario.setValue(funcionario.getEstado());
+            txtNomeFuncionario.setText(funcionario.getNome());
+            txtNumeroFuncionario.setText(Integer.toString(funcionario.getNumero()));
+            txtRuaFuncionario.setText(funcionario.getRua());
+            txtSalarioFuncionario.setText(Float.toString(funcionario.getSalario()));
+            txtFuncaoFuncionario.setText(funcionario.getFuncao());
+            if(funcionario.getSexo().equalsIgnoreCase("M"))
+                rbtnFuncionarioMasculino.setSelected(true);
+            else
+                rbtnFuncionarioFeminino.setSelected(true);
+            txtTelefoneFuncionario.setText(funcionario.getTelefone());
+            btnCadastrarFuncionario.setText("Novo");
+            setEditableFalse();
+            funcionarioCadastrado = true;
+        }
+        catch(Exception e){
+            
+        }
+    }
+    
+    private void setEditableFalse(){
+        txtBairroFuncionario.setEditable(false);
+        txtCepFuncionario.setEditable(false);
+        txtCidadeFuncionario.setEditable(false);
+        txtComplementoFuncionario.setEditable(false);
+        txtCpfFuncionario.setEditable(false);
+        txtDataNascimentoFuncionario.setEditable(false);
+        txtEmailFuncionario.setEditable(false);
+        txtFuncaoFuncionario.setEditable(false);
+        txtNomeFuncionario.setEditable(false);
+        txtNumeroFuncionario.setEditable(false);
+        txtRuaFuncionario.setEditable(false);
+        txtSalarioFuncionario.setEditable(false);
+        txtTelefoneFuncionario.setEditable(false);
+    }
+    
+    private void setEditableTrue(){
+        txtBairroFuncionario.setEditable(true);
+        txtCepFuncionario.setEditable(true);
+        txtCidadeFuncionario.setEditable(true);
+        txtComplementoFuncionario.setEditable(true);
+        txtCpfFuncionario.setEditable(true);
+        txtDataNascimentoFuncionario.setEditable(true);
+        txtEmailFuncionario.setEditable(true);
+        txtFuncaoFuncionario.setEditable(true);
+        txtNomeFuncionario.setEditable(true);
+        txtNumeroFuncionario.setEditable(true);
+        txtRuaFuncionario.setEditable(true);
+        txtSalarioFuncionario.setEditable(true);
+        txtTelefoneFuncionario.setEditable(true);
+    }
+    
+    private void setTextFieldText(){
+        txtBairroFuncionario.setText("");
+        txtCepFuncionario.setText("");
+        txtCidadeFuncionario.setText("");
+        txtComplementoFuncionario.setText("");
+        txtCpfFuncionario.setText("");
+        txtDataNascimentoFuncionario.setText("");
+        txtEmailFuncionario.setText("");
+        txtFuncaoFuncionario.setText("");
+        txtNomeFuncionario.setText("");
+        txtNumeroFuncionario.setText("");
+        txtRuaFuncionario.setText("");
+        txtSalarioFuncionario.setText("");
+        txtTelefoneFuncionario.setText("");
+        rbtnFuncionarioFeminino.setSelected(false);
+        rbtnFuncionarioMasculino.setSelected(false);
+        cbxEstadoFuncionario.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void btnEditarFuncionario_OnAction(ActionEvent event) {
+        btnCadastrarFuncionario.setText("Salvar");
+        setEditableTrue();
+        funcionarioCadastrado = true;
+        cpfAntigo = txtCpfFuncionario.getText();
+    }
+
+    @FXML
+    private void btnRemoverFuncionario_OnAction(ActionEvent event) {
+        new FuncionarioDAO().delete(txtCpfFuncionario.getText());
+        preencherTableView(new FuncionarioDAO().selectByName(""));
+        setTextFieldText();
+    }   
 }

@@ -95,7 +95,7 @@ public class ClienteDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, cpf + "%");
+            preparedStatement.setString(1, "%" + cpf + "%");
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
@@ -191,26 +191,22 @@ public class ClienteDAO
     }
     
     public void delete(String cpf)
-    {
-        if(new FuncionarioDAO().selectOneByCpf(cpf) == null)
-            new PessoaDAO().delete(cpf);
-        else
+    {        
+        new PessoaDAO().delete(cpf);        
+        String sql = "delete from cliente where cpf = ?;";
+
+        try
         {
-            String sql = "delete from cliente where cpf = ?;";
-            
-            try
-            {
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                
-                preparedStatement.setString(1, cpf);
-                
-                preparedStatement.execute();
-                preparedStatement.close();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, cpf);
+
+            preparedStatement.execute();
+            preparedStatement.close();
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }            
     }
 }

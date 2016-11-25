@@ -168,9 +168,9 @@
          </font>
       </TextField>
       <Button fx:id="btnCadastrarFuncionario" layoutX="437.0" layoutY="453.0" mnemonicParsing="false" onAction="#cadastrarFuncionario" prefHeight="40.0" prefWidth="90.0" text="Novo" />
-      <Button fx:id="btnEditarFuncionario" layoutX="567.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Editar" />
-      <Button fx:id="btnRemoverFuncionario" layoutX="697.0" layoutY="453.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Remover" />
-      <TableView fx:id="tableViewFuncionarios" layoutX="49.0" layoutY="89.0" prefHeight="407.0" prefWidth="237.0">
+      <Button fx:id="btnEditarFuncionario" layoutX="567.0" layoutY="453.0" mnemonicParsing="false" onAction="#btnEditarFuncionario_OnAction" prefHeight="40.0" prefWidth="90.0" text="Editar" />
+      <Button fx:id="btnRemoverFuncionario" layoutX="697.0" layoutY="453.0" mnemonicParsing="false" onAction="#btnRemoverFuncionario_OnAction" prefHeight="40.0" prefWidth="90.0" text="Remover" />
+      <TableView fx:id="tableViewFuncionarios" layoutX="49.0" layoutY="89.0" onMouseClicked="#OnMouseClicked_TableViewFuncionarios" prefHeight="407.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="tableColumnFuncionarios" prefWidth="236.0" text="Funcionarios" />
         </columns>

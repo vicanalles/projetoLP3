@@ -109,12 +109,13 @@ public class CadastrarClienteController implements Initializable {
     @FXML
     private TextField txtPesquisar;
     
-    boolean editando = false;
+    //boolean editando = false;
     boolean clienteCadastrado = false;
     String cpfAntigo;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setEditableFalse();
         preencheComboBoxEstado();                
         
         preencherTableView(new ClienteDAO().selectByName(""));
@@ -285,7 +286,7 @@ public class CadastrarClienteController implements Initializable {
         txtTelefoneCliente.setEditable(false);
     }
     
-    private void setEditableTrue(){
+    private void setEditableTrue(){        
         txtBairroCliente.setEditable(true);
         txtCepCliente.setEditable(true);
         txtCidadeCliente.setEditable(true);
@@ -330,7 +331,6 @@ public class CadastrarClienteController implements Initializable {
     private void btnRemoverCliente_OnAction(ActionEvent event) {
         new ClienteDAO().delete(txtCpfCliente.getText());
         preencherTableView(new ClienteDAO().selectByName(""));
-        setTextFieldText();
-        
+        setTextFieldText();        
     }
 }
