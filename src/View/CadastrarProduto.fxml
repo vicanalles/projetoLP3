@@ -15,12 +15,12 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="lblCodigoProduto" layoutX="318.0" layoutY="99.0" text="Codigo:">
+      <Label layoutX="318.0" layoutY="99.0" text="Codigo:">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblNumeroCodigoProduto" layoutX="393.0" layoutY="101.0" text="1">
+      <Label fx:id="lblNumeroCodigoProduto" layoutX="393.0" layoutY="101.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -42,7 +42,8 @@
       </TableView>
       <TableView fx:id="tableViewItensProduto" layoutX="634.0" layoutY="171.0" onMouseClicked="#tableViewItensProduto_OnClick" prefHeight="200.0" prefWidth="244.0">
         <columns>
-          <TableColumn fx:id="tableColumnItensProduto" prefWidth="243.0" resizable="false" text="Itens do Produto" />
+          <TableColumn fx:id="tableColumnItensProduto" prefWidth="172.0" resizable="false" text="Itens do Produto" />
+            <TableColumn fx:id="tableColumnQuantidadeItemProduto" prefWidth="71.0" text="Qtde" />
         </columns>
       </TableView>
       <TableView fx:id="tableViewItens" layoutX="318.0" layoutY="171.0" onMouseClicked="#tableViewItens_OnClick" prefHeight="200.0" prefWidth="244.0">
@@ -50,7 +51,7 @@
             <TableColumn fx:id="tableColumnItens" prefWidth="243.0" resizable="false" text="Itens " />
          </columns>
       </TableView>
-      <Button fx:id="btnAdicionarItensProduto" layoutX="581.0" layoutY="260.0" mnemonicParsing="false" text="&gt;&gt;" />
+      <Button fx:id="btnAdicionarItensProduto" layoutX="580.0" layoutY="255.0" mnemonicParsing="false" onAction="#btnAdicionarItensProduto_OnAction" text="&gt;&gt;" />
       <Label fx:id="lblValorTotalProduto" layoutX="635.0" layoutY="382.0" text="Valor Total:">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -69,5 +70,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
+      <Button fx:id="btnRemoverItensProduto" layoutX="580.0" layoutY="295.0" mnemonicParsing="false" onAction="#btnRemoverItensProduto_OnAction" text="&lt;&lt;" />
+      <TextField fx:id="txtQuantidadeItem" layoutX="580.0" layoutY="215.0" prefHeight="26.0" prefWidth="40.0" text="0" visible="false" />
    </children>
 </AnchorPane>

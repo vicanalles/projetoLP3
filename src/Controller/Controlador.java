@@ -99,6 +99,7 @@ public class Controlador
      *Exibe o menu de opções
      * @param numeroMenu o numero do menu a ser exibido
      */
+    
     public void exibirMenu()
     {
         System.out.println("==========MENU============");
@@ -529,7 +530,7 @@ public class Controlador
                     item2.setQuantidade(entrada.nextFloat());
                     entrada.nextLine();
                     valorProduto += (item2.getValorVenda() * item2.getQuantidade());
-                    produto.adicionarItens(item2);
+                    //produto.adicionarItens(item2);
                     System.out.println("Item adicionado!");
                 }
             }                                        
@@ -563,7 +564,7 @@ public class Controlador
                 System.out.println("Digite o código do item a ser removido: ");
                 int codigoItem2 = entrada.nextInt();
                 item = procurarItem(codigoItem2);
-                produto.removerItens(item);
+                //produto.removerItens(item);
             }
 
             System.out.println("Deseja adicionar algum item? ");
@@ -573,7 +574,7 @@ public class Controlador
                 System.out.println("Digite o código do item escolhido: ");
                 int codigoItem3 = entrada.nextInt();
                 item2 = procurarItem(codigoItem3);
-                produto.adicionarItens(item2);
+                //produto.adicionarItens(item2);
             }
         }
         
@@ -896,7 +897,7 @@ public class Controlador
                 
                 boolean itensSuficientes = true;
                 //verifica se tem itens suficientes no estoque para vender esse produto
-                for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
+/*                for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
                 {
                     if((item.getValue().getQuantidade() * produto.getQuantidade()) > itens.get(item.getValue().getCodigo()).getQuantidade())
                     {
@@ -904,7 +905,7 @@ public class Controlador
                         itensSuficientes = false;
                         break;
                     }
-                }
+                }*/
                 if(itensSuficientes == true)
                 {
                     pedido.adicionarProduto(produto);
@@ -915,7 +916,7 @@ public class Controlador
         
         System.out.println("Digite a forma de pagamento: ");
         pedido.setPagamento(entrada.nextLine());
-        
+/*        
         for(Produto produto : pedido.getProdutos())
         {
             for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
@@ -923,7 +924,7 @@ public class Controlador
                 itens.get(item.getValue().getCodigo()).atualizarQuantidade(item.getValue().getQuantidade() * (-1));
             }
         }
-        
+*/        
         pedidos.put(pedido.getNumero(), pedido);
         System.out.println("Pedido criado com sucesso");
     }
@@ -1101,7 +1102,7 @@ public class Controlador
         System.out.println("Nome: " + produto.getNome());
         System.out.println("Valor Produto: " + produto.getValor());    
         System.out.println("Itens: ");
-        for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
-            System.out.println(item.getValue().getQuantidade() + " x " + item.getValue().getNome());
+        /*for(Map.Entry<Integer, Item> item : produto.getItens().entrySet())
+            System.out.println(item.getValue().getQuantidade() + " x " + item.getValue().getNome());*/
     }
 }

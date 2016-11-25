@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Produto {
@@ -8,12 +9,17 @@ public class Produto {
     private String nome;
     private float valor;
     private int quantidade;
-    private HashMap<Integer, Item> itens = new HashMap<Integer, Item>();
+    private ArrayList<Item> itens = new ArrayList<Item>();
+    
+    public Produto()
+    {
+        
+    }
     
     public Produto(int codigo, Item i)
     {
         this.setCodigo(codigo);
-        itens.put(i.getCodigo(), i);
+        itens.add(i);
     }
         
     public int getCodigo() {
@@ -50,19 +56,20 @@ public class Produto {
         this.quantidade = quantidade;
     }
         
-    public HashMap<Integer, Item> getItens() {
+    public ArrayList<Item> getItens() {
         return itens;
     }
 
-    public void setItens(HashMap<Integer, Item> itens) {
+    public void setItens(ArrayList<Item> itens) {
         this.itens = itens;
     }
-    
+    /*
     public void removerItens(Item item){
         itens.remove(item.getCodigo());
     }
     
     public void adicionarItens(Item item){
-        itens.put(item.getCodigo(), item);
+        itens.add(item);
     }
+*/
 }
