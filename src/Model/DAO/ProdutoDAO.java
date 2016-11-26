@@ -35,10 +35,12 @@ public class ProdutoDAO
             
             preparedStatement.setInt(1, produto.getCodigo());
             preparedStatement.setString(2, produto.getNome());
-            preparedStatement.setFloat(3, produto.getValor());
+            preparedStatement.setFloat(3, produto.getValor());                        
             
             preparedStatement.execute();
             preparedStatement.close();
+            
+            new ItemProdutoDAO().create(produto);
         }
         catch(Exception e)
         {
@@ -61,6 +63,7 @@ public class ProdutoDAO
             
             preparedStatement.setString(1, produto.getNome());
             preparedStatement.setFloat(2, produto.getValor());
+            preparedStatement.setInt(3, produto.getCodigo());
             
             preparedStatement.execute();
             preparedStatement.close();
@@ -131,7 +134,8 @@ public class ProdutoDAO
 
                 produto.setCodigo(resultSet.getInt(1));
                 produto.setNome(resultSet.getString(2));
-                produto.setValor(resultSet.getFloat(3));                
+                produto.setValor(resultSet.getFloat(3)); 
+                produto.setItens(new ItemProdutoDAO().selectByCodigoProduto(produto.getCodigo()));
 
                 produtos.add(produto);
             }
@@ -142,5 +146,33 @@ public class ProdutoDAO
             e.printStackTrace();            
         }
         return produtos;
+    }
+    
+    public Produto selectByCodigo(int codigo)
+    {
+        String sql = "select codigo, nome, valor from produto where codigo = ?;";        
+        Produto produto = new Produto();
+        
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, codigo);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();                        
+            
+            if(resultSet.next())
+            {                
+                produto.setCodigo(resultSet.getInt(1));
+                produto.setNome(resultSet.getString(2));
+                produto.setValor(resultSet.getFloat(3));                               
+            }
+            preparedStatement.close();            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();            
+        }
+        return produto;
     }
 }

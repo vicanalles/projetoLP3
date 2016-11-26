@@ -95,7 +95,7 @@ public class ClienteDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, "%" + cpf + "%");
+            preparedStatement.setString(1, cpf + "%");
             
             ResultSet resultSet = preparedStatement.executeQuery();
             

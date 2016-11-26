@@ -95,7 +95,7 @@ public class FuncionarioDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setString(1, "%" + cpf + "%");
+            preparedStatement.setString(1, cpf + "%");
             
             ResultSet resultSet = preparedStatement.executeQuery();                                                
             
@@ -203,7 +203,7 @@ public class FuncionarioDAO
     {                
         new PessoaDAO().delete(cpf);
         
-        String sql = "delete from funcionario where cpf = ?;";
+        /*String sql = "delete from funcionario where cpf = ?;";
         
         try{
             
@@ -217,6 +217,6 @@ public class FuncionarioDAO
         catch(Exception e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
 }

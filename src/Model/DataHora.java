@@ -33,8 +33,13 @@ public class DataHora {
      */
     public static Date convertStringToDate(String data) throws Exception
     {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        return formato.parse(data);
+        try{
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            return formato.parse(data);
+        }catch(Exception e){
+            return null;
+        }
+        
     }
     
     public static String convertDateToString(Date data) throws Exception
