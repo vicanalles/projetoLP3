@@ -36,7 +36,7 @@ public class ItemProdutoDAO
             preparedStatement.setInt(1, produto.getCodigo());
             
             for(Item item : produto.getItens()){
-                //preparedStatement.setInt(1, produto.getCodigo());
+                preparedStatement.setInt(1, produto.getCodigo());
                 preparedStatement.setInt(2, item.getCodigo());
                 preparedStatement.setFloat(3, item.getQuantidade());
                 preparedStatement.setFloat(4, item.getValorCompra());
@@ -104,14 +104,32 @@ public class ItemProdutoDAO
         return itens;
     }
     
-    public void update()
+    public void update(Produto produto)
     {
+        String sql = "update itemproduto set codigoItem = ?, quantidade = ?, valorCompra = ? where codigoProduto = ?;";
         
-    }
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);                        
+            
+            for(Item item : produto.getItens()){
+                preparedStatement.setInt(1, item.getCodigo());
+                preparedStatement.setFloat(2, item.getQuantidade());
+                preparedStatement.setFloat(3, item.getValorCompra());
+                preparedStatement.setInt(4, produto.getCodigo());
+                System.out.println(preparedStatement);
+                preparedStatement.execute();
+            }
+            preparedStatement.close();            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }                
+    }   
+    
     
     public void delete(int codigoItem)
     {
-        String sql = "delete from itemProduto where codigoItem = ?";
+        String sql = "delete from itemproduto where codigoItem = ?";
         
         try
         {

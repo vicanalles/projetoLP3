@@ -67,6 +67,8 @@ public class ProdutoDAO
             
             preparedStatement.execute();
             preparedStatement.close();
+            
+            new ItemProdutoDAO().create(produto);
         }
         catch(Exception e)
         {

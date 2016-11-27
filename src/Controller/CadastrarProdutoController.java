@@ -3,6 +3,7 @@ package Controller;
 import Model.Cliente;
 import Model.DAO.ClienteDAO;
 import Model.DAO.ItemDAO;
+import Model.DAO.ItemProdutoDAO;
 import Model.DAO.ProdutoDAO;
 import Model.Item;
 import Model.Produto;
@@ -125,7 +126,7 @@ public class CadastrarProdutoController implements Initializable {
         
         try{
             Produto produto = tableViewProdutos.getSelectionModel().getSelectedItem();
-            itensProduto = produto.getItens();
+            itensProduto = produto.getItens();           
             
             for(Item item : produto.getItens()){
                 System.out.println(item.getNome());
@@ -180,13 +181,13 @@ public class CadastrarProdutoController implements Initializable {
         {
             setEditableFalse();            
             Produto produto = new Produto();
-            produto.setItens(itens);
+            produto.setItens(itensProduto);
             produto.setCodigo(Integer.parseInt(lblNumeroCodigoProduto.getText()));
             produto.setNome(txtNomeProduto.getText());
             produto.setValor(getValorTotalProduto());
             btnNovoProduto.setText("Novo");
             if(produtoCadastrado == false){
-                new ProdutoDAO().create(produto);
+                new ProdutoDAO().create(produto);                
             }else{
                 new ProdutoDAO().update(produto);
             }
@@ -229,11 +230,7 @@ public class CadastrarProdutoController implements Initializable {
     }
     
     public void preencherTableViewItensProduto(ArrayList<Item> itensProduto)
-    {   
-        System.out.println("preencher");
-        for(Item item : itensProduto){
-            System.out.println(item.getNome());
-        }
+    {           
         tableColumnItensProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));        
         tableColumnQuantidadeItemProduto.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         
@@ -244,18 +241,17 @@ public class CadastrarProdutoController implements Initializable {
 
     @FXML
     private void btnAdicionarItensProduto_OnAction(ActionEvent event) 
-    {
-        Item item = tableViewItens.getSelectionModel().getSelectedItem();
-        System.out.println(" clique botão " + item.getNome());
-        item.setQuantidade(Float.parseFloat(txtQuantidadeItem.getText()));
-        System.out.println(item.getQuantidade());
+    {        
+        Item item = tableViewItens.getSelectionModel().getSelectedItem();        
+        item.setQuantidade(Float.parseFloat(txtQuantidadeItem.getText()));        
         adicionarItensProduto(item);                   
     }
 
     @FXML
     private void btnRemoverItensProduto_OnAction(ActionEvent event) 
-    {        
+    {           
         Item item = tableViewItensProduto.getSelectionModel().getSelectedItem();
+        new ItemProdutoDAO().delete(item.getCodigo());         
         removerItensProduto(item);                
     }
 
