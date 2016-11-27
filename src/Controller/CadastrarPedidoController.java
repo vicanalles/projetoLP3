@@ -1,7 +1,13 @@
 package Controller;
 
+import Model.Item;
+import Model.Pedido;
+import Model.Produto;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -61,6 +68,8 @@ public class CadastrarPedidoController implements Initializable {
     private Label lblStatusPedido;
     @FXML
     private Label lblNomeCliente;
+    
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -99,5 +108,6 @@ public class CadastrarPedidoController implements Initializable {
     private void tableViewPedidos_OnClick(MouseEvent event)
     {
     }
+    
     
 }

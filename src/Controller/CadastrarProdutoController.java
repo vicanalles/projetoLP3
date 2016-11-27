@@ -126,12 +126,7 @@ public class CadastrarProdutoController implements Initializable {
         
         try{
             Produto produto = tableViewProdutos.getSelectionModel().getSelectedItem();
-            itensProduto = produto.getItens();           
-            
-            for(Item item : produto.getItens()){
-                System.out.println(item.getNome());
-            }
-            
+            itensProduto = produto.getItens();
             lblNumeroCodigoProduto.setText(Integer.toString(produto.getCodigo()));
             txtNomeProduto.setText(produto.getNome());
             preencherTableViewItensProduto(itensProduto);

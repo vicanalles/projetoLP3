@@ -12,6 +12,10 @@ public class Pedido {
     private Log log;
     private ArrayList<Produto> produtos;
     
+    public Pedido()
+    {
+        
+    }
     public Pedido(int numero, int tipoPedido, Cliente cliente, Funcionario funcionario)
     {                      
         this.numero = numero;

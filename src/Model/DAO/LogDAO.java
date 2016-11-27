@@ -25,7 +25,7 @@ public class LogDAO
         connection = ConnectionFactory.getInstance().getConnection();
     }
     
-    public void create(Pedido pedido, Log log)
+    public void create(int numeroPedido, Log log)
     {
         String sql = "insert into log(numeroPedido, tipoPedido, horaAberturaPedido) values (?, ?, ?);";
     
@@ -33,7 +33,7 @@ public class LogDAO
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             
-            preparedStatement.setInt(1, pedido.getNumero());
+            preparedStatement.setInt(1, numeroPedido);
             preparedStatement.setInt(2, log.getTipoPedido());
             preparedStatement.setDate(3, new Date(log.getHorarios()[0].getTime()));
             

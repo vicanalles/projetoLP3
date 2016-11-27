@@ -10,6 +10,7 @@ import Model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,12 +42,8 @@ public class PedidoDAO
             preparedStatement.execute();
             preparedStatement.close();
             
-            new LogDAO().create(pedido, pedido.getLog());
-            
-            for (Produto produto : pedido.getProdutos())
-            {
-                new ProdutoPedidoDAO().create(pedido, produto);
-            }
+            new LogDAO().create(pedido.getNumero(), pedido.getLog());
+            new ProdutoPedidoDAO().create(pedido);
         }
         catch(Exception e)
         {
@@ -54,9 +51,38 @@ public class PedidoDAO
         }
     }
     
-    public void read()
+    public ArrayList<Pedido> selectAll()
     {
+        String sql = "select numero, valorPedido, pagamento, cpfCliente, cpfFuncionario from pedido;";
+        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
         
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();                        
+            
+            while(resultSet.next())
+            {
+                Pedido pedido = new Pedido();
+
+                pedido.setNumero(resultSet.getInt(1));
+                pedido.setValorPedido(resultSet.getFloat(2));
+                pedido.setPagamento(resultSet.getString(3));
+                pedido.setCliente(new ClienteDAO().selectOneByCpf(resultSet.getString(4)));
+                pedido.setFuncionario(new FuncionarioDAO().selectOneByCpf(resultSet.getString(5)));
+                pedido.setProdutos(new ProdutoPedidoDAO().selectByNumeroPedido(resultSet.getInt(1)));
+
+                pedidos.add(pedido);
+            }
+            preparedStatement.close();            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();            
+        }
+        
+        return pedidos;
     }
     
     public void update()
