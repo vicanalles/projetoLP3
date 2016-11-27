@@ -174,7 +174,7 @@ public class CadastrarProdutoController implements Initializable {
             tableViewItensProduto.getSelectionModel().clearSelection();
             btnNovoProduto.setText("Salvar");
             produtoCadastrado = false;
-            setTextField();
+            clearTextFields();
             lblNumeroCodigoProduto.setText(Integer.toString(new ProdutoDAO().getNextID()));
         }
         else if(btnNovoProduto.getText().equals("Salvar"))
@@ -186,9 +186,12 @@ public class CadastrarProdutoController implements Initializable {
             produto.setNome(txtNomeProduto.getText());
             produto.setValor(getValorTotalProduto());
             btnNovoProduto.setText("Novo");
-            if(produtoCadastrado == false){
+            if(produtoCadastrado == false)
+            {
                 new ProdutoDAO().create(produto);                
-            }else{
+            }
+            else
+            {
                 new ProdutoDAO().update(produto);
             }
         }
@@ -208,7 +211,7 @@ public class CadastrarProdutoController implements Initializable {
         new ProdutoDAO().delete(Integer.parseInt(lblNumeroCodigoProduto.getText()));
         preencherTableViewProdutos(new ProdutoDAO().selectByName(""));
         setEditableFalse();
-        setTextField();
+        clearTextFields();
     }
     
     public void preencherTableViewItens(ArrayList<Item> itens)
@@ -251,7 +254,7 @@ public class CadastrarProdutoController implements Initializable {
     private void btnRemoverItensProduto_OnAction(ActionEvent event) 
     {           
         Item item = tableViewItensProduto.getSelectionModel().getSelectedItem();
-        new ItemProdutoDAO().delete(item.getCodigo());         
+        //new ItemProdutoDAO().delete(Integer.parseInt(lblNumeroCodigoProduto.getText()), item.getCodigo());         
         removerItensProduto(item);                
     }
 
@@ -302,7 +305,7 @@ public class CadastrarProdutoController implements Initializable {
         tableViewItens.setDisable(false);
     }
     
-    private void setTextField(){
+    private void clearTextFields(){
         lblNumeroCodigoProduto.setText("");
         txtNomeProduto.setText("");
         setValorTotalProduto(0);

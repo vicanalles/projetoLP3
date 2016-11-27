@@ -40,7 +40,7 @@ public class ProdutoDAO
             preparedStatement.execute();
             preparedStatement.close();
             
-            new ItemProdutoDAO().create(produto);
+            new ItemProdutoDAO().create(produto.getCodigo(), produto.getItens());
         }
         catch(Exception e)
         {
@@ -68,7 +68,8 @@ public class ProdutoDAO
             preparedStatement.execute();
             preparedStatement.close();
             
-            new ItemProdutoDAO().create(produto);
+            new ItemProdutoDAO().delete(produto.getCodigo());
+            new ItemProdutoDAO().create(produto.getCodigo(), produto.getItens());
         }
         catch(Exception e)
         {
