@@ -1,8 +1,6 @@
 package Controller;
 
-import Model.Item;
 import Model.Pedido;
-import Model.Produto;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -53,10 +51,6 @@ public class CadastrarPedidoController implements Initializable {
     @FXML
     private Button btnCancelarPedido;
     @FXML
-    private TableView<?> tableViewPedidos;
-    @FXML
-    private TableColumn<?, ?> tableColumnPedidos;
-    @FXML
     private Label lblValorTotalPedido;
     @FXML
     private TextField txtValorTotalPedido;
@@ -68,8 +62,14 @@ public class CadastrarPedidoController implements Initializable {
     private Label lblStatusPedido;
     @FXML
     private Label lblNomeCliente;
-    
-    
+    @FXML
+    private TextField txtPesquisa;
+    @FXML
+    private TableView<Pedido> tableViewPedidos;
+    @FXML
+    private TableColumn<Pedido, Integer> tableColumnNumeroPedido;
+    @FXML
+    private TableColumn<Pedido, String> tableColumnNomeCliente;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
