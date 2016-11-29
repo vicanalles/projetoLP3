@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 public class ProjetoLP3 extends Application {
     
+    private String cpfFuncionario;
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/View/TelaLogin.fxml"));
@@ -128,6 +130,13 @@ public class ProjetoLP3 extends Application {
             }
         }while (opcao != 0);
         System.exit(0);*/
+    }          
+
+    public String getCpfFuncionario() {
+        return cpfFuncionario;
     }
-    
+
+    public void setCpfFuncionario(String cpfFuncionario) {
+        this.cpfFuncionario = cpfFuncionario;
+    }
 }

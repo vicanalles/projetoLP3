@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -13,18 +9,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPanePedidos" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarPedidoController">
+<AnchorPane id="AnchorPane" fx:id="anchorPanePedidos" prefHeight="550.0" prefWidth="900.0" styleClass="anchor-pane" stylesheets="@../Resources/projetolp3css.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastrarPedidoController">
    <children>
       <Label fx:id="lblGerenciamentoPedidos" layoutX="413.0" layoutY="34.0" text="Gerenciamento de Pedidos">
          <font>
             <Font name="System Bold" size="26.0" />
          </font></Label>
-      <Label fx:id="lblCodigoPedido" layoutX="318.0" layoutY="73.0" text="Codigo:">
+      <Label fx:id="lblCodigoPedido" layoutX="318.0" layoutY="67.0" text="Codigo:">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblNumeroCodigoPedido" layoutX="393.0" layoutY="77.0" text="1">
+      <Label fx:id="lblNumeroCodigoPedido" layoutX="393.0" layoutY="69.0" text="1">
          <font>
             <Font size="14.0" />
          </font>
@@ -37,7 +33,8 @@
       <ComboBox fx:id="cbxTipoPagamentoPedido" layoutX="509.0" layoutY="133.0" prefWidth="150.0" />
       <TableView fx:id="tableViewItensPedido" layoutX="634.0" layoutY="172.0" onContextMenuRequested="#tableViewItensPedido_OnClick" prefHeight="200.0" prefWidth="244.0">
         <columns>
-          <TableColumn fx:id="tableColumnItensPedido" editable="false" prefWidth="243.0" resizable="false" text="Itens do Pedido" />
+          <TableColumn fx:id="tableColumnProdutosPedido" editable="false" prefWidth="187.0" resizable="false" text="Produtos do Pedido" />
+            <TableColumn fx:id="tableColumnQuantidadeProdutoPedido" prefWidth="66.0" text="Qtde" />
         </columns>
       </TableView>
       <TableView fx:id="tableViewProdutos" layoutX="308.0" layoutY="172.0" onContextMenuRequested="#tableViewProdutos_OnClick" prefHeight="200.0" prefWidth="244.0">
@@ -45,7 +42,7 @@
           <TableColumn fx:id="tableColumnProdutos" editable="false" prefWidth="243.0" resizable="false" text="Produtos" />
         </columns>
       </TableView>
-      <Button fx:id="btnAdicionarProdutosPedido" layoutX="576.0" layoutY="260.0" mnemonicParsing="false" text="&gt;&gt;" />
+      <Button fx:id="btnAdicionarProdutosPedido" layoutX="576.0" layoutY="249.0" mnemonicParsing="false" text="&gt;&gt;" />
       <Button fx:id="btnNovoPedido" layoutX="423.0" layoutY="452.0" mnemonicParsing="false" onAction="#cadastrarItem_OnAction" prefHeight="40.0" prefWidth="90.0" text="Novo" />
       <Button fx:id="btnEditarPedido" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" onAction="#editarItem_OnAction" prefHeight="40.0" prefWidth="90.0" text="Editar" />
       <Button fx:id="btnCancelarPedido" layoutX="681.0" layoutY="452.0" mnemonicParsing="false" onAction="#removerItem_OnAction" prefHeight="40.0" prefWidth="90.0" text="Remover" />
@@ -55,18 +52,18 @@
             <TableColumn fx:id="tableColumnNomeCliente" prefWidth="197.0" text="Cliente" />
         </columns>
       </TableView>
-      <Label fx:id="lblValorTotalPedido" layoutX="540.0" layoutY="382.0" text="Valor Total do Pedido:">
+      <Label fx:id="lblValorTotalPedido" layoutX="560.0" layoutY="382.0" text="Valor Total do Pedido:">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtValorTotalPedido" layoutX="746.0" layoutY="378.0" prefHeight="28.0" prefWidth="131.0">
+      <TextField fx:id="txtValorTotalPedido" layoutX="762.0" layoutY="378.0" prefHeight="28.0" prefWidth="115.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
       <Button fx:id="btnAdicionarCheckPoint" layoutX="705.0" layoutY="133.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" text="Adicionar CheckPoint" />
-      <Label fx:id="lblStatus" layoutX="655.0" layoutY="99.0" text="Status:">
+      <Label fx:id="lblStatus" layoutX="658.0" layoutY="99.0" text="Status:">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -91,5 +88,21 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="txtPesquisarProduto" layoutX="309.0" layoutY="378.0" prefHeight="28.0" prefWidth="244.0" promptText="Código ou Nome">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtQuantidadeProduto" layoutX="576.0" layoutY="206.0" prefHeight="28.0" prefWidth="40.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btnRemoverProdutosPedido" layoutX="577.0" layoutY="293.0" mnemonicParsing="false" text="&lt;&lt;" />
+      <TextField fx:id="txtCpfCliente" layoutX="394.0" layoutY="96.0" prefHeight="28.0" prefWidth="257.0" promptText="Digite o CPF do Cliente">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

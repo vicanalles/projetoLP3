@@ -1,6 +1,9 @@
 package Controller;
 
+import Model.DAO.PedidoDAO;
+import Model.Item;
 import Model.Pedido;
+import Model.Produto;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -35,13 +38,11 @@ public class CadastrarPedidoController implements Initializable {
     @FXML
     private ComboBox<String> cbxTipoPagamentoPedido;
     @FXML
-    private TableView<?> tableViewItensPedido;
+    private TableView<Item> tableViewItensPedido;
     @FXML
-    private TableColumn<?, ?> tableColumnItensPedido;
+    private TableView<Produto> tableViewProdutos;
     @FXML
-    private TableView<?> tableViewProdutos;
-    @FXML
-    private TableColumn<?, ?> tableColumnProdutos;
+    private TableColumn<String, Produto> tableColumnProdutos;
     @FXML
     private Button btnAdicionarProdutosPedido;
     @FXML
@@ -67,16 +68,30 @@ public class CadastrarPedidoController implements Initializable {
     @FXML
     private TableView<Pedido> tableViewPedidos;
     @FXML
-    private TableColumn<Pedido, Integer> tableColumnNumeroPedido;
+    private TableColumn<Integer, Pedido> tableColumnNumeroPedido;
     @FXML
-    private TableColumn<Pedido, String> tableColumnNomeCliente;
+    private TableColumn<String, Pedido> tableColumnNomeCliente;
+    @FXML
+    private TableColumn<String, Produto> tableColumnProdutosPedido;
+    @FXML
+    private TextField txtPesquisarProduto;
+    @FXML
+    private TextField txtQuantidadeProduto;
+    @FXML
+    private Button btnRemoverProdutosPedido;
+    @FXML
+    private TableColumn<Integer, Produto> tableColumnQuantidadeProdutoPedido;
+    
+    private ObservableList<Pedido> observableListPedidos;
+    
+    private ArrayList<Pedido> pedidos;
+    @FXML
+    private TextField txtCpfCliente;
+        
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbxTipoPagamentoPedido.getItems().add("Dinheiro");
-        cbxTipoPagamentoPedido.getItems().add("Cartão de Débito");
-        cbxTipoPagamentoPedido.getItems().add("Cartão de Crédito");
-        cbxTipoPagamentoPedido.getItems().add("Cheque");                
+        preencherTableViewPedidos(new PedidoDAO().selectAll());
     }    
 
     @FXML
@@ -109,5 +124,19 @@ public class CadastrarPedidoController implements Initializable {
     {
     }
     
+    private void preencherComboBoxPagamento(){
+        cbxTipoPagamentoPedido.getItems().add("Dinheiro");
+        cbxTipoPagamentoPedido.getItems().add("Cartão de Débito");
+        cbxTipoPagamentoPedido.getItems().add("Cartão de Crédito");
+        cbxTipoPagamentoPedido.getItems().add("Cheque");                
+    }
     
+    private void preencherTableViewPedidos(ArrayList<Pedido> pedidos){
+        tableColumnNumeroPedido.setCellValueFactory(new PropertyValueFactory<>("getNumero"));        
+        tableColumnNomeCliente.setCellValueFactory(new PropertyValueFactory<>("getNomeCliente"));
+        
+        observableListPedidos = FXCollections.observableArrayList(pedidos);
+        
+        tableViewPedidos.setItems(observableListPedidos);
+    }
 }

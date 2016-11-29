@@ -93,6 +93,10 @@ public class Pedido {
         this.produtos = produtos;
     }
     
+    public String getNomeCliente(){
+        return this.cliente.getNome();
+    }
+    
     /**
      * Adiciona um produto à lista de produtos do pedido e atualiza o valor 
      * conforme novos produtos são adicionados

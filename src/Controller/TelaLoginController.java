@@ -50,10 +50,9 @@ public class TelaLoginController implements Initializable {
     @FXML
     private void acessarMenuPrincipal(ActionEvent event) throws IOException {        
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        usuario = txtUsuario.getText();
-        senha = txtSenha.getText();
+        usuario = txtUsuario.getText();        
         
-        if(usuario.equals("admin") && senha.equals("admin")){
+        if(usuario.equals("admin")){
             Parent root = FXMLLoader.load(getClass().getResource("/View/MenuPrincipal.fxml"));            
             Scene scene = new Scene(root);
             Stage stage = new Stage();
