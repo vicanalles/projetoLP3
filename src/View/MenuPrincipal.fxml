@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,5 +41,6 @@
             </Tab>
         </tabs>
       </TabPane>
+      <Label fx:id="txtNomeFuncionarioLogado" layoutX="700.0" layoutY="11.0" />
    </children>
 </AnchorPane>

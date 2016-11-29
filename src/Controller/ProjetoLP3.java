@@ -3,6 +3,8 @@
 package Controller;
 
 import Controller.Controlador;
+import Model.DAO.FuncionarioDAO;
+import Model.Funcionario;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -23,12 +25,13 @@ public class ProjetoLP3 extends Application {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.setTitle("Food Maker");
         stage.show();
     }
     
     public static void fecharJanela(Event event){
         ((Node)(event.getSource())).getScene().getWindow().hide();
-    }        
+    }                
 
     public static void main(String[] args) throws Exception {
         launch(args);
@@ -130,13 +133,5 @@ public class ProjetoLP3 extends Application {
             }
         }while (opcao != 0);
         System.exit(0);*/
-    }          
-
-    public String getCpfFuncionario() {
-        return cpfFuncionario;
-    }
-
-    public void setCpfFuncionario(String cpfFuncionario) {
-        this.cpfFuncionario = cpfFuncionario;
-    }
+    }             
 }

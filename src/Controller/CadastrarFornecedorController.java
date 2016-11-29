@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class CadastrarFornecedorController implements Initializable {
@@ -88,10 +89,13 @@ public class CadastrarFornecedorController implements Initializable {
     @FXML
     private TextArea txtAnotacoes;
     
+    boolean fornecedorCadastrado = false;
+    String cnpjAntigo;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencheComboBoxEstado();
-        
+        setEditableFalse();
         preencherTableView(new FornecedorDAO().selectByFantasyName(""));
         
         txtPesquisa.setPromptText("NomeFantasia ou CNPJ");
@@ -168,27 +172,122 @@ public class CadastrarFornecedorController implements Initializable {
     @FXML
     private void cadastrarFornecedor(ActionEvent event) {
         
+        setEditableTrue();
         Fornecedor fornecedor = new Fornecedor();
                 
-        fornecedor.setBairro(txtBairroFornecedor.getText());
-        fornecedor.setCep(txtCepFornecedor.getText());
-        fornecedor.setCidade(txtCidadeFornecedor.getText());
-        fornecedor.setCnpj(txtCNPJFornecedor.getText());
-        fornecedor.setComplemento(txtComplementoFornecedor.getText());
-        fornecedor.setEstado(cbxEstadoFornecedor.getValue());
-        fornecedor.setNome(txtNomeFornecedor.getText());
-        fornecedor.setNomeFantasia(txtNomeFantasiaFornecedor.getText());
-        fornecedor.setNumero(Integer.parseInt(txtNumeroFornecedor.getText()));
-        fornecedor.setRua(txtRuaFornecedor.getText());
-        fornecedor.setTelefone(txtTelefoneFornecedor.getText());
-        fornecedor.setAnotacoes(txtAnotacoes.getText());
-        
-        new FornecedorDAO().create(fornecedor);        
-        
+        if(btnCadastrarFornecedor.getText().equals("Novo")){
+            fornecedorCadastrado = false;
+            setTextFieldText();
+            btnCadastrarFornecedor.setText("Salvar");
+        }else if(btnCadastrarFornecedor.getText().equals("Salvar")){
+            fornecedor.setBairro(txtBairroFornecedor.getText());
+            fornecedor.setCep(txtCepFornecedor.getText());
+            fornecedor.setCidade(txtCidadeFornecedor.getText());
+            fornecedor.setCnpj(txtCNPJFornecedor.getText());
+            fornecedor.setComplemento(txtComplementoFornecedor.getText());
+            fornecedor.setEstado(cbxEstadoFornecedor.getValue());
+            fornecedor.setNome(txtNomeFornecedor.getText());
+            fornecedor.setNomeFantasia(txtNomeFantasiaFornecedor.getText());
+            fornecedor.setNumero(Integer.parseInt(txtNumeroFornecedor.getText()));
+            fornecedor.setRua(txtRuaFornecedor.getText());
+            fornecedor.setTelefone(txtTelefoneFornecedor.getText());
+            fornecedor.setAnotacoes(txtAnotacoes.getText());
+            setEditableFalse();
+            
+            if(fornecedorCadastrado == false){
+                new FornecedorDAO().create(fornecedor);
+            }else{
+                new FornecedorDAO().update(fornecedor, cnpjAntigo);
+            }
+            btnCadastrarFornecedor.setText("Novo");
+        }                              
         preencherTableView(new FornecedorDAO().selectByFantasyName(""));
         
         
     }
     
+    private void setEditableFalse(){
+        txtCNPJFornecedor.setEditable(false);
+        txtNomeFornecedor.setEditable(false);
+        txtNomeFantasiaFornecedor.setEditable(false);
+        txtCepFornecedor.setEditable(false);
+        txtTelefoneFornecedor.setEditable(false);
+        txtRuaFornecedor.setEditable(false);
+        txtNumeroFornecedor.setEditable(false);
+        txtBairroFornecedor.setEditable(false);
+        txtCidadeFornecedor.setEditable(false);
+        txtComplementoFornecedor.setEditable(false);
+        txtAnotacoes.setEditable(false);       
+    }
     
+    private void setEditableTrue(){
+        txtCNPJFornecedor.setEditable(true);
+        txtNomeFornecedor.setEditable(true);
+        txtNomeFantasiaFornecedor.setEditable(true);
+        txtCepFornecedor.setEditable(true);
+        txtTelefoneFornecedor.setEditable(true);
+        txtRuaFornecedor.setEditable(true);
+        txtNumeroFornecedor.setEditable(true);
+        txtBairroFornecedor.setEditable(true);
+        txtCidadeFornecedor.setEditable(true);
+        txtComplementoFornecedor.setEditable(true);
+        txtAnotacoes.setEditable(true);       
+    }
+    
+    private void setTextFieldText(){
+        txtCNPJFornecedor.setText("");
+        txtNomeFornecedor.setText("");
+        txtNomeFantasiaFornecedor.setText("");
+        txtCepFornecedor.setText("");
+        txtTelefoneFornecedor.setText("");
+        txtRuaFornecedor.setText("");
+        txtNumeroFornecedor.setText("");
+        txtBairroFornecedor.setText("");
+        txtCidadeFornecedor.setText("");
+        txtComplementoFornecedor.setText(""); 
+        txtAnotacoes.setText("");        
+        cbxEstadoFornecedor.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void OnMouseClicked_tableViewFornecedor(MouseEvent event) 
+    {
+        try{            
+            Fornecedor fornecedor = tableViewFornecedor.getSelectionModel().getSelectedItem();
+            txtAnotacoes.setText(fornecedor.getAnotacoes());
+            txtBairroFornecedor.setText(fornecedor.getBairro());
+            txtCNPJFornecedor.setText(fornecedor.getCnpj());
+            txtCepFornecedor.setText(fornecedor.getCep());
+            txtCidadeFornecedor.setText(fornecedor.getCidade());
+            txtComplementoFornecedor.setText(fornecedor.getComplemento());
+            txtNomeFantasiaFornecedor.setText(fornecedor.getNomeFantasia());
+            txtNomeFornecedor.setText(fornecedor.getNome());
+            txtNumeroFornecedor.setText(Integer.toString(fornecedor.getNumero()));
+            txtRuaFornecedor.setText(fornecedor.getRua());
+            txtTelefoneFornecedor.setText(fornecedor.getTelefone());
+            cbxEstadoFornecedor.setValue(fornecedor.getEstado());
+            btnCadastrarFornecedor.setText("Novo");
+            setEditableFalse();
+            fornecedorCadastrado = true;
+        }
+        catch(Exception e)
+        {
+            
+        }
+    }
+
+    @FXML
+    private void btnEditarFornecedor_OnAction(ActionEvent event) {
+        btnCadastrarFornecedor.setText("Salvar");
+        setEditableTrue();
+        fornecedorCadastrado = true;
+        cnpjAntigo = txtCNPJFornecedor.getText();
+    }
+
+    @FXML
+    private void btnRemoverFornecedor_OnAction(ActionEvent event) {
+        new FornecedorDAO().delete(txtCNPJFornecedor.getText());
+        preencherTableView(new FornecedorDAO().selectByFantasyName(""));
+        setTextFieldText();
+    }
 }

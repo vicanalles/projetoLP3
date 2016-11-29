@@ -7,11 +7,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 public class MenuPrincipalController implements Initializable {
+
+    
 
     @FXML
     private AnchorPane anchorPaneMenuPrincipal;
@@ -41,11 +44,23 @@ public class MenuPrincipalController implements Initializable {
     private Tab tabMenuPedidos;
     @FXML
     private AnchorPane anchorPanePedidos;
+    @FXML
+    private Label txtNomeFuncionarioLogado;
+    
+    private static String nomeFuncionarioLogado;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL url, ResourceBundle rb) {   
+        txtNomeFuncionarioLogado.setText(TelaLoginController.getNomeFuncionario());
     }    
+    
+    public static String getNomeFuncionarioLogado() {
+        return nomeFuncionarioLogado;
+    }
+
+    public static void setNomeFuncionarioLogado(String aNomeFuncionarioLogado) {
+        nomeFuncionarioLogado = aNomeFuncionarioLogado;
+    }
 
     @FXML
     private void showAnchorPaneClientes(Event event) throws IOException {

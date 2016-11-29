@@ -26,7 +26,7 @@ public class FornecedorDAO
     
     public void create(Fornecedor fornecedor)
     {
-        String sql = "insert into fornecedor(cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento, anotacoes) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into fornecedor(cnpj, nome, nomeFantasia, telefone, cep, rua, numero, bairro, cidade, estado, complemento, anotacoes) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
         try
         {
@@ -152,30 +152,29 @@ public class FornecedorDAO
             {
                 Fornecedor fornecedor = new Fornecedor();
 
-                preparedStatement.setString(1, fornecedor.getCnpj());
-                preparedStatement.setString(2, fornecedor.getNome());
-                preparedStatement.setString(3, fornecedor.getNomeFantasia());
-                preparedStatement.setString(4, fornecedor.getTelefone());
-                preparedStatement.setString(5, fornecedor.getCep());
-                preparedStatement.setString(6, fornecedor.getRua());
-                preparedStatement.setInt(7, fornecedor.getNumero());
-                preparedStatement.setString(8, fornecedor.getBairro());
-                preparedStatement.setString(9, fornecedor.getCidade());
-                preparedStatement.setString(10, fornecedor.getEstado());
-                preparedStatement.setString(11, fornecedor.getComplemento());
-                preparedStatement.setString(12, fornecedor.getAnotacoes());
+                fornecedor.setCnpj(resultSet.getString(1));                
+                fornecedor.setNome(resultSet.getString(2));
+                fornecedor.setNomeFantasia(resultSet.getString(3));
+                fornecedor.setTelefone(resultSet.getString(4));
+                fornecedor.setCep(resultSet.getString(5));
+                fornecedor.setRua(resultSet.getString(6));
+                fornecedor.setNumero(resultSet.getInt(7));
+                fornecedor.setBairro(resultSet.getString(8));
+                fornecedor.setCidade(resultSet.getString(9));
+                fornecedor.setEstado(resultSet.getString(10));
+                fornecedor.setComplemento(resultSet.getString(11));
+                fornecedor.setAnotacoes(resultSet.getString(12));
 
                 fornecedores.add(fornecedor);
-            }
-            
+            }            
             preparedStatement.close();
+            return fornecedores;
         }
         catch(Exception e)
         {
             e.printStackTrace();
-        }
-        
-        return fornecedores;
+            return null;
+        }                
     }
     
     public void update(Fornecedor fornecedor, String cnpjAntigo)
@@ -210,7 +209,7 @@ public class FornecedorDAO
     
     public void delete(String cnpjFornecedor)
     {
-        String sql = "delete from fornecedor where cnpjFornecedor = ?;";
+        String sql = "delete from fornecedor where cnpj = ?;";
     
         try
         {

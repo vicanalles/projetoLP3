@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Cliente;
 import Model.DAO.FuncionarioDAO;
 import Model.DataHora;
 import Model.Funcionario;
