@@ -11,6 +11,7 @@ public class Pedido {
     private float valorPedido;
     private Log log;
     private ArrayList<Produto> produtos;
+    //private int tipoPedido;
     
     public Pedido()
     {
@@ -124,10 +125,8 @@ public class Pedido {
      * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um.
      * @return A posição do log que foi adicionada. Pode retornar entre 0 e 5 caso o checkpoint seja adicionado, ou -1 caso o pedido já esteja finalizado.
      */
-    public int adicionarCheckpoint()
+    public int adicionarCheckpoint() throws Exception
     {
         return log.adicionarCheckPoint();
     }
-
-    
 }

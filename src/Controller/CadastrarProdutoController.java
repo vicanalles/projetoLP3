@@ -164,8 +164,7 @@ public class CadastrarProdutoController implements Initializable {
             setEditableTrue();
             setValorTotalProduto(0f);            
             itensProduto = new ArrayList<Item>();
-            itensProduto.clear();                        
-            txtNomeProduto.setText("");            
+            itensProduto.clear();                                            
             tableViewItensProduto.getSelectionModel().clearSelection();
             btnNovoProduto.setText("Salvar");
             produtoCadastrado = false;

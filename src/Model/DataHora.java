@@ -40,6 +40,21 @@ public class DataHora {
             return null;
         }
         
+    }   
+    
+    public static String horaAtual(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        return sdf.format(new Date());
+    }
+    
+    public static Date convertStringToHour(String data) throws Exception
+    {
+        try{
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+            return formato.parse(data);
+        }catch(Exception e){
+            return null;
+        }        
     }
     
     public static String convertDateToString(Date data) throws Exception

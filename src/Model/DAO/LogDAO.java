@@ -81,8 +81,54 @@ public class LogDAO
         }
     }
     
-    public void update()
+    public void update(int numeroPedido, Log log)
     {
+        String sql = "update log set horaAberturaPedido = ?, horaInicioProducao = ?, horaTerminoProducao = ?, horaSaidaEntrega = ?, horaRetornoEntrega = ?, horaFinalizacaoPedido = ? where numeroPedido = ?;";
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            if(log.getHorarios()[0] != null)
+                preparedStatement.setDate(1, new Date(log.getHorarios()[0].getTime()));
+            else
+                preparedStatement.setString(1, null);
+            
+            if(log.getHorarios()[1] != null)
+                preparedStatement.setDate(2, new Date(log.getHorarios()[1].getTime()));
+            else
+                preparedStatement.setString(2, null);
+            
+            if(log.getHorarios()[2] != null)
+                preparedStatement.setDate(3, new Date(log.getHorarios()[2].getTime()));
+            else
+                preparedStatement.setString(3, null);
+            
+            if(log.getHorarios()[3] != null)
+                preparedStatement.setDate(4, new Date(log.getHorarios()[3].getTime()));
+            else
+                preparedStatement.setString(4, null);
+            
+            if(log.getHorarios()[4] != null)
+                preparedStatement.setDate(5, new Date(log.getHorarios()[4].getTime()));
+            else
+                preparedStatement.setString(5, null);
+            
+            if(log.getHorarios()[5] != null)
+                preparedStatement.setDate(6, new Date(log.getHorarios()[5].getTime()));
+            else
+                preparedStatement.setString(6, null);                        
+            
+            preparedStatement.setInt(7, numeroPedido);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        
         
     }
     

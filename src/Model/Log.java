@@ -1,6 +1,8 @@
 package Model;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Log {
     
@@ -8,12 +10,12 @@ public class Log {
     //vetor de frases para linkar com o vetor de Dates
     private static final String[] FRASES = 
     {
-        "Hora de abertura do pedido: ",
-        "Hora de início da produção: ",
-        "Hora de término da produção: ",
-        "Hora de saída para entrega: ",
-        "Hora de retorno do entregador: ",
-        "Hora de finalização do pedido: "
+        "Aguardando iniciar Produção",
+        "Em Produção",
+        "Produção finalizada",
+        "Em entrega",
+        "Pedido entregue ",
+        "Pedido finalizado"
     };
     private Date horarios[];
     private int tipoPedido;
@@ -33,10 +35,14 @@ public class Log {
      * 3 - Inclui produção e também entrega
      */
     public Log(int tipoPedido){
-        //this.horaAberturaPedido = horaAberturaPedido;
+        //this.horaAberturaPedido = horaAberturaPedido;        
         this.tipoPedido = tipoPedido;
         horarios = new Date[6];
-        horarios[0] = DataHora.getDate();
+        try {        
+            horarios[0] = DataHora.convertStringToHour(DataHora.horaAtual());
+        } catch (Exception ex) {
+            Logger.getLogger(Log.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Date[] getHorarios()
@@ -105,8 +111,7 @@ public class Log {
 
     public void setHoraFinalizacaoPedido(Date horaFinalizacaoPedido) {
         horarios[5] = horaFinalizacaoPedido;
-    }  
-    
+    }      
     
     /**
      * Adiciona a data atual do sistema ao log do pedido.
@@ -114,7 +119,7 @@ public class Log {
      * Pedidos que não incluirem produção ou entrega manterão nulas as Dates referentes a cada um.
      * @return A posição do log que foi adicionada. Pode retornar entre 0 e 5 caso o checkpoint seja adicionado, ou -1 caso o pedido já esteja finalizado.
      */
-    public int adicionarCheckPoint()
+    public int adicionarCheckPoint() throws Exception
     {
         if(VerificarFinalizacao() == true)
             return -1;
@@ -125,7 +130,7 @@ public class Log {
                 {
                     if(horarios[i]!=null||i==1||i==2||i==3||i==4)
                         continue;
-                    horarios[i] = DataHora.getDate();
+                    horarios[i] = DataHora.convertStringToHour(DataHora.horaAtual());
                     return i;
                 }
                 break;
@@ -134,7 +139,7 @@ public class Log {
                 {
                     if(horarios[i]!=null||i==3||i==4)
                         continue;
-                    horarios[i] = DataHora.getDate();
+                    horarios[i] = DataHora.convertStringToHour(DataHora.horaAtual());
                     return i;
                 }
                 break;
@@ -143,7 +148,7 @@ public class Log {
                 {
                     if(horarios[i]!=null||i==1||i==2)
                         continue;
-                    horarios[i] = DataHora.getDate();
+                    horarios[i] = DataHora.convertStringToHour(DataHora.horaAtual());
                     return i;
                 }
                 break;
@@ -152,7 +157,7 @@ public class Log {
                 {
                     if(horarios[i]!=null)
                         continue;
-                    horarios[i] = DataHora.getDate();
+                    horarios[i] = DataHora.convertStringToHour(DataHora.horaAtual());
                     return i;
                 }
                 break;
@@ -167,5 +172,9 @@ public class Log {
     public boolean VerificarFinalizacao()
     {
         return horarios[5]!=null;
+    }
+
+    public void setTipoPedido(int tipoPedido) {
+        this.tipoPedido = tipoPedido;
     }
 }

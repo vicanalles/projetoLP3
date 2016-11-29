@@ -957,7 +957,7 @@ public class Controlador
     /**
      *Adiciona o próximo CheckPoint ao pedido
      */
-    public void adicionarChekpoint()
+    public void adicionarChekpoint() throws Exception
     {
         Scanner entrada = new Scanner(System.in);
         System.out.println("Digite o numero do pedido que deseja adicionar um checkpoint: ");

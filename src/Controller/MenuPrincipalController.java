@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Funcionario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,22 +46,12 @@ public class MenuPrincipalController implements Initializable {
     @FXML
     private AnchorPane anchorPanePedidos;
     @FXML
-    private Label txtNomeFuncionarioLogado;
-    
-    private static String nomeFuncionarioLogado;
+    private Label txtNomeFuncionarioLogado;        
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
-        txtNomeFuncionarioLogado.setText(TelaLoginController.getNomeFuncionario());
-    }    
-    
-    public static String getNomeFuncionarioLogado() {
-        return nomeFuncionarioLogado;
-    }
-
-    public static void setNomeFuncionarioLogado(String aNomeFuncionarioLogado) {
-        nomeFuncionarioLogado = aNomeFuncionarioLogado;
-    }
+        txtNomeFuncionarioLogado.setText(TelaLoginController.getFuncionario().getNome());
+    }        
 
     @FXML
     private void showAnchorPaneClientes(Event event) throws IOException {

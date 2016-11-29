@@ -41,27 +41,27 @@ public class TelaLoginController implements Initializable {
     private ImageView imgAcessoRestrito; 
     
     private String usuario;   
-    private static String nomeFuncionario;   
+    private static Funcionario funcionario;   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
     }      
     
-    public static String getNomeFuncionario() {
-        return nomeFuncionario;
+    public static Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public static void setNomeFuncionario(String aNomeFuncionario) {
-        nomeFuncionario = aNomeFuncionario;
+    public static void setFuncionario(Funcionario func) {
+        funcionario = func;
     }
     
     @FXML
     private void acessarMenuPrincipal(ActionEvent event) throws IOException {        
         Alert alert = new Alert(Alert.AlertType.ERROR);
         usuario = txtUsuario.getText();        
-        Stage stage = new Stage();        
-        setNomeFuncionario(new FuncionarioDAO().selectOneNameByCpfLogin(usuario));
+        Stage stage = new Stage();
+        setFuncionario(new FuncionarioDAO().selectOneByCpf(usuario));
         
         if(new FuncionarioDAO().selectOneByCpfLogin(usuario) != null){
             System.out.println("Passou pelo IF");
