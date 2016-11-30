@@ -9,6 +9,11 @@
    <children>
       <TabPane fx:id="tabPaneMenuPrincipal" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
+            <Tab fx:id="tabMenuPedidos" onSelectionChanged="#showAnchorPanePedidos" text="Pedidos">
+               <content>
+                  <AnchorPane fx:id="anchorPanePedidos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
           <Tab fx:id="tabMenuClientes" onSelectionChanged="#showAnchorPaneClientes" text="Clientes">
             <content>
               <AnchorPane fx:id="anchorPaneClientes" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -32,11 +37,6 @@
             <Tab fx:id="tabMenuProdutos" onSelectionChanged="#showAnchorPaneProdutos" text="Produtos">
                <content>
                   <AnchorPane fx:id="anchorPaneProdutos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab fx:id="tabMenuPedidos" onSelectionChanged="#showAnchorPanePedidos" text="Pedidos">
-               <content>
-                  <AnchorPane fx:id="anchorPanePedidos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
         </tabs>
