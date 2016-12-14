@@ -167,5 +167,6 @@
          </font>
       </TextField>
       <ComboBox fx:id="cbxEstadoCliente" layoutX="384.0" layoutY="368.0" prefHeight="28.0" prefWidth="237.0" />
+      <Button fx:id="btnBuscarCEP" layoutX="755.0" layoutY="245.0" mnemonicParsing="false" onAction="#btnBuscarCEP_OnAction" prefHeight="27.0" prefWidth="90.0" text="Buscar" />
    </children>
 </AnchorPane>
